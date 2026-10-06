@@ -1,0 +1,10 @@
+{
+  "description": "This app enables users to manage fitness routines, track activities, and monitor emotions, providing a comprehensive tool for personal wellness and organization.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

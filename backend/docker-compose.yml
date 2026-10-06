@@ -1,0 +1,29 @@
+services:
+  api:
+    build: .
+    ports: ["3000:3000"]
+    environment:
+      PORT: 3000
+      MOVA_EMOTION_FOLLOWUP_SECONDS: ${MOVA_EMOTION_FOLLOWUP_SECONDS:-30}
+      MOVA_TIMEZONE: America/Santiago
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:8443,http://localhost:8444,http://localhost:8445,http://127.0.0.1:8443,http://127.0.0.1:8444,http://127.0.0.1:8445}
+      DATABASE_URL: postgres://mova:mova_dev_password@db:5432/mova
+    depends_on:
+      db: {condition: service_healthy}
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: mova
+      POSTGRES_USER: mova
+      POSTGRES_PASSWORD: mova_dev_password
+    ports: ["5432:5432"]
+    volumes:
+      - mova_pgdata:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mova -d mova"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+volumes:
+  mova_pgdata:
