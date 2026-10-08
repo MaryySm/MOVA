@@ -1,0 +1,487 @@
+[data-mova-style="home-screen-s0"] {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  padding-bottom: 80px;
+}
+
+[data-mova-style="home-screen-s1"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 150;
+  background: #fff;
+  border-radius: 0 0 24px 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.14);
+  padding: 56px 20px 20px;
+}
+
+[data-mova-style="home-screen-s2"] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+[data-mova-style="home-screen-s3"] {
+  font-family: Outfit, sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+[data-mova-style="home-screen-s4"] {
+  background: rgba(0,0,0,0.06);
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+[data-mova-style="home-screen-s5"] {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+}
+
+[data-mova-style="home-screen-s6"] {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+[data-mova-style="home-screen-s7"] {
+  flex: 1;
+  font-size: 13px;
+}
+
+[data-mova-style="home-screen-s8"] {
+  font-size: 11px;
+}
+
+[data-mova-style="home-screen-s9"] {
+  padding: 46px 20px 16px;
+}
+
+[data-mova-style="home-screen-s10"] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+[data-mova-style="home-screen-s11"] {
+  font-size: 12px;
+  margin: 0 0 2px;
+}
+
+[data-mova-style="home-screen-s12"] {
+  font-family: Outfit, sans-serif;
+  font-size: 21px;
+  font-weight: 900;
+  margin: 0;
+}
+
+[data-mova-style="home-screen-s13"] {
+  font-size: 11px;
+  margin: 3px 0 0;
+}
+
+[data-mova-style="home-screen-s14"] {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+[data-mova-style="home-screen-s15"] {
+  position: relative;
+  background: #fff;
+  border: none;
+  border-radius: 12px;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+[data-mova-style="home-screen-s16"] {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #F5795A;
+  border: 2px solid #fff;
+}
+
+[data-mova-style="home-screen-s17"] {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Outfit, sans-serif;
+  font-weight: 900;
+  color: #fff;
+  font-size: 15px;
+}
+
+[data-mova-style="home-screen-s18"] {
+  padding: 0 20px;
+  margin-bottom: 16px;
+}
+
+[data-mova-style="home-screen-s19"] {
+  background: #fff;
+  border-radius: 20px;
+  padding: 14px 16px;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.07);
+}
+
+[data-mova-style="home-screen-s20"] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+[data-mova-style="home-screen-s21"] {
+  font-family: Outfit, sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+[data-mova-style="home-screen-s22"] {
+  background: none;
+  border: none;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+[data-mova-style="home-screen-s23"] {
+  display: flex;
+  justify-content: space-between;
+}
+
+[data-mova-style="home-screen-s24"] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  border-radius: 12px;
+  padding: 8px 6px;
+  cursor: pointer;
+  flex: 1;
+  margin: 0 2px;
+  transition: all 0.15s;
+}
+
+[data-mova-style="home-screen-s25"] {
+  font-size: 22px;
+}
+
+[data-mova-style="home-screen-s26"] {
+  font-size: 9px;
+  font-weight: 700;
+}
+
+[data-mova-style="home-screen-s27"] {
+  margin-top: 10px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+[data-mova-style="home-screen-s28"] {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+[data-mova-style="home-screen-s29"] {
+  padding: 0 20px;
+  margin-bottom: 16px;
+}
+
+[data-mova-style="home-screen-s30"] {
+  width: 100%;
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.07);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+}
+
+[data-mova-style="home-screen-s31"] {
+  position: relative;
+  height: 100px;
+}
+
+[data-mova-style="home-screen-s32"] {
+  position: absolute;
+  inset: 0;
+  background: #EDF5FF;
+}
+
+[data-mova-style="home-screen-s33"] {
+  opacity: 0.35;
+}
+
+[data-mova-style="home-screen-s34"] {
+  position: absolute;
+  inset: 0;
+}
+
+[data-mova-style="home-screen-s35"] {
+  transform-origin: 280px 46px;
+  animation: pulseRing 2s ease-in-out infinite;
+}
+
+[data-mova-style="home-screen-s36"] {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  right: 12px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 10px;
+  padding: 6px 12px;
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+[data-mova-style="home-screen-s37"] {
+  font-family: Outfit, sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+[data-mova-style="home-screen-s38"] {
+  font-size: 11px;
+}
+
+[data-mova-style="home-screen-s39"] {
+  font-size: 11px;
+  color: #7098F5;
+  font-weight: 700;
+}
+
+[data-mova-style="home-screen-s40"] {
+  padding: 0 20px;
+}
+
+[data-mova-style="home-screen-s41"] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+[data-mova-style="home-screen-s42"] {
+  font-family: Outfit, sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+[data-mova-style="home-screen-s43"] {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+[data-mova-style="home-screen-s44"] {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(0,0,0,0.08);
+  margin-bottom: 14px;
+}
+
+[data-mova-style="home-screen-s45"] {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.4s;
+}
+
+[data-mova-style="home-screen-s46"] {
+  margin-bottom: 14px;
+}
+
+[data-mova-style="home-screen-s47"] {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  margin: 0 0 8px;
+}
+
+[data-mova-style="home-screen-s48"] {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  background: #fff;
+  border-radius: 14px;
+  margin-bottom: 7px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.18s;
+}
+
+[data-mova-style="home-screen-s49"] {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-mova-style="home-screen-s50"] {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+[data-mova-style="home-screen-s51"] {
+  font-size: 11px;
+}
+
+[data-mova-style="home-screen-s52"] {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+[data-mova-style="home-screen-s0"] {
+  background: var(--mova-home-screen-s0-background);
+}
+
+[data-mova-style="home-screen-s3"] {
+  color: var(--mova-home-screen-s3-color);
+}
+
+[data-mova-style="home-screen-s4"] {
+  color: var(--mova-home-screen-s4-color);
+}
+
+[data-mova-style="home-screen-s5"] {
+  border-bottom: var(--mova-home-screen-s5-border-bottom);
+}
+
+[data-mova-style="home-screen-s6"] {
+  background: var(--mova-home-screen-s6-background);
+}
+
+[data-mova-style="home-screen-s7"] {
+  color: var(--mova-home-screen-s7-color);
+}
+
+[data-mova-style="home-screen-s8"] {
+  color: var(--mova-home-screen-s8-color);
+}
+
+[data-mova-style="home-screen-s9"] {
+  background: var(--mova-home-screen-s9-background);
+}
+
+[data-mova-style="home-screen-s11"] {
+  color: var(--mova-home-screen-s11-color);
+}
+
+[data-mova-style="home-screen-s12"] {
+  color: var(--mova-home-screen-s12-color);
+}
+
+[data-mova-style="home-screen-s13"] {
+  color: var(--mova-home-screen-s13-color);
+}
+
+[data-mova-style="home-screen-s17"] {
+  background: var(--mova-home-screen-s17-background);
+}
+
+[data-mova-style="home-screen-s21"] {
+  color: var(--mova-home-screen-s21-color);
+}
+
+[data-mova-style="home-screen-s22"] {
+  color: var(--mova-home-screen-s22-color);
+}
+
+[data-mova-style="home-screen-s24"] {
+  background: var(--mova-home-screen-s24-background);
+  border: var(--mova-home-screen-s24-border);
+}
+
+[data-mova-style="home-screen-s26"] {
+  color: var(--mova-home-screen-s26-color);
+}
+
+[data-mova-style="home-screen-s27"] {
+  background: var(--mova-home-screen-s27-background);
+}
+
+[data-mova-style="home-screen-s28"] {
+  color: var(--mova-home-screen-s28-color);
+}
+
+[data-mova-style="home-screen-s37"] {
+  color: var(--mova-home-screen-s37-color);
+}
+
+[data-mova-style="home-screen-s38"] {
+  color: var(--mova-home-screen-s38-color);
+}
+
+[data-mova-style="home-screen-s42"] {
+  color: var(--mova-home-screen-s42-color);
+}
+
+[data-mova-style="home-screen-s43"] {
+  color: var(--mova-home-screen-s43-color);
+}
+
+[data-mova-style="home-screen-s45"] {
+  background: var(--mova-home-screen-s45-background);
+  width: var(--mova-home-screen-s45-width);
+}
+
+[data-mova-style="home-screen-s47"] {
+  color: var(--mova-home-screen-s47-color);
+}
+
+[data-mova-style="home-screen-s48"] {
+  border: var(--mova-home-screen-s48-border);
+  opacity: var(--mova-home-screen-s48-opacity);
+}
+
+[data-mova-style="home-screen-s49"] {
+  background: var(--mova-home-screen-s49-background);
+  border: var(--mova-home-screen-s49-border);
+}
+
+[data-mova-style="home-screen-s50"] {
+  color: var(--mova-home-screen-s50-color);
+  text-decoration: var(--mova-home-screen-s50-text-decoration);
+}
+
+[data-mova-style="home-screen-s51"] {
+  color: var(--mova-home-screen-s51-color);
+}
+
+[data-mova-style="home-screen-s52"] {
+  background: var(--mova-home-screen-s52-background);
+}

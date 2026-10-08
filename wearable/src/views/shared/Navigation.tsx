@@ -1,4 +1,6 @@
+import { cssVar, cssVars } from "../styleVars";
 import React from "react"
+import "./Navigation.styles.css";
 import type { Screen } from "../../models/navigation"
 import { THEME, TEXT } from "../theme"
 export function IconHome({ color }: { color: string }) {
@@ -117,6 +119,7 @@ export const NAV_ITEMS: {
   },
 ]
 
+// Aquí dibujo la navegación inferior y aviso qué sección se eligió.
 export function BottomNav({
   screen,
   go,
@@ -126,18 +129,7 @@ export function BottomNav({
 }) {
   return (
     <div
-      style={{
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        background: "rgba(255,255,255,0.92)",
-        borderTop: "1px solid rgba(0,0,0,0.06)",
-        display: "flex",
-        padding: "10px 0 20px",
-        backdropFilter: "blur(20px)",
-        zIndex: 50,
-      }}
+      data-mova-style="navigation-s0"
     >
       {NAV_ITEMS.map((item) => {
         const active = screen === item.key
@@ -146,41 +138,16 @@ export function BottomNav({
           <button
             key={item.key}
             onClick={() => go(item.key)}
-            style={{
-              flex: 1,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: 3,
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              padding: "4px 0",
-              position: "relative",
-            }}
+            data-mova-style="navigation-s1"
           >
             {active && (
               <div
-                style={{
-                  position: "absolute",
-                  top: -10,
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  width: 36,
-                  height: 3,
-                  borderRadius: 2,
-                  background: color,
-                }}
+                data-mova-style="navigation-s2" style={cssVars({ "--mova-navigation-s2-top": cssVar((-10), true), "--mova-navigation-s2-background": cssVar((color), true) })}
               />
             )}
             {item.icon(color)}
             <span
-              style={{
-                fontSize: 10,
-                color,
-                fontFamily: "Outfit, sans-serif",
-                fontWeight: active ? 700 : 400,
-              }}
+              data-mova-style="navigation-s3" style={cssVars({ "--mova-navigation-s3-color": cssVar((color), true), "--mova-navigation-s3-font-weight": cssVar(active ? 700 : 400, false) })}
             >
               {item.label}
             </span>
@@ -204,27 +171,12 @@ export function TopBar({
 }) {
   return (
     <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        padding: "16px 20px 10px",
-        gap: 12,
-      }}
+      data-mova-style="navigation-s4"
     >
       {onBack && (
         <button
           onClick={onBack}
-          style={{
-            background: `${accent}20`,
-            border: "none",
-            borderRadius: 12,
-            width: 36,
-            height: 36,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer",
-          }}
+          data-mova-style="navigation-s5" style={cssVars({ "--mova-navigation-s5-background": cssVar((`${accent}20`), true) })}
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
             <path
@@ -237,14 +189,7 @@ export function TopBar({
         </button>
       )}
       <h2
-        style={{
-          flex: 1,
-          margin: 0,
-          fontSize: 20,
-          fontFamily: "Outfit, sans-serif",
-          fontWeight: 800,
-          color: TEXT,
-        }}
+        data-mova-style="navigation-s6" style={cssVars({ "--mova-navigation-s6-color": cssVar((TEXT), true) })}
       >
         {title}
       </h2>

@@ -1,0 +1,524 @@
+[data-mova-style="wearable-device-s0"] {
+  border: none;
+  border-radius: 10px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-mova-style="wearable-device-s1"] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+[data-mova-style="wearable-device-s2"] {
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 8px rgba(255,255,255,0.65), 0 0 0 9.5px rgba(0,0,0,0.07), 0 24px 56px rgba(0,0,0,0.2);
+  transition: background 0.35s;
+}
+
+[data-mova-style="wearable-device-s3"] {
+  position: absolute;
+  top: 45%;
+  width: 7px;
+  height: 36px;
+  border-radius: 4px;
+  background: #DDD6FE;
+  box-shadow: 2px 0 6px rgba(0,0,0,0.1);
+}
+
+[data-mova-style="wearable-device-s4"] {
+  position: absolute;
+  top: 9px;
+  right: 15px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+[data-mova-style="wearable-device-s5"] {
+  width: 19px;
+  height: 9px;
+  border: 1.5px solid #716987;
+  border-radius: 3px;
+  padding: 1px;
+}
+
+[data-mova-style="wearable-device-s6"] {
+  width: 84%;
+  height: 100%;
+  border-radius: 1px;
+  background: #34D399;
+}
+
+[data-mova-style="wearable-device-s7"] {
+  width: 2px;
+  height: 4px;
+  border-radius: 0 2px 2px 0;
+  background: #716987;
+}
+
+[data-mova-style="wearable-device-s8"] {
+  font-size: 7.5px;
+  font-weight: 800;
+  color: #716987;
+}
+
+[data-mova-style="wearable-device-s9"] {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 28px 16px 9px;
+}
+
+[data-mova-style="wearable-device-s10"] {
+  font-family: Outfit,sans-serif;
+  font-size: 41px;
+  font-weight: 900;
+  color: #1A1A2E;
+  line-height: 1;
+}
+
+[data-mova-style="wearable-device-s11"] {
+  font-size: 8px;
+  color: #6B6B8F;
+  margin-top: 2px;
+  margin-bottom: 8px;
+  text-transform: capitalize;
+  text-align: center;
+}
+
+[data-mova-style="wearable-device-s12"] {
+  display: flex;
+  gap: 9px;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+[data-mova-style="wearable-device-s13"] {
+  flex: 1;
+  border-radius: 18px;
+  border: none;
+  cursor: pointer;
+  padding: 8px 5px;
+  background: linear-gradient(135deg, #BBFBD0, #6EE7B7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 4px 14px rgba(52,211,153,0.35);
+  position: relative;
+}
+
+[data-mova-style="wearable-device-s14"] {
+  font-size: 21px;
+}
+
+[data-mova-style="wearable-device-s15"] {
+  font-family: Outfit,sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  color: #065F46;
+}
+
+[data-mova-style="wearable-device-s16"] {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #F59E0B;
+  border: 2px solid #fff;
+  font-size: 9px;
+  font-weight: 900;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-mova-style="wearable-device-s17"] {
+  flex: 1;
+  border-radius: 18px;
+  border: none;
+  cursor: pointer;
+  padding: 8px 5px;
+  background: linear-gradient(135deg, #BFDBFE, #93C5FD);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 4px 14px rgba(96,165,250,0.35);
+}
+
+[data-mova-style="wearable-device-s18"] {
+  font-size: 21px;
+}
+
+[data-mova-style="wearable-device-s19"] {
+  font-family: Outfit,sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  color: #1E3A5F;
+}
+
+[data-mova-style="wearable-device-s20"] {
+  width: 100%;
+  margin-bottom: 7px;
+}
+
+[data-mova-style="wearable-device-s21"] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3px;
+}
+
+[data-mova-style="wearable-device-s22"] {
+  font-size: 7.5px;
+  color: #6B6B8F;
+  font-weight: 700;
+}
+
+[data-mova-style="wearable-device-s23"] {
+  font-size: 8px;
+  font-weight: 900;
+}
+
+[data-mova-style="wearable-device-s24"] {
+  width: 100%;
+  height: 6px;
+  border-radius: 4px;
+  background: rgba(0,0,0,0.09);
+  overflow: hidden;
+}
+
+[data-mova-style="wearable-device-s25"] {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.35s ease;
+}
+
+[data-mova-style="wearable-device-s26"] {
+  position: relative;
+  width: 56px;
+  height: 56px;
+}
+
+[data-mova-style="wearable-device-s27"] {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+
+[data-mova-style="wearable-device-s28"] {
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(255,59,48,0.45);
+  transition: background 0.15s;
+  color: #fff;
+  font-family: Outfit,sans-serif;
+  font-weight: 900;
+}
+
+[data-mova-style="wearable-device-s29"] {
+  font-size: 8px;
+  color: #9B8FB5;
+  margin-top: 3px;
+  text-align: center;
+  line-height: 1.2;
+}
+
+[data-mova-style="wearable-device-s30"] {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+[data-mova-style="wearable-device-s31"] {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 28px 14px 7px;
+  flex-shrink: 0;
+}
+
+[data-mova-style="wearable-device-s32"] {
+  font-family: Outfit,sans-serif;
+  font-size: 14px;
+  font-weight: 900;
+  color: #1A1A2E;
+}
+
+[data-mova-style="wearable-device-s33"] {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 12px 12px;
+}
+
+[data-mova-style="wearable-device-s34"] {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 10px;
+  border-radius: 16px;
+  margin-bottom: 7px;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.18s;
+}
+
+[data-mova-style="wearable-device-s35"] {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+[data-mova-style="wearable-device-s36"] {
+  flex: 1;
+}
+
+[data-mova-style="wearable-device-s37"] {
+  font-family: Outfit,sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  color: #1A1A2E;
+}
+
+[data-mova-style="wearable-device-s38"] {
+  font-size: 9px;
+  color: #6B6B8F;
+}
+
+[data-mova-style="wearable-device-s39"] {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-mova-style="wearable-device-s40"] {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+[data-mova-style="wearable-device-s41"] {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 28px 14px 7px;
+  flex-shrink: 0;
+}
+
+[data-mova-style="wearable-device-s42"] {
+  font-family: Outfit,sans-serif;
+  font-size: 14px;
+  font-weight: 900;
+  color: #1A1A2E;
+}
+
+[data-mova-style="wearable-device-s43"] {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  padding: 4px 14px 14px;
+  align-content: start;
+}
+
+[data-mova-style="wearable-device-s44"] {
+  border-radius: 18px;
+  padding: 10px 4px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.18s;
+}
+
+[data-mova-style="wearable-device-s45"] {
+  font-size: 26px;
+}
+
+[data-mova-style="wearable-device-s46"] {
+  font-size: 9px;
+  font-weight: 800;
+}
+
+[data-mova-style="wearable-device-s47"] {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+[data-mova-style="wearable-device-s48"] {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+[data-mova-style="wearable-device-s49"] {
+  font-family: Outfit,sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+[data-mova-style="wearable-device-s50"] {
+  font-size: 11px;
+  color: rgba(255,255,255,0.88);
+  text-align: center;
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+
+[data-mova-style="wearable-device-s51"] {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-mova-style="wearable-device-s52"] {
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.5);
+  animation: pulseRingLg 1.4s ease-out infinite;
+}
+
+[data-mova-style="wearable-device-s53"] {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.4);
+  animation: pulseRing 1.4s ease-out infinite 0.3s;
+}
+
+[data-mova-style="wearable-device-s54"] {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+[data-mova-style="wearable-device-s55"] {
+  margin-top: 18px;
+  background: rgba(255,255,255,0.22);
+  border-radius: 14px;
+  padding: 9px 16px;
+}
+
+[data-mova-style="wearable-device-s56"] {
+  font-size: 12px;
+  color: #fff;
+  font-weight: 800;
+}
+
+[data-mova-style="wearable-device-s57"] {
+  width: 38px;
+  height: 30px;
+  background: linear-gradient(180deg, #C4B5FD, #A78BFA);
+  border-radius: 0 0 14px 14px;
+  box-shadow: 0 5px 10px rgba(167,139,250,0.3);
+}
+
+[data-mova-style="wearable-device-s0"] {
+  background: var(--mova-wearable-device-s0-background);
+}
+
+[data-mova-style="wearable-device-s2"] {
+  width: var(--mova-wearable-device-s2-width);
+  height: var(--mova-wearable-device-s2-height);
+  border-radius: var(--mova-wearable-device-s2-border-radius);
+  background: var(--mova-wearable-device-s2-background);
+}
+
+[data-mova-style="wearable-device-s3"] {
+  right: var(--mova-wearable-device-s3-right);
+}
+
+[data-mova-style="wearable-device-s10"] {
+  letter-spacing: var(--mova-wearable-device-s10-letter-spacing);
+}
+
+[data-mova-style="wearable-device-s23"] {
+  color: var(--mova-wearable-device-s23-color);
+}
+
+[data-mova-style="wearable-device-s25"] {
+  width: var(--mova-wearable-device-s25-width);
+  min-width: var(--mova-wearable-device-s25-min-width);
+  background: var(--mova-wearable-device-s25-background);
+}
+
+[data-mova-style="wearable-device-s28"] {
+  background: var(--mova-wearable-device-s28-background);
+  font-size: var(--mova-wearable-device-s28-font-size);
+}
+
+[data-mova-style="wearable-device-s34"] {
+  background: var(--mova-wearable-device-s34-background);
+  box-shadow: var(--mova-wearable-device-s34-box-shadow);
+  opacity: var(--mova-wearable-device-s34-opacity);
+  border-left: var(--mova-wearable-device-s34-border-left);
+}
+
+[data-mova-style="wearable-device-s37"] {
+  text-decoration: var(--mova-wearable-device-s37-text-decoration);
+}
+
+[data-mova-style="wearable-device-s39"] {
+  background: var(--mova-wearable-device-s39-background);
+  border: var(--mova-wearable-device-s39-border);
+}
+
+[data-mova-style="wearable-device-s44"] {
+  border: var(--mova-wearable-device-s44-border);
+  background: var(--mova-wearable-device-s44-background);
+  box-shadow: var(--mova-wearable-device-s44-box-shadow);
+  transform: var(--mova-wearable-device-s44-transform);
+}
+
+[data-mova-style="wearable-device-s46"] {
+  color: var(--mova-wearable-device-s46-color);
+}

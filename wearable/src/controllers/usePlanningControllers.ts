@@ -7,6 +7,7 @@ import type {
   SlotTask,
 } from "../models/planning"
 import { getHomeSummary } from "./profileController"
+// Aquí administro actividades, rutinas y cambios de planificación.
 export function useWeeklyPlanController() {
   const [activeDay, setActiveDay] = useState("lun")
 

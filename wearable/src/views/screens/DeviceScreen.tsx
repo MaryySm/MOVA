@@ -1,3 +1,6 @@
+// Aquí presento los datos y la ubicación simulada del dispositivo asociado.
+import { cssVar, cssVars } from "../styleVars";
+import "./DeviceScreen.styles.css";
 import type { Screen } from "../../models/navigation"
 import { THEME, TEXT, TEXT_MED } from "../theme"
 import { TopBar } from "../shared/Navigation"
@@ -9,20 +12,10 @@ export function DeviceScreen({ go }: { go: (s: Screen) => void }) {
 
   return (
     <div
-      style={{
-        position: "absolute",
-        inset: 0,
-        display: "flex",
-        flexDirection: "column",
-        background: t.bg,
-      }}
+      data-mova-style="device-screen-s0" style={cssVars({ "--mova-device-screen-s0-background": cssVar((t.bg), true) })}
     >
       <div
-        style={{
-          height: 102,
-          background: `linear-gradient(160deg, #AABCFF 0%, ${t.bg} 100%)`,
-          flexShrink: 0,
-        }}
+        data-mova-style="device-screen-s1" style={cssVars({ "--mova-device-screen-s1-background": cssVar((`linear-gradient(160deg, #AABCFF 0%, ${t.bg} 100%)`), true) })}
       >
         <TopBar
           title="GPS en tiempo real"
@@ -32,34 +25,16 @@ export function DeviceScreen({ go }: { go: (s: Screen) => void }) {
       </div>
 
       {profiles.length > 1 && (
-        <div style={{ padding: "0 16px 10px", flexShrink: 0 }}>
+        <div data-mova-style="device-screen-s2">
           <label
-            style={{
-              display: "block",
-              color: t.muted,
-              fontSize: 10,
-              fontWeight: 800,
-              textTransform: "uppercase",
-              letterSpacing: 1,
-              marginBottom: 6,
-            }}
+            data-mova-style="device-screen-s3" style={cssVars({ "--mova-device-screen-s3-color": cssVar((t.muted), true) })}
           >
             Dispositivo visible
           </label>
           <select
             value={selected.id}
             onChange={(event) => setSelectedId(event.target.value)}
-            style={{
-              width: "100%",
-              border: `1.5px solid ${t.border}`,
-              borderRadius: 12,
-              padding: "10px 12px",
-              background: "#fff",
-              color: TEXT,
-              fontSize: 13,
-              fontWeight: 700,
-              outline: "none",
-            }}
+            data-mova-style="device-screen-s4" style={cssVars({ "--mova-device-screen-s4-border": cssVar((`1.5px solid ${t.border}`), true), "--mova-device-screen-s4-color": cssVar((TEXT), true) })}
           >
             {profiles.map((profile) => (
               <option key={profile.id} value={profile.id}>
@@ -71,17 +46,7 @@ export function DeviceScreen({ go }: { go: (s: Screen) => void }) {
       )}
 
       <div
-        style={{
-          flex: 1,
-          position: "relative",
-          margin: "0 16px",
-          borderRadius: 22,
-          overflow: "hidden",
-          background: "#EDF2FF",
-          border: `1.5px solid ${t.border}`,
-          boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-          minHeight: 0,
-        }}
+        data-mova-style="device-screen-s5" style={cssVars({ "--mova-device-screen-s5-border": cssVar((`1.5px solid ${t.border}`), true) })}
       >
         <iframe
           key={selected.id}
@@ -89,150 +54,72 @@ export function DeviceScreen({ go }: { go: (s: Screen) => void }) {
           src={mapSrc}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          style={{ width: "100%", height: "100%", border: 0 }}
+          data-mova-style="device-screen-s6"
         />
 
         <div
-          style={{
-            position: "absolute",
-            top: 10,
-            left: 10,
-            right: 10,
-            background: "rgba(255,255,255,0.94)",
-            borderRadius: 14,
-            padding: "9px 12px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            backdropFilter: "blur(8px)",
-            boxShadow: "0 2px 10px rgba(0,0,0,0.08)",
-          }}
+          data-mova-style="device-screen-s7"
         >
           <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 8,
-              minWidth: 0,
-            }}
+            data-mova-style="device-screen-s8"
           >
             <div
-              style={{
-                width: 8,
-                height: 8,
-                borderRadius: "50%",
-                background: "#5ECFA8",
-                animation: "pulseDot 1.5s ease-in-out infinite",
-                flexShrink: 0,
-              }}
+              data-mova-style="device-screen-s9"
             />
-            <div style={{ minWidth: 0 }}>
+            <div data-mova-style="device-screen-s10">
               <div
-                style={{
-                  fontFamily: "Outfit, sans-serif",
-                  fontSize: 13,
-                  fontWeight: 800,
-                  color: TEXT,
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                }}
+                data-mova-style="device-screen-s11" style={cssVars({ "--mova-device-screen-s11-color": cssVar((TEXT), true) })}
               >
                 {selected.name} · {selected.device.battery}%
               </div>
-              <div style={{ fontSize: 9, color: TEXT_MED }}>
+              <div data-mova-style="device-screen-s12" style={cssVars({ "--mova-device-screen-s12-color": cssVar((TEXT_MED), true) })}>
                 {selected.device.name} · {selected.device.id}
               </div>
             </div>
           </div>
           <span
-            style={{
-              fontSize: 10,
-              color: "#5ECFA8",
-              fontWeight: 800,
-              flexShrink: 0,
-            }}
+            data-mova-style="device-screen-s13"
           >
             En vivo
           </span>
         </div>
 
         <div
-          style={{
-            position: "absolute",
-            bottom: 10,
-            left: 10,
-            right: 10,
-            background: "rgba(255,255,255,0.94)",
-            borderRadius: 12,
-            padding: "8px 12px",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            backdropFilter: "blur(8px)",
-          }}
+          data-mova-style="device-screen-s14"
         >
-          <span style={{ fontSize: 10, color: TEXT_MED }}>
+          <span data-mova-style="device-screen-s15" style={cssVars({ "--mova-device-screen-s15-color": cssVar((TEXT_MED), true) })}>
             Google Maps · ubicación actual
           </span>
-          <span style={{ fontSize: 10, color: t.accent, fontWeight: 800 }}>
+          <span data-mova-style="device-screen-s16" style={cssVars({ "--mova-device-screen-s16-color": cssVar((t.accent), true) })}>
             Actualizado ahora
           </span>
         </div>
       </div>
 
       <div
-        style={{
-          flexShrink: 0,
-          padding: "12px 16px 20px",
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: 10,
-        }}
+        data-mova-style="device-screen-s17"
       >
         <div
-          style={{
-            background: "#fff",
-            borderRadius: 16,
-            padding: "12px 14px",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
-            borderTop: "3px solid #5ECFA8",
-          }}
+          data-mova-style="device-screen-s18"
         >
           <div
-            style={{
-              fontFamily: "Outfit, sans-serif",
-              fontSize: 19,
-              fontWeight: 900,
-              color: "#36A77F",
-            }}
+            data-mova-style="device-screen-s19"
           >
             {selected.device.battery}%
           </div>
-          <div style={{ fontSize: 10, color: TEXT_MED, marginTop: 2 }}>
+          <div data-mova-style="device-screen-s20" style={cssVars({ "--mova-device-screen-s20-color": cssVar((TEXT_MED), true) })}>
             Batería de {selected.name}
           </div>
         </div>
         <div
-          style={{
-            background: "#fff",
-            borderRadius: 16,
-            padding: "12px 14px",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
-            borderTop: "3px solid #9B72F5",
-          }}
+          data-mova-style="device-screen-s21"
         >
           <div
-            style={{
-              fontFamily: "Outfit, sans-serif",
-              fontSize: 19,
-              fontWeight: 900,
-              color: "#9B72F5",
-            }}
+            data-mova-style="device-screen-s22"
           >
             {selected.device.steps.toLocaleString("es-CL")}
           </div>
-          <div style={{ fontSize: 10, color: TEXT_MED, marginTop: 2 }}>
+          <div data-mova-style="device-screen-s23" style={cssVars({ "--mova-device-screen-s23-color": cssVar((TEXT_MED), true) })}>
             Pasos sincronizados
           </div>
         </div>

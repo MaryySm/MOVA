@@ -8,6 +8,7 @@ import {
   setActiveProfileId,
   saveProfiles,
 } from "./profileController"
+// Aquí administro la edición del perfil, sus preferencias y perfiles adicionales.
 export function useSettingsController() {
   const [profiles, setProfiles] = useState<UserProfile[]>(readProfiles)
 

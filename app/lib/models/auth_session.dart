@@ -1,3 +1,4 @@
+// Represento los datos que recibo de la API después del registro o login.
 class AuthSession {
   const AuthSession({
     required this.token,
@@ -17,6 +18,7 @@ class AuthSession {
   final String phone;
   final String email;
 
+  // Convierto el JSON del backend a un objeto que usa la interfaz Flutter.
   factory AuthSession.fromJson(Map<String, dynamic> json, {String token = ''}) {
     final user = json['user'] as Map<String, dynamic>;
     return AuthSession(

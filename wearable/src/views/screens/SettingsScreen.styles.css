@@ -1,0 +1,682 @@
+[data-mova-style="settings-screen-s0"] {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  padding-bottom: 80px;
+}
+
+[data-mova-style="settings-screen-s1"] {
+  padding: 52px 20px 20px;
+}
+
+[data-mova-style="settings-screen-s2"] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+[data-mova-style="settings-screen-s3"] {
+  font-family: Outfit, sans-serif;
+  font-size: 24px;
+  font-weight: 900;
+  margin: 0;
+}
+
+[data-mova-style="settings-screen-s4"] {
+  border: none;
+  border-radius: 11px;
+  padding: 8px 11px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+[data-mova-style="settings-screen-s5"] {
+  display: flex;
+  gap: 7px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  margin-bottom: 8px;
+}
+
+[data-mova-style="settings-screen-s6"] {
+  flex-shrink: 0;
+  border-radius: 20px;
+  padding: 7px 11px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+[data-mova-style="settings-screen-s7"] {
+  width: 100%;
+  background: #fff;
+  border-radius: 22px;
+  padding: 18px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+[data-mova-style="settings-screen-s8"] {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+[data-mova-style="settings-screen-s9"] {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  color: #fff;
+  font-size: 20px;
+}
+
+[data-mova-style="settings-screen-s10"] {
+  flex: 1;
+}
+
+[data-mova-style="settings-screen-s11"] {
+  font-family: Outfit, sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+[data-mova-style="settings-screen-s12"] {
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+[data-mova-style="settings-screen-s13"] {
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+[data-mova-style="settings-screen-s14"] {
+  background: #fff;
+  border-radius: 20px;
+  padding: 16px;
+  margin-bottom: 22px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+}
+
+[data-mova-style="settings-screen-s15"] {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+[data-mova-style="settings-screen-s16"] {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+[data-mova-style="settings-screen-s17"] {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+[data-mova-style="settings-screen-s18"] {
+  flex: 1;
+}
+
+[data-mova-style="settings-screen-s19"] {
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 7px;
+}
+
+[data-mova-style="settings-screen-s20"] {
+  display: flex;
+  gap: 6px;
+}
+
+[data-mova-style="settings-screen-s21"] {
+  border: none;
+  border-radius: 9px;
+  padding: 7px 9px;
+  font-size: 10px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+[data-mova-style="settings-screen-s22"] {
+  border: none;
+  border-radius: 9px;
+  padding: 7px 9px;
+  font-size: 10px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+[data-mova-style="settings-screen-s23"] {
+  display: none;
+}
+
+[data-mova-style="settings-screen-s24"] {
+  display: none;
+}
+
+[data-mova-style="settings-screen-s25"] {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+[data-mova-style="settings-screen-s26"] {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+  border-radius: 11px;
+  padding: 10px 12px;
+  font-size: 13px;
+  outline: none;
+}
+
+[data-mova-style="settings-screen-s27"] {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+[data-mova-style="settings-screen-s28"] {
+  display: flex;
+  margin-top: 5px;
+  border-radius: 11px;
+  overflow: hidden;
+}
+
+[data-mova-style="settings-screen-s29"] {
+  padding: 10px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+[data-mova-style="settings-screen-s30"] {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  padding: 10px 12px;
+  font-size: 13px;
+  outline: none;
+  background: transparent;
+}
+
+[data-mova-style="settings-screen-s31"] {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+[data-mova-style="settings-screen-s32"] {
+  flex: 1;
+  border-radius: 11px;
+  padding: 10px;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+[data-mova-style="settings-screen-s33"] {
+  flex: 1.4;
+  border: none;
+  border-radius: 11px;
+  padding: 10px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+[data-mova-style="settings-screen-s34"] {
+  margin: -12px 0 18px;
+  padding: 9px 12px;
+  border-radius: 11px;
+  background: #DDF8EC;
+  color: #278264;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+[data-mova-style="settings-screen-s35"] {
+  margin-bottom: 20px;
+}
+
+[data-mova-style="settings-screen-s36"] {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+[data-mova-style="settings-screen-s37"] {
+  width: 4px;
+  height: 16px;
+  border-radius: 2px;
+}
+
+[data-mova-style="settings-screen-s38"] {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0;
+}
+
+[data-mova-style="settings-screen-s39"] {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+
+[data-mova-style="settings-screen-s40"] {
+  width: 100%;
+  border: none;
+  background: transparent;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  gap: 14px;
+  cursor: pointer;
+}
+
+[data-mova-style="settings-screen-s41"] {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+[data-mova-style="settings-screen-s42"] {
+  flex: 1;
+}
+
+[data-mova-style="settings-screen-s43"] {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+[data-mova-style="settings-screen-s44"] {
+  font-size: 12px;
+  margin-top: 1px;
+}
+
+[data-mova-style="settings-screen-s45"] {
+  margin-top: 9px;
+  background: #fff;
+  border-radius: 18px;
+  padding: 14px;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.06);
+}
+
+[data-mova-style="settings-screen-s46"] {
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 3px;
+}
+
+[data-mova-style="settings-screen-s47"] {
+  font-size: 10px;
+  margin-bottom: 12px;
+}
+
+[data-mova-style="settings-screen-s48"] {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  background: transparent;
+  padding: 9px 0;
+  cursor: pointer;
+}
+
+[data-mova-style="settings-screen-s49"] {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+[data-mova-style="settings-screen-s50"] {
+  width: 40px;
+  height: 23px;
+  padding: 3px;
+  border-radius: 12px;
+  transition: background 0.2s;
+}
+
+[data-mova-style="settings-screen-s51"] {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+[data-mova-style="settings-screen-s52"] {
+  padding-top: 12px;
+}
+
+[data-mova-style="settings-screen-s53"] {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 7px;
+}
+
+[data-mova-style="settings-screen-s54"] {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+[data-mova-style="settings-screen-s55"] {
+  font-size: 12px;
+  font-weight: 900;
+}
+
+[data-mova-style="settings-screen-s56"] {
+  width: 100%;
+}
+
+[data-mova-style="settings-screen-s57"] {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+}
+
+[data-mova-style="settings-screen-s58"] {
+  margin-top: 9px;
+  background: #fff;
+  border-radius: 18px;
+  padding: 14px;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.06);
+}
+
+[data-mova-style="settings-screen-s59"] {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+[data-mova-style="settings-screen-s60"] {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+}
+
+[data-mova-style="settings-screen-s61"] {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+[data-mova-style="settings-screen-s62"] {
+  font-size: 10px;
+  color: #36A77F;
+  font-weight: 700;
+}
+
+[data-mova-style="settings-screen-s63"] {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 7px 0;
+  border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+[data-mova-style="settings-screen-s64"] {
+  font-size: 10px;
+}
+
+[data-mova-style="settings-screen-s65"] {
+  font-size: 11px;
+  font-weight: 700;
+  text-align: right;
+}
+
+[data-mova-style="settings-screen-s66"] {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  margin-top: 4px;
+  background: rgba(245,121,90,0.1);
+  border: 1.5px solid rgba(245,121,90,0.3);
+  color: #F5795A;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+[data-mova-style="settings-screen-s67"] {
+  text-align: center;
+  font-size: 11px;
+  color: #BDB8D4;
+  margin-top: 20px;
+}
+
+[data-mova-style="settings-screen-s0"] {
+  background: var(--mova-settings-screen-s0-background);
+}
+
+[data-mova-style="settings-screen-s3"] {
+  color: var(--mova-settings-screen-s3-color);
+}
+
+[data-mova-style="settings-screen-s4"] {
+  background: var(--mova-settings-screen-s4-background);
+}
+
+[data-mova-style="settings-screen-s6"] {
+  border: var(--mova-settings-screen-s6-border);
+  background: var(--mova-settings-screen-s6-background);
+  color: var(--mova-settings-screen-s6-color);
+}
+
+[data-mova-style="settings-screen-s7"] {
+  margin-bottom: var(--mova-settings-screen-s7-margin-bottom);
+  border-left: var(--mova-settings-screen-s7-border-left);
+}
+
+[data-mova-style="settings-screen-s9"] {
+  background: var(--mova-settings-screen-s9-background);
+}
+
+[data-mova-style="settings-screen-s11"] {
+  color: var(--mova-settings-screen-s11-color);
+}
+
+[data-mova-style="settings-screen-s12"] {
+  color: var(--mova-settings-screen-s12-color);
+}
+
+[data-mova-style="settings-screen-s13"] {
+  color: var(--mova-settings-screen-s13-color);
+}
+
+[data-mova-style="settings-screen-s14"] {
+  border: var(--mova-settings-screen-s14-border);
+}
+
+[data-mova-style="settings-screen-s17"] {
+  background: var(--mova-settings-screen-s17-background);
+  color: var(--mova-settings-screen-s17-color);
+}
+
+[data-mova-style="settings-screen-s19"] {
+  color: var(--mova-settings-screen-s19-color);
+}
+
+[data-mova-style="settings-screen-s21"] {
+  background: var(--mova-settings-screen-s21-background);
+  color: var(--mova-settings-screen-s21-color);
+}
+
+[data-mova-style="settings-screen-s22"] {
+  background: var(--mova-settings-screen-s22-background);
+  color: var(--mova-settings-screen-s22-color);
+}
+
+[data-mova-style="settings-screen-s25"] {
+  color: var(--mova-settings-screen-s25-color);
+}
+
+[data-mova-style="settings-screen-s26"] {
+  border: var(--mova-settings-screen-s26-border);
+  color: var(--mova-settings-screen-s26-color);
+  background: var(--mova-settings-screen-s26-background);
+}
+
+[data-mova-style="settings-screen-s27"] {
+  color: var(--mova-settings-screen-s27-color);
+}
+
+[data-mova-style="settings-screen-s28"] {
+  border: var(--mova-settings-screen-s28-border);
+  background: var(--mova-settings-screen-s28-background);
+}
+
+[data-mova-style="settings-screen-s29"] {
+  background: var(--mova-settings-screen-s29-background);
+  color: var(--mova-settings-screen-s29-color);
+}
+
+[data-mova-style="settings-screen-s30"] {
+  color: var(--mova-settings-screen-s30-color);
+}
+
+[data-mova-style="settings-screen-s32"] {
+  border: var(--mova-settings-screen-s32-border);
+  color: var(--mova-settings-screen-s32-color);
+}
+
+[data-mova-style="settings-screen-s33"] {
+  background: var(--mova-settings-screen-s33-background);
+  opacity: var(--mova-settings-screen-s33-opacity);
+}
+
+[data-mova-style="settings-screen-s37"] {
+  background: var(--mova-settings-screen-s37-background);
+}
+
+[data-mova-style="settings-screen-s38"] {
+  color: var(--mova-settings-screen-s38-color);
+}
+
+[data-mova-style="settings-screen-s40"] {
+  border-bottom: var(--mova-settings-screen-s40-border-bottom);
+}
+
+[data-mova-style="settings-screen-s41"] {
+  background: var(--mova-settings-screen-s41-background);
+}
+
+[data-mova-style="settings-screen-s43"] {
+  color: var(--mova-settings-screen-s43-color);
+}
+
+[data-mova-style="settings-screen-s44"] {
+  color: var(--mova-settings-screen-s44-color);
+}
+
+[data-mova-style="settings-screen-s45"] {
+  border: var(--mova-settings-screen-s45-border);
+}
+
+[data-mova-style="settings-screen-s46"] {
+  color: var(--mova-settings-screen-s46-color);
+}
+
+[data-mova-style="settings-screen-s47"] {
+  color: var(--mova-settings-screen-s47-color);
+}
+
+[data-mova-style="settings-screen-s49"] {
+  color: var(--mova-settings-screen-s49-color);
+}
+
+[data-mova-style="settings-screen-s50"] {
+  background: var(--mova-settings-screen-s50-background);
+}
+
+[data-mova-style="settings-screen-s51"] {
+  transform: var(--mova-settings-screen-s51-transform);
+}
+
+[data-mova-style="settings-screen-s52"] {
+  opacity: var(--mova-settings-screen-s52-opacity);
+}
+
+[data-mova-style="settings-screen-s54"] {
+  color: var(--mova-settings-screen-s54-color);
+}
+
+[data-mova-style="settings-screen-s55"] {
+  color: var(--mova-settings-screen-s55-color);
+}
+
+[data-mova-style="settings-screen-s56"] {
+  accent-color: var(--mova-settings-screen-s56-accent-color);
+  cursor: var(--mova-settings-screen-s56-cursor);
+}
+
+[data-mova-style="settings-screen-s57"] {
+  color: var(--mova-settings-screen-s57-color);
+}
+
+[data-mova-style="settings-screen-s58"] {
+  border: var(--mova-settings-screen-s58-border);
+}
+
+[data-mova-style="settings-screen-s60"] {
+  background: var(--mova-settings-screen-s60-background);
+}
+
+[data-mova-style="settings-screen-s61"] {
+  color: var(--mova-settings-screen-s61-color);
+}
+
+[data-mova-style="settings-screen-s64"] {
+  color: var(--mova-settings-screen-s64-color);
+}
+
+[data-mova-style="settings-screen-s65"] {
+  color: var(--mova-settings-screen-s65-color);
+}

@@ -1,3 +1,6 @@
+// Aquí presento el registro de emociones usando las opciones del modelo.
+import { cssVar, cssVars } from "../styleVars";
+import "./EmotionsScreen.styles.css";
 import { THEME, TEXT, TEXT_MED } from "../theme"
 import { useEmotionsController } from "../../controllers/usePlanningControllers"
 import { MOODS, EMOTION_TAGS, TAG_COLORS, DAYS } from "../../models/planning"
@@ -18,68 +21,34 @@ export function EmotionsScreen() {
 
   return (
     <div
-      style={{
-        position: "absolute",
-        inset: 0,
-        overflowY: "auto",
-        paddingBottom: 80,
-        background: t.bg,
-      }}
+      data-mova-style="emotions-screen-s0" style={cssVars({ "--mova-emotions-screen-s0-background": cssVar((t.bg), true) })}
     >
-      <div style={{ padding: "52px 20px 16px" }}>
+      <div data-mova-style="emotions-screen-s1">
         <h2
-          style={{
-            fontFamily: "Outfit, sans-serif",
-            fontSize: 24,
-            fontWeight: 900,
-            margin: "0 0 4px",
-            color: TEXT,
-          }}
+          data-mova-style="emotions-screen-s2" style={cssVars({ "--mova-emotions-screen-s2-color": cssVar((TEXT), true) })}
         >
           Estado emocional
         </h2>
-        <p style={{ color: t.muted, fontSize: 14, margin: "0 0 22px" }}>
+        <p data-mova-style="emotions-screen-s3" style={cssVars({ "--mova-emotions-screen-s3-color": cssVar((t.muted), true) })}>
           ¿Cómo te encuentras hoy?
         </p>
 
         <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3,1fr)",
-            gap: 10,
-            marginBottom: 22,
-          }}
+          data-mova-style="emotions-screen-s4"
         >
           {MOODS.map((m) => (
             <button
               key={m.id}
               onClick={() => setMood(m.id)}
-              style={{
-                padding: "16px 8px",
-                borderRadius: 16,
-                background: mood === m.id ? `${m.color}22` : "#fff",
-                border: `2px solid ${
+              data-mova-style="emotions-screen-s5" style={cssVars({ "--mova-emotions-screen-s5-background": cssVar((mood === m.id ? `${m.color}22` : "#fff"), true), "--mova-emotions-screen-s5-border": cssVar((`2px solid ${
                   mood === m.id ? m.color : "rgba(0,0,0,0.06)"
-                }`,
-                cursor: "pointer",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: 6,
-                boxShadow:
-                  mood === m.id
+                }`), true), "--mova-emotions-screen-s5-box-shadow": cssVar((mood === m.id
                     ? `0 4px 18px ${m.color}35`
-                    : "0 2px 8px rgba(0,0,0,0.04)",
-                transition: "all 0.18s",
-              }}
+                    : "0 2px 8px rgba(0,0,0,0.04)"), true) })}
             >
-              <span style={{ fontSize: 28 }}>{m.emoji}</span>
+              <span data-mova-style="emotions-screen-s6">{m.emoji}</span>
               <span
-                style={{
-                  fontSize: 11,
-                  color: mood === m.id ? m.color : TEXT_MED,
-                  fontWeight: 700,
-                }}
+                data-mova-style="emotions-screen-s7" style={cssVars({ "--mova-emotions-screen-s7-color": cssVar((mood === m.id ? m.color : TEXT_MED), true) })}
               >
                 {m.label}
               </span>
@@ -88,23 +57,12 @@ export function EmotionsScreen() {
         </div>
 
         <label
-          style={{
-            fontSize: 11,
-            color: t.muted,
-            letterSpacing: 1.2,
-            textTransform: "uppercase",
-            fontWeight: 700,
-          }}
+          data-mova-style="emotions-screen-s8" style={cssVars({ "--mova-emotions-screen-s8-color": cssVar((t.muted), true) })}
         >
           ¿Cómo te describes?
         </label>
         <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: 8,
-            margin: "10px 0 22px",
-          }}
+          data-mova-style="emotions-screen-s9"
         >
           {EMOTION_TAGS.map((tag, i) => {
             const active = tags.includes(tag)
@@ -113,17 +71,7 @@ export function EmotionsScreen() {
               <button
                 key={tag}
                 onClick={() => toggleTag(tag)}
-                style={{
-                  padding: "7px 14px",
-                  borderRadius: 20,
-                  background: active ? `${c}20` : "rgba(0,0,0,0.05)",
-                  border: `1.5px solid ${active ? c : "transparent"}`,
-                  color: active ? c : TEXT_MED,
-                  fontSize: 13,
-                  fontWeight: 600,
-                  cursor: "pointer",
-                  transition: "all 0.15s",
-                }}
+                data-mova-style="emotions-screen-s10" style={cssVars({ "--mova-emotions-screen-s10-background": cssVar((active ? `${c}20` : "rgba(0,0,0,0.05)"), true), "--mova-emotions-screen-s10-border": cssVar((`1.5px solid ${active ? c : "transparent"}`), true), "--mova-emotions-screen-s10-color": cssVar((active ? c : TEXT_MED), true) })}
               >
                 {tag}
               </button>
@@ -132,13 +80,7 @@ export function EmotionsScreen() {
         </div>
 
         <label
-          style={{
-            fontSize: 11,
-            color: t.muted,
-            letterSpacing: 1.2,
-            textTransform: "uppercase",
-            fontWeight: 700,
-          }}
+          data-mova-style="emotions-screen-s11" style={cssVars({ "--mova-emotions-screen-s11-color": cssVar((t.muted), true) })}
         >
           Nota libre
         </label>
@@ -147,72 +89,30 @@ export function EmotionsScreen() {
           onChange={(e) => setNote(e.target.value)}
           placeholder="Describe cómo te sientes hoy…"
           rows={3}
-          style={{
-            display: "block",
-            width: "100%",
-            marginTop: 8,
-            marginBottom: 22,
-            background: "#fff",
-            border: `1.5px solid ${t.border}`,
-            borderRadius: 14,
-            padding: "13px 16px",
-            color: TEXT,
-            fontSize: 14,
-            outline: "none",
-            resize: "none",
-          }}
+          data-mova-style="emotions-screen-s12" style={cssVars({ "--mova-emotions-screen-s12-border": cssVar((`1.5px solid ${t.border}`), true), "--mova-emotions-screen-s12-color": cssVar((TEXT), true) })}
         />
 
         {/* Mini bar chart */}
         <div
-          style={{
-            background: "#fff",
-            borderRadius: 20,
-            padding: "16px",
-            boxShadow: "0 4px 14px rgba(0,0,0,0.06)",
-            marginBottom: 22,
-          }}
+          data-mova-style="emotions-screen-s13"
         >
           <div
-            style={{
-              fontFamily: "Outfit, sans-serif",
-              fontSize: 14,
-              fontWeight: 800,
-              color: TEXT,
-              marginBottom: 12,
-            }}
+            data-mova-style="emotions-screen-s14" style={cssVars({ "--mova-emotions-screen-s14-color": cssVar((TEXT), true) })}
           >
             Esta semana
           </div>
           <div
-            style={{
-              display: "flex",
-              alignItems: "flex-end",
-              gap: 8,
-              height: 72,
-            }}
+            data-mova-style="emotions-screen-s15"
           >
             {weekData.map((v, i) => (
               <div
                 key={i}
-                style={{
-                  flex: 1,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: 4,
-                }}
+                data-mova-style="emotions-screen-s16"
               >
                 <div
-                  style={{
-                    width: "100%",
-                    borderRadius: 5,
-                    height: `${(v / 92) * 56}px`,
-                    background: barColors[i],
-                    opacity: i === 6 ? 1 : 0.6,
-                  }}
+                  data-mova-style="emotions-screen-s17" style={cssVars({ "--mova-emotions-screen-s17-height": cssVar((`${(v / 92) * 56}px`), true), "--mova-emotions-screen-s17-background": cssVar((barColors[i]), true), "--mova-emotions-screen-s17-opacity": cssVar(i === 6 ? 1 : 0.6, false) })}
                 />
-                <span style={{ fontSize: 10, color: TEXT_MED }}>{DAYS[i]}</span>
+                <span data-mova-style="emotions-screen-s18" style={cssVars({ "--mova-emotions-screen-s18-color": cssVar((TEXT_MED), true) })}>{DAYS[i]}</span>
               </div>
             ))}
           </div>
@@ -224,18 +124,7 @@ export function EmotionsScreen() {
             setTags([])
             setNote("")
           }}
-          style={{
-            width: "100%",
-            padding: "15px",
-            borderRadius: 16,
-            border: "none",
-            background: `linear-gradient(135deg, ${t.accent}, #FFD0B8)`,
-            color: "#fff",
-            fontSize: 16,
-            fontWeight: 800,
-            cursor: "pointer",
-            boxShadow: `0 8px 24px ${t.accent}44`,
-          }}
+          data-mova-style="emotions-screen-s19" style={cssVars({ "--mova-emotions-screen-s19-background": cssVar((`linear-gradient(135deg, ${t.accent}, #FFD0B8)`), true), "--mova-emotions-screen-s19-box-shadow": cssVar((`0 8px 24px ${t.accent}44`), true) })}
         >
           Guardar registro
         </button>

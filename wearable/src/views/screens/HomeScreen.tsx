@@ -1,3 +1,6 @@
+// Aquí presento el resumen del usuario y sus actividades del día.
+import { cssVar, cssVars } from "../styleVars";
+import "./HomeScreen.styles.css";
 import type { Screen } from "../../models/navigation"
 import { THEME, TEXT, TEXT_MED } from "../theme"
 import { useHomeController } from "../../controllers/usePlanningControllers"
@@ -19,58 +22,24 @@ export function HomeScreen({ go }: { go: (s: Screen) => void }) {
 
   return (
     <div
-      style={{
-        position: "absolute",
-        inset: 0,
-        overflowY: "auto",
-        paddingBottom: 80,
-        background: t.bg,
-      }}
+      data-mova-style="home-screen-s0" style={cssVars({ "--mova-home-screen-s0-background": cssVar((t.bg), true) })}
     >
       {/* Notification panel */}
       {notifOpen && (
         <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            zIndex: 150,
-            background: "#fff",
-            borderRadius: "0 0 24px 24px",
-            boxShadow: "0 8px 32px rgba(0,0,0,0.14)",
-            padding: "56px 20px 20px",
-          }}
+          data-mova-style="home-screen-s1"
         >
           <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              marginBottom: 14,
-            }}
+            data-mova-style="home-screen-s2"
           >
             <span
-              style={{
-                fontFamily: "Outfit, sans-serif",
-                fontSize: 16,
-                fontWeight: 800,
-                color: TEXT,
-              }}
+              data-mova-style="home-screen-s3" style={cssVars({ "--mova-home-screen-s3-color": cssVar((TEXT), true) })}
             >
               Notificaciones
             </span>
             <button
               onClick={() => setNotifOpen(false)}
-              style={{
-                background: "rgba(0,0,0,0.06)",
-                border: "none",
-                borderRadius: 8,
-                padding: "6px 10px",
-                cursor: "pointer",
-                color: TEXT_MED,
-                fontSize: 13,
-              }}
+              data-mova-style="home-screen-s4" style={cssVars({ "--mova-home-screen-s4-color": cssVar((TEXT_MED), true) })}
             >
               ✕
             </button>
@@ -78,28 +47,15 @@ export function HomeScreen({ go }: { go: (s: Screen) => void }) {
           {notifs.map((n, i) => (
             <div
               key={i}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 12,
-                padding: "12px 0",
-                borderBottom:
-                  i < notifs.length - 1 ? "1px solid rgba(0,0,0,0.06)" : "none",
-              }}
+              data-mova-style="home-screen-s5" style={cssVars({ "--mova-home-screen-s5-border-bottom": cssVar((i < notifs.length - 1 ? "1px solid rgba(0,0,0,0.06)" : "none"), true) })}
             >
               <div
-                style={{
-                  width: 8,
-                  height: 8,
-                  borderRadius: "50%",
-                  background: n.color,
-                  flexShrink: 0,
-                }}
+                data-mova-style="home-screen-s6" style={cssVars({ "--mova-home-screen-s6-background": cssVar((n.color), true) })}
               />
-              <span style={{ flex: 1, fontSize: 13, color: TEXT }}>
+              <span data-mova-style="home-screen-s7" style={cssVars({ "--mova-home-screen-s7-color": cssVar((TEXT), true) })}>
                 {n.text}
               </span>
-              <span style={{ fontSize: 11, color: TEXT_MED }}>{n.time}</span>
+              <span data-mova-style="home-screen-s8" style={cssVars({ "--mova-home-screen-s8-color": cssVar((TEXT_MED), true) })}>{n.time}</span>
             </div>
           ))}
         </div>
@@ -107,56 +63,31 @@ export function HomeScreen({ go }: { go: (s: Screen) => void }) {
 
       {/* Header */}
       <div
-        style={{
-          padding: "46px 20px 16px",
-          background: `linear-gradient(180deg, #FFD9E8 0%, ${t.bg} 100%)`,
-        }}
+        data-mova-style="home-screen-s9" style={cssVars({ "--mova-home-screen-s9-background": cssVar((`linear-gradient(180deg, #FFD9E8 0%, ${t.bg} 100%)`), true) })}
       >
         <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
+          data-mova-style="home-screen-s10"
         >
           <div>
-            <p style={{ color: t.muted, fontSize: 12, margin: "0 0 2px" }}>
+            <p data-mova-style="home-screen-s11" style={cssVars({ "--mova-home-screen-s11-color": cssVar((t.muted), true) })}>
               Lunes, 10 de agosto 2026
             </p>
             <h2
-              style={{
-                fontFamily: "Outfit, sans-serif",
-                fontSize: 21,
-                fontWeight: 900,
-                margin: 0,
-                color: TEXT,
-              }}
+              data-mova-style="home-screen-s12" style={cssVars({ "--mova-home-screen-s12-color": cssVar((TEXT), true) })}
             >
               ¡Hola, {syncedSummary.name.split(" ")[0]}! 👋
             </h2>
             {syncedSummary.adultName && (
-              <p style={{ color: t.muted, fontSize: 11, margin: "3px 0 0" }}>
+              <p data-mova-style="home-screen-s13" style={cssVars({ "--mova-home-screen-s13-color": cssVar((t.muted), true) })}>
                 Acompañado por {syncedSummary.adultName}
               </p>
             )}
           </div>
-          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+          <div data-mova-style="home-screen-s14">
             {/* Notif bell */}
             <button
               onClick={() => setNotifOpen((p) => !p)}
-              style={{
-                position: "relative",
-                background: "#fff",
-                border: "none",
-                borderRadius: 12,
-                width: 38,
-                height: 38,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: "pointer",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-              }}
+              data-mova-style="home-screen-s15"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                 <path
@@ -167,32 +98,11 @@ export function HomeScreen({ go }: { go: (s: Screen) => void }) {
                 />
               </svg>
               <div
-                style={{
-                  position: "absolute",
-                  top: 6,
-                  right: 6,
-                  width: 8,
-                  height: 8,
-                  borderRadius: "50%",
-                  background: "#F5795A",
-                  border: "2px solid #fff",
-                }}
+                data-mova-style="home-screen-s16"
               />
             </button>
             <div
-              style={{
-                width: 38,
-                height: 38,
-                borderRadius: "50%",
-                background: `linear-gradient(135deg, ${t.accent}, #A882F5)`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontFamily: "Outfit, sans-serif",
-                fontWeight: 900,
-                color: "#fff",
-                fontSize: 15,
-              }}
+              data-mova-style="home-screen-s17" style={cssVars({ "--mova-home-screen-s17-background": cssVar((`linear-gradient(135deg, ${t.accent}, #A882F5)`), true) })}
             >
               {syncedSummary.name.charAt(0).toUpperCase()}
             </div>
@@ -201,76 +111,37 @@ export function HomeScreen({ go }: { go: (s: Screen) => void }) {
       </div>
 
       {/* Mood widget */}
-      <div style={{ padding: "0 20px", marginBottom: 16 }}>
+      <div data-mova-style="home-screen-s18">
         <div
-          style={{
-            background: "#fff",
-            borderRadius: 20,
-            padding: "14px 16px",
-            boxShadow: "0 3px 14px rgba(0,0,0,0.07)",
-          }}
+          data-mova-style="home-screen-s19"
         >
           <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              marginBottom: 10,
-            }}
+            data-mova-style="home-screen-s20"
           >
             <span
-              style={{
-                fontFamily: "Outfit, sans-serif",
-                fontSize: 13,
-                fontWeight: 800,
-                color: TEXT,
-              }}
+              data-mova-style="home-screen-s21" style={cssVars({ "--mova-home-screen-s21-color": cssVar((TEXT), true) })}
             >
               ¿Cómo estás hoy?
             </span>
             <button
               onClick={() => go("emotions")}
-              style={{
-                background: "none",
-                border: "none",
-                fontSize: 11,
-                color: t.accent,
-                fontWeight: 700,
-                cursor: "pointer",
-              }}
+              data-mova-style="home-screen-s22" style={cssVars({ "--mova-home-screen-s22-color": cssVar((t.accent), true) })}
             >
               Ver más →
             </button>
           </div>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div data-mova-style="home-screen-s23">
             {MOODS_HOME.map((m) => {
               const active = mood === m.label
               return (
                 <button
                   key={m.label}
                   onClick={() => setMood(m.label)}
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    gap: 4,
-                    background: active ? `${m.color}22` : "transparent",
-                    border: `1.5px solid ${active ? m.color : "transparent"}`,
-                    borderRadius: 12,
-                    padding: "8px 6px",
-                    cursor: "pointer",
-                    flex: 1,
-                    margin: "0 2px",
-                    transition: "all 0.15s",
-                  }}
+                  data-mova-style="home-screen-s24" style={cssVars({ "--mova-home-screen-s24-background": cssVar((active ? `${m.color}22` : "transparent"), true), "--mova-home-screen-s24-border": cssVar((`1.5px solid ${active ? m.color : "transparent"}`), true) })}
                 >
-                  <span style={{ fontSize: 22 }}>{m.emoji}</span>
+                  <span data-mova-style="home-screen-s25">{m.emoji}</span>
                   <span
-                    style={{
-                      fontSize: 9,
-                      color: active ? m.color : TEXT_MED,
-                      fontWeight: 700,
-                    }}
+                    data-mova-style="home-screen-s26" style={cssVars({ "--mova-home-screen-s26-color": cssVar((active ? m.color : TEXT_MED), true) })}
                   >
                     {m.label}
                   </span>
@@ -280,20 +151,10 @@ export function HomeScreen({ go }: { go: (s: Screen) => void }) {
           </div>
           {mood && (
             <div
-              style={{
-                marginTop: 10,
-                padding: "8px 12px",
-                borderRadius: 10,
-                background: `${MOODS_HOME.find((m) => m.label === mood)?.color}18`,
-                textAlign: "center",
-              }}
+              data-mova-style="home-screen-s27" style={cssVars({ "--mova-home-screen-s27-background": cssVar((`${MOODS_HOME.find((m) => m.label === mood)?.color}18`), true) })}
             >
               <span
-                style={{
-                  fontSize: 12,
-                  color: MOODS_HOME.find((m) => m.label === mood)?.color,
-                  fontWeight: 700,
-                }}
+                data-mova-style="home-screen-s28" style={cssVars({ "--mova-home-screen-s28-color": cssVar((MOODS_HOME.find((m) => m.label === mood)?.color), true) })}
               >
                 Estado guardado: {mood} · toca "Ver más" para añadir nota
               </span>
@@ -303,27 +164,17 @@ export function HomeScreen({ go }: { go: (s: Screen) => void }) {
       </div>
 
       {/* Mini GPS card */}
-      <div style={{ padding: "0 20px", marginBottom: 16 }}>
+      <div data-mova-style="home-screen-s29">
         <button
           onClick={() => go("device")}
-          style={{
-            width: "100%",
-            background: "#fff",
-            borderRadius: 20,
-            overflow: "hidden",
-            boxShadow: "0 3px 14px rgba(0,0,0,0.07)",
-            border: "none",
-            cursor: "pointer",
-            padding: 0,
-            textAlign: "left",
-          }}
+          data-mova-style="home-screen-s30"
         >
-          <div style={{ position: "relative", height: 100 }}>
+          <div data-mova-style="home-screen-s31">
             {/* Mini map bg */}
             <div
-              style={{ position: "absolute", inset: 0, background: "#EDF5FF" }}
+              data-mova-style="home-screen-s32"
             >
-              <svg width="100%" height="100%" style={{ opacity: 0.35 }}>
+              <svg width="100%" height="100%" data-mova-style="home-screen-s33">
                 <defs>
                   <pattern
                     id="gH"
@@ -344,7 +195,7 @@ export function HomeScreen({ go }: { go: (s: Screen) => void }) {
               <svg
                 width="100%"
                 height="100%"
-                style={{ position: "absolute", inset: 0 }}
+                data-mova-style="home-screen-s34"
               >
                 <path
                   d="M 40 85 Q 100 65 160 70 Q 210 74 250 52 Q 290 34 330 40"
@@ -362,44 +213,24 @@ export function HomeScreen({ go }: { go: (s: Screen) => void }) {
                   fill="#7098F550"
                   stroke="#7098F5"
                   strokeWidth="2"
-                  style={{
-                    transformOrigin: "280px 46px",
-                    animation: "pulseRing 2s ease-in-out infinite",
-                  }}
+                  data-mova-style="home-screen-s35"
                 />
               </svg>
             </div>
             <div
-              style={{
-                position: "absolute",
-                bottom: 10,
-                left: 12,
-                right: 12,
-                background: "rgba(255,255,255,0.9)",
-                borderRadius: 10,
-                padding: "6px 12px",
-                backdropFilter: "blur(6px)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
+              data-mova-style="home-screen-s36"
             >
               <div>
                 <div
-                  style={{
-                    fontFamily: "Outfit, sans-serif",
-                    fontSize: 13,
-                    fontWeight: 800,
-                    color: TEXT,
-                  }}
+                  data-mova-style="home-screen-s37" style={cssVars({ "--mova-home-screen-s37-color": cssVar((TEXT), true) })}
                 >
                   📍 {syncedSummary.name} · {syncedSummary.battery}%
                 </div>
-                <div style={{ fontSize: 11, color: TEXT_MED }}>
+                <div data-mova-style="home-screen-s38" style={cssVars({ "--mova-home-screen-s38-color": cssVar((TEXT_MED), true) })}>
                   {syncedSummary.deviceName} · actualizado hace 1 min
                 </div>
               </div>
-              <span style={{ fontSize: 11, color: "#7098F5", fontWeight: 700 }}>
+              <span data-mova-style="home-screen-s39">
                 Ver mapa →
               </span>
             </div>
@@ -408,60 +239,33 @@ export function HomeScreen({ go }: { go: (s: Screen) => void }) {
       </div>
 
       {/* Today's routine */}
-      <div style={{ padding: "0 20px" }}>
+      <div data-mova-style="home-screen-s40">
         <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: 10,
-          }}
+          data-mova-style="home-screen-s41"
         >
           <span
-            style={{
-              fontFamily: "Outfit, sans-serif",
-              fontSize: 15,
-              fontWeight: 800,
-              color: TEXT,
-            }}
+            data-mova-style="home-screen-s42" style={cssVars({ "--mova-home-screen-s42-color": cssVar((TEXT), true) })}
           >
             Rutina del día
           </span>
-          <span style={{ fontSize: 12, color: t.accent, fontWeight: 700 }}>
+          <span data-mova-style="home-screen-s43" style={cssVars({ "--mova-home-screen-s43-color": cssVar((t.accent), true) })}>
             {pct}% completo
           </span>
         </div>
 
         {/* Progress bar */}
         <div
-          style={{
-            height: 6,
-            borderRadius: 3,
-            background: "rgba(0,0,0,0.08)",
-            marginBottom: 14,
-          }}
+          data-mova-style="home-screen-s44"
         >
           <div
-            style={{
-              height: "100%",
-              borderRadius: 3,
-              background: `linear-gradient(90deg, ${t.accent}, #A882F5)`,
-              width: `${pct}%`,
-              transition: "width 0.4s",
-            }}
+            data-mova-style="home-screen-s45" style={cssVars({ "--mova-home-screen-s45-background": cssVar((`linear-gradient(90deg, ${t.accent}, #A882F5)`), true), "--mova-home-screen-s45-width": cssVar((`${pct}%`), true) })}
           />
         </div>
 
         {grouped.map((group) => (
-          <div key={group.slot} style={{ marginBottom: 14 }}>
+          <div key={group.slot} data-mova-style="home-screen-s46">
             <p
-              style={{
-                fontSize: 11,
-                color: TEXT_MED,
-                fontWeight: 700,
-                letterSpacing: 0.8,
-                margin: "0 0 8px",
-              }}
+              data-mova-style="home-screen-s47" style={cssVars({ "--mova-home-screen-s47-color": cssVar((TEXT_MED), true) })}
             >
               {group.label}
             </p>
@@ -469,40 +273,15 @@ export function HomeScreen({ go }: { go: (s: Screen) => void }) {
               <button
                 key={task.id}
                 onClick={() => toggleTask(task.id)}
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 12,
-                  padding: "11px 14px",
-                  background: "#fff",
-                  borderRadius: 14,
-                  marginBottom: 7,
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
-                  border: `1px solid ${
+                data-mova-style="home-screen-s48" style={cssVars({ "--mova-home-screen-s48-border": cssVar((`1px solid ${
                     task.done ? task.color + "40" : "rgba(0,0,0,0.04)"
-                  }`,
-                  cursor: "pointer",
-                  textAlign: "left",
-                  transition: "all 0.18s",
-                  opacity: task.done ? 0.75 : 1,
-                }}
+                  }`), true), "--mova-home-screen-s48-opacity": cssVar(task.done ? 0.75 : 1, false) })}
               >
                 {/* Checkbox */}
                 <div
-                  style={{
-                    width: 22,
-                    height: 22,
-                    borderRadius: 7,
-                    flexShrink: 0,
-                    background: task.done ? task.color : "transparent",
-                    border: `2px solid ${
+                  data-mova-style="home-screen-s49" style={cssVars({ "--mova-home-screen-s49-background": cssVar((task.done ? task.color : "transparent"), true), "--mova-home-screen-s49-border": cssVar((`2px solid ${
                       task.done ? task.color : "rgba(0,0,0,0.18)"
-                    }`,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
+                    }`), true) })}
                 >
                   {task.done && (
                     <svg width="12" height="12" viewBox="0 0 12 12">
@@ -517,29 +296,17 @@ export function HomeScreen({ go }: { go: (s: Screen) => void }) {
                   )}
                 </div>
                 <span
-                  style={{
-                    flex: 1,
-                    fontSize: 13,
-                    fontWeight: 600,
-                    color: TEXT,
-                    textDecoration: task.done ? "line-through" : "none",
-                  }}
+                  data-mova-style="home-screen-s50" style={cssVars({ "--mova-home-screen-s50-color": cssVar((TEXT), true), "--mova-home-screen-s50-text-decoration": cssVar((task.done ? "line-through" : "none"), true) })}
                 >
                   {task.label}
                 </span>
-                <span style={{ fontSize: 11, color: TEXT_MED }}>
+                <span data-mova-style="home-screen-s51" style={cssVars({ "--mova-home-screen-s51-color": cssVar((TEXT_MED), true) })}>
                   {task.time}
                 </span>
                 {/* Notification dot */}
                 {!task.done && (
                   <div
-                    style={{
-                      width: 7,
-                      height: 7,
-                      borderRadius: "50%",
-                      background: task.color,
-                      flexShrink: 0,
-                    }}
+                    data-mova-style="home-screen-s52" style={cssVars({ "--mova-home-screen-s52-background": cssVar((task.color), true) })}
                   />
                 )}
               </button>

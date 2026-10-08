@@ -1,3 +1,6 @@
+// Aquí dibujo presentación, acceso y registro, usando sus controladores.
+import { cssVar, cssVars } from "../styleVars";
+import "./EntryScreens.styles.css";
 import type { Screen } from "../../models/navigation"
 import { THEME, TEXT, TEXT_MED, BORDER_GLOBAL } from "../theme"
 import {
@@ -13,41 +16,13 @@ export function SplashScreen({ go }: { go: (s: Screen) => void }) {
 
   return (
     <div
-      style={{
-        position: "absolute",
-        inset: 0,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        background: `radial-gradient(ellipse at 55% 35%, #D4BFFF 0%, #EDE7FF 55%, #FFF0F9 100%)`,
-        transition: "opacity 0.6s",
-        opacity,
-      }}
+      data-mova-style="entry-screens-s0" style={cssVars({ "--mova-entry-screens-s0-opacity": cssVar(opacity, false) })}
     >
       <div
-        style={{
-          width: 160,
-          height: 160,
-          borderRadius: "50%",
-          background: `radial-gradient(circle, ${t.accent}28 0%, transparent 70%)`,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          marginBottom: 24,
-        }}
+        data-mova-style="entry-screens-s1" style={cssVars({ "--mova-entry-screens-s1-background": cssVar((`radial-gradient(circle, ${t.accent}28 0%, transparent 70%)`), true) })}
       >
         <div
-          style={{
-            width: 100,
-            height: 100,
-            borderRadius: "50%",
-            background: `linear-gradient(135deg, ${t.accent}, #F590B8)`,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            boxShadow: `0 12px 40px ${t.accent}66`,
-          }}
+          data-mova-style="entry-screens-s2" style={cssVars({ "--mova-entry-screens-s2-background": cssVar((`linear-gradient(135deg, ${t.accent}, #F590B8)`), true), "--mova-entry-screens-s2-box-shadow": cssVar((`0 12px 40px ${t.accent}66`), true) })}
         >
           <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
             <path
@@ -67,42 +42,23 @@ export function SplashScreen({ go }: { go: (s: Screen) => void }) {
         </div>
       </div>
       <h1
-        style={{
-          fontFamily: "Outfit, sans-serif",
-          fontSize: 56,
-          fontWeight: 900,
-          margin: 0,
-          letterSpacing: -2,
-          color: TEXT,
-        }}
+        data-mova-style="entry-screens-s3" style={cssVars({ "--mova-entry-screens-s3-letter-spacing": cssVar((-2), true), "--mova-entry-screens-s3-color": cssVar((TEXT), true) })}
       >
         MOVA
       </h1>
       <p
-        style={{
-          color: t.muted,
-          fontSize: 14,
-          marginTop: 8,
-          letterSpacing: 3,
-          textTransform: "uppercase",
-          fontFamily: "Inter, sans-serif",
-        }}
+        data-mova-style="entry-screens-s4" style={cssVars({ "--mova-entry-screens-s4-color": cssVar((t.muted), true) })}
       >
         Move. Feel. Evolve.
       </p>
 
       <div
-        style={{ position: "absolute", bottom: 60, display: "flex", gap: 6 }}
+        data-mova-style="entry-screens-s5"
       >
         {[0, 1, 2].map((i) => (
           <div
             key={i}
-            style={{
-              width: i === 1 ? 22 : 6,
-              height: 6,
-              borderRadius: 3,
-              background: i === 1 ? t.accent : `${t.accent}30`,
-            }}
+            data-mova-style="entry-screens-s6" style={cssVars({ "--mova-entry-screens-s6-width": cssVar((i === 1 ? 22 : 6), true), "--mova-entry-screens-s6-background": cssVar((i === 1 ? t.accent : `${t.accent}30`), true) })}
           />
         ))}
       </div>
@@ -117,61 +73,20 @@ export function LoginScreen({ go }: { go: (s: Screen) => void }) {
 
   return (
     <div
-      style={{
-        position: "absolute",
-        inset: 0,
-        overflowY: "auto",
-        background: t.bg,
-      }}
+      data-mova-style="entry-screens-s7" style={cssVars({ "--mova-entry-screens-s7-background": cssVar((t.bg), true) })}
     >
       <div
-        style={{
-          height: 260,
-          background: `linear-gradient(160deg, #AECBFF 0%, #D0E5FF 50%, ${t.bg} 100%)`,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "flex-end",
-          paddingBottom: 28,
-          position: "relative",
-          overflow: "hidden",
-        }}
+        data-mova-style="entry-screens-s8" style={cssVars({ "--mova-entry-screens-s8-background": cssVar((`linear-gradient(160deg, #AECBFF 0%, #D0E5FF 50%, ${t.bg} 100%)`), true) })}
       >
         {/* Decorative blobs */}
         <div
-          style={{
-            position: "absolute",
-            top: -50,
-            right: -30,
-            width: 160,
-            height: 160,
-            borderRadius: "50%",
-            background: `${t.accent}22`,
-          }}
+          data-mova-style="entry-screens-s9" style={cssVars({ "--mova-entry-screens-s9-top": cssVar((-50), true), "--mova-entry-screens-s9-right": cssVar((-30), true), "--mova-entry-screens-s9-background": cssVar((`${t.accent}22`), true) })}
         />
         <div
-          style={{
-            position: "absolute",
-            bottom: -40,
-            left: -30,
-            width: 140,
-            height: 140,
-            borderRadius: "50%",
-            background: "#F590B822",
-          }}
+          data-mova-style="entry-screens-s10" style={cssVars({ "--mova-entry-screens-s10-bottom": cssVar((-40), true), "--mova-entry-screens-s10-left": cssVar((-30), true) })}
         />
         <div
-          style={{
-            width: 68,
-            height: 68,
-            borderRadius: "50%",
-            background: `linear-gradient(135deg, ${t.accent}, #A8D0FF)`,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            marginBottom: 14,
-            boxShadow: `0 8px 28px ${t.accent}55`,
-          }}
+          data-mova-style="entry-screens-s11" style={cssVars({ "--mova-entry-screens-s11-background": cssVar((`linear-gradient(135deg, ${t.accent}, #A8D0FF)`), true), "--mova-entry-screens-s11-box-shadow": cssVar((`0 8px 28px ${t.accent}55`), true) })}
         >
           <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
             <path
@@ -190,31 +105,19 @@ export function LoginScreen({ go }: { go: (s: Screen) => void }) {
           </svg>
         </div>
         <h1
-          style={{
-            fontFamily: "Outfit, sans-serif",
-            fontSize: 38,
-            fontWeight: 900,
-            margin: 0,
-            color: TEXT,
-          }}
+          data-mova-style="entry-screens-s12" style={cssVars({ "--mova-entry-screens-s12-color": cssVar((TEXT), true) })}
         >
           MOVA
         </h1>
       </div>
 
-      <div style={{ padding: "28px 24px 40px" }}>
+      <div data-mova-style="entry-screens-s13">
         <h2
-          style={{
-            fontFamily: "Outfit, sans-serif",
-            fontSize: 26,
-            fontWeight: 800,
-            margin: "0 0 4px",
-            color: TEXT,
-          }}
+          data-mova-style="entry-screens-s14" style={cssVars({ "--mova-entry-screens-s14-color": cssVar((TEXT), true) })}
         >
           Bienvenido
         </h2>
-        <p style={{ color: t.muted, fontSize: 14, margin: "0 0 28px" }}>
+        <p data-mova-style="entry-screens-s15" style={cssVars({ "--mova-entry-screens-s15-color": cssVar((t.muted), true) })}>
           Inicia sesión para continuar
         </p>
 
@@ -234,15 +137,9 @@ export function LoginScreen({ go }: { go: (s: Screen) => void }) {
             ph: "••••••••",
           },
         ].map((f) => (
-          <div key={f.label} style={{ marginBottom: 18 }}>
+          <div key={f.label} data-mova-style="entry-screens-s16">
             <label
-              style={{
-                fontSize: 11,
-                color: t.muted,
-                letterSpacing: 1.2,
-                textTransform: "uppercase",
-                fontWeight: 700,
-              }}
+              data-mova-style="entry-screens-s17" style={cssVars({ "--mova-entry-screens-s17-color": cssVar((t.muted), true) })}
             >
               {f.label}
             </label>
@@ -251,31 +148,14 @@ export function LoginScreen({ go }: { go: (s: Screen) => void }) {
               onChange={(e) => f.set(e.target.value)}
               type={f.type}
               placeholder={f.ph}
-              style={{
-                display: "block",
-                width: "100%",
-                marginTop: 8,
-                background: t.card,
-                border: `1.5px solid ${t.border}`,
-                borderRadius: 14,
-                padding: "13px 16px",
-                color: TEXT,
-                fontSize: 15,
-                outline: "none",
-                boxShadow: `0 2px 8px ${t.accent}10`,
-              }}
+              data-mova-style="entry-screens-s18" style={cssVars({ "--mova-entry-screens-s18-background": cssVar((t.card), true), "--mova-entry-screens-s18-border": cssVar((`1.5px solid ${t.border}`), true), "--mova-entry-screens-s18-color": cssVar((TEXT), true), "--mova-entry-screens-s18-box-shadow": cssVar((`0 2px 8px ${t.accent}10`), true) })}
             />
           </div>
         ))}
 
-        <div style={{ textAlign: "right", marginBottom: 24 }}>
+        <div data-mova-style="entry-screens-s19">
           <span
-            style={{
-              color: t.accent,
-              fontSize: 13,
-              cursor: "pointer",
-              fontWeight: 600,
-            }}
+            data-mova-style="entry-screens-s20" style={cssVars({ "--mova-entry-screens-s20-color": cssVar((t.accent), true) })}
           >
             ¿Olvidaste tu contraseña?
           </span>
@@ -283,50 +163,24 @@ export function LoginScreen({ go }: { go: (s: Screen) => void }) {
 
         <button
           onClick={() => go("profile")}
-          style={{
-            width: "100%",
-            padding: "15px",
-            borderRadius: 16,
-            background: `linear-gradient(135deg, ${t.accent}, #A8CAFF)`,
-            border: "none",
-            color: "#fff",
-            fontSize: 16,
-            fontWeight: 800,
-            cursor: "pointer",
-            boxShadow: `0 8px 24px ${t.accent}44`,
-          }}
+          data-mova-style="entry-screens-s21" style={cssVars({ "--mova-entry-screens-s21-background": cssVar((`linear-gradient(135deg, ${t.accent}, #A8CAFF)`), true), "--mova-entry-screens-s21-box-shadow": cssVar((`0 8px 24px ${t.accent}44`), true) })}
         >
           Iniciar Sesión
         </button>
 
         <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 12,
-            margin: "22px 0",
-          }}
+          data-mova-style="entry-screens-s22"
         >
-          <div style={{ flex: 1, height: 1, background: BORDER_GLOBAL }} />
-          <span style={{ color: t.muted, fontSize: 12 }}>o continúa con</span>
-          <div style={{ flex: 1, height: 1, background: BORDER_GLOBAL }} />
+          <div data-mova-style="entry-screens-s23" style={cssVars({ "--mova-entry-screens-s23-background": cssVar((BORDER_GLOBAL), true) })} />
+          <span data-mova-style="entry-screens-s24" style={cssVars({ "--mova-entry-screens-s24-color": cssVar((t.muted), true) })}>o continúa con</span>
+          <div data-mova-style="entry-screens-s25" style={cssVars({ "--mova-entry-screens-s25-background": cssVar((BORDER_GLOBAL), true) })} />
         </div>
 
-        <div style={{ display: "flex", gap: 10 }}>
+        <div data-mova-style="entry-screens-s26">
           {["🌐 Google", "🍎 Apple"].map((p) => (
             <button
               key={p}
-              style={{
-                flex: 1,
-                padding: "12px",
-                borderRadius: 14,
-                background: t.card,
-                border: `1.5px solid ${t.border}`,
-                color: TEXT_MED,
-                fontSize: 13,
-                fontWeight: 600,
-                cursor: "pointer",
-              }}
+              data-mova-style="entry-screens-s27" style={cssVars({ "--mova-entry-screens-s27-background": cssVar((t.card), true), "--mova-entry-screens-s27-border": cssVar((`1.5px solid ${t.border}`), true), "--mova-entry-screens-s27-color": cssVar((TEXT_MED), true) })}
             >
               {p}
             </button>
@@ -334,26 +188,13 @@ export function LoginScreen({ go }: { go: (s: Screen) => void }) {
         </div>
 
         <p
-          style={{
-            textAlign: "center",
-            color: t.muted,
-            fontSize: 13,
-            marginTop: 28,
-          }}
+          data-mova-style="entry-screens-s28" style={cssVars({ "--mova-entry-screens-s28-color": cssVar((t.muted), true) })}
         >
           ¿No tienes cuenta?{" "}
           <button
             type="button"
             onClick={() => go("signup")}
-            style={{
-              color: t.accent,
-              cursor: "pointer",
-              fontWeight: 700,
-              border: "none",
-              background: "none",
-              padding: 0,
-              fontSize: 13,
-            }}
+            data-mova-style="entry-screens-s29" style={cssVars({ "--mova-entry-screens-s29-color": cssVar((t.accent), true) })}
           >
             Regístrate
           </button>
@@ -398,31 +239,14 @@ export function SignupScreen({ go }: { go: (s: Screen) => void }) {
 
   return (
     <div
-      style={{
-        position: "absolute",
-        inset: 0,
-        overflowY: "auto",
-        background: t.bg,
-      }}
+      data-mova-style="entry-screens-s30" style={cssVars({ "--mova-entry-screens-s30-background": cssVar((t.bg), true) })}
     >
-      <div style={{ padding: "48px 22px 34px" }}>
+      <div data-mova-style="entry-screens-s31">
         <button
           type="button"
           onClick={() => go("login")}
           aria-label="Volver al inicio de sesión"
-          style={{
-            width: 38,
-            height: 38,
-            borderRadius: 12,
-            border: "none",
-            background: "#fff",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            marginBottom: 16,
-            boxShadow: "0 3px 12px rgba(0,0,0,0.06)",
-          }}
+          data-mova-style="entry-screens-s32"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
             <path
@@ -434,64 +258,36 @@ export function SignupScreen({ go }: { go: (s: Screen) => void }) {
           </svg>
         </button>
 
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        <div data-mova-style="entry-screens-s33">
           <div
-            style={{
-              width: 44,
-              height: 44,
-              borderRadius: 15,
-              background: `linear-gradient(135deg, ${t.accent}, #F6BE86)`,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "#fff",
-              fontSize: 21,
-              fontWeight: 900,
-            }}
+            data-mova-style="entry-screens-s34" style={cssVars({ "--mova-entry-screens-s34-background": cssVar((`linear-gradient(135deg, ${t.accent}, #F6BE86)`), true) })}
           >
             M
           </div>
           <div>
             <div
-              style={{
-                fontSize: 10,
-                color: t.muted,
-                fontWeight: 800,
-                letterSpacing: 1.2,
-                textTransform: "uppercase",
-              }}
+              data-mova-style="entry-screens-s35" style={cssVars({ "--mova-entry-screens-s35-color": cssVar((t.muted), true) })}
             >
               Crea tu cuenta
             </div>
             <h2
-              style={{ fontSize: 25, fontWeight: 900, margin: 0, color: TEXT }}
+              data-mova-style="entry-screens-s36" style={cssVars({ "--mova-entry-screens-s36-color": cssVar((TEXT), true) })}
             >
               Conozcámonos
             </h2>
           </div>
         </div>
         <p
-          style={{
-            color: t.muted,
-            fontSize: 13,
-            lineHeight: 1.45,
-            margin: "10px 0 18px",
-          }}
+          data-mova-style="entry-screens-s37" style={cssVars({ "--mova-entry-screens-s37-color": cssVar((t.muted), true) })}
         >
           Completa los datos para personalizar la experiencia MOVA.
         </p>
 
         <form onSubmit={submit} noValidate>
           {textFields.slice(0, 3).map((field) => (
-            <div key={field.key} style={{ marginBottom: 12 }}>
+            <div key={field.key} data-mova-style="entry-screens-s38">
               <label
-                style={{
-                  fontSize: 10,
-                  color: t.muted,
-                  letterSpacing: 0.7,
-                  textTransform: "uppercase",
-                  fontWeight: 800,
-                }}
+                data-mova-style="entry-screens-s39" style={cssVars({ "--mova-entry-screens-s39-color": cssVar((t.muted), true) })}
               >
                 {field.label} *
               </label>
@@ -507,56 +303,26 @@ export function SignupScreen({ go }: { go: (s: Screen) => void }) {
                 }
                 inputMode={field.type === "numeric" ? "numeric" : undefined}
                 placeholder={field.placeholder}
-                style={{
-                  display: "block",
-                  width: "100%",
-                  marginTop: 6,
-                  background: "#fff",
-                  border: `1.5px solid ${
+                data-mova-style="entry-screens-s40" style={cssVars({ "--mova-entry-screens-s40-border": cssVar((`1.5px solid ${
                     submitted && !form[field.key] ? "#F5795A" : t.border
-                  }`,
-                  borderRadius: 13,
-                  padding: "11px 14px",
-                  color: TEXT,
-                  fontSize: 14,
-                  outline: "none",
-                }}
+                  }`), true), "--mova-entry-screens-s40-color": cssVar((TEXT), true) })}
               />
             </div>
           ))}
 
-          <div style={{ marginBottom: 12 }}>
+          <div data-mova-style="entry-screens-s41">
             <label
-              style={{
-                fontSize: 10,
-                color: t.muted,
-                letterSpacing: 0.7,
-                textTransform: "uppercase",
-                fontWeight: 800,
-              }}
+              data-mova-style="entry-screens-s42" style={cssVars({ "--mova-entry-screens-s42-color": cssVar((t.muted), true) })}
             >
               Número de teléfono a sincronizar *
             </label>
             <div
-              style={{
-                display: "flex",
-                marginTop: 6,
-                background: "#fff",
-                border: `1.5px solid ${
+              data-mova-style="entry-screens-s43" style={cssVars({ "--mova-entry-screens-s43-border": cssVar((`1.5px solid ${
                   submitted && form.phone.length !== 8 ? "#F5795A" : t.border
-                }`,
-                borderRadius: 13,
-                overflow: "hidden",
-              }}
+                }`), true) })}
             >
               <span
-                style={{
-                  padding: "11px 10px 11px 14px",
-                  background: t.soft,
-                  color: t.muted,
-                  fontSize: 14,
-                  fontWeight: 800,
-                }}
+                data-mova-style="entry-screens-s44" style={cssVars({ "--mova-entry-screens-s44-background": cssVar((t.soft), true), "--mova-entry-screens-s44-color": cssVar((t.muted), true) })}
               >
                 +569
               </span>
@@ -570,30 +336,15 @@ export function SignupScreen({ go }: { go: (s: Screen) => void }) {
                 }
                 inputMode="numeric"
                 placeholder="12345678"
-                style={{
-                  flex: 1,
-                  minWidth: 0,
-                  border: "none",
-                  padding: "11px 12px",
-                  color: TEXT,
-                  fontSize: 14,
-                  outline: "none",
-                  background: "#fff",
-                }}
+                data-mova-style="entry-screens-s45" style={cssVars({ "--mova-entry-screens-s45-color": cssVar((TEXT), true) })}
               />
             </div>
           </div>
 
           {textFields.slice(3).map((field) => (
-            <div key={field.key} style={{ marginBottom: 12 }}>
+            <div key={field.key} data-mova-style="entry-screens-s46">
               <label
-                style={{
-                  fontSize: 10,
-                  color: t.muted,
-                  letterSpacing: 0.7,
-                  textTransform: "uppercase",
-                  fontWeight: 800,
-                }}
+                data-mova-style="entry-screens-s47" style={cssVars({ "--mova-entry-screens-s47-color": cssVar((t.muted), true) })}
               >
                 {field.label}
                 {field.optional ? " · Opcional" : " *"}
@@ -602,46 +353,24 @@ export function SignupScreen({ go }: { go: (s: Screen) => void }) {
                 value={form[field.key]}
                 onChange={(event) => update(field.key, event.target.value)}
                 placeholder={field.placeholder}
-                style={{
-                  display: "block",
-                  width: "100%",
-                  marginTop: 6,
-                  background: "#fff",
-                  border: `1.5px solid ${
+                data-mova-style="entry-screens-s48" style={cssVars({ "--mova-entry-screens-s48-border": cssVar((`1.5px solid ${
                     submitted && !field.optional && !form[field.key]
                       ? "#F5795A"
                       : t.border
-                  }`,
-                  borderRadius: 13,
-                  padding: "11px 14px",
-                  color: TEXT,
-                  fontSize: 14,
-                  outline: "none",
-                }}
+                  }`), true), "--mova-entry-screens-s48-color": cssVar((TEXT), true) })}
               />
             </div>
           ))}
 
           {submitted && !isValid && (
-            <p style={{ color: "#D95648", fontSize: 11, margin: "0 0 11px" }}>
+            <p data-mova-style="entry-screens-s49">
               Completa todos los campos obligatorios. El teléfono debe tener 8
               dígitos.
             </p>
           )}
           <button
             type="submit"
-            style={{
-              width: "100%",
-              padding: "14px",
-              borderRadius: 15,
-              border: "none",
-              background: `linear-gradient(135deg, ${t.accent}, #F6BE86)`,
-              color: "#fff",
-              fontSize: 15,
-              fontWeight: 800,
-              cursor: "pointer",
-              boxShadow: `0 8px 22px ${t.accent}44`,
-            }}
+            data-mova-style="entry-screens-s50" style={cssVars({ "--mova-entry-screens-s50-background": cssVar((`linear-gradient(135deg, ${t.accent}, #F6BE86)`), true), "--mova-entry-screens-s50-box-shadow": cssVar((`0 8px 22px ${t.accent}44`), true) })}
           >
             Crear cuenta y continuar
           </button>

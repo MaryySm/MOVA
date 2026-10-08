@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { readProfiles, getActiveProfileId } from "./profileController"
+// Aquí preparo el perfil seleccionado y la ubicación que muestra el mapa simulado.
 export function useDeviceController() {
   const profiles = readProfiles()
 

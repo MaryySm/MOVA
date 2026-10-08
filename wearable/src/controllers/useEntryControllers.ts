@@ -5,6 +5,8 @@ import type { SignupData } from "../models/profile"
 import { registerProfile } from "./profileController"
 
 type SignupField = keyof SignupData
+
+// Aquí controlo la transición automática desde la presentación al inicio de sesión.
 export function useSplashController(go: (screen: Screen) => void) {
   const [opacity, setOpacity] = useState(0)
 
@@ -20,6 +22,7 @@ export function useSplashController(go: (screen: Screen) => void) {
   return { opacity }
 }
 export function useLoginController() {
+  // Mantengo los campos de acceso mientras la persona escribe.
   const [email, setEmail] = useState("")
 
   const [pass, setPass] = useState("")
@@ -27,6 +30,7 @@ export function useLoginController() {
   return { email, setEmail, pass, setPass }
 }
 export function useSignupController(go: (screen: Screen) => void) {
+  // Aquí reúno, valido y envío el formulario al almacenamiento del prototipo.
   const [form, setForm] = useState<SignupData>({
     adultName: "",
     userName: "",

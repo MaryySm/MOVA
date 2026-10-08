@@ -3,6 +3,7 @@ import { promisify } from 'node:util';
 import express from 'express';
 import pg from 'pg';
 
+// Aquí conecto Express con PostgreSQL usando la URL que Compose inyecta.
 const { Pool } = pg;
 const scrypt = promisify(crypto.scrypt);
 const app = express();
@@ -38,6 +39,7 @@ app.use((_req, res, next) => {
   next();
 });
 
+// Mantengo el esquema aquí para actualizar también bases ya creadas al iniciar.
 const schema = `
   CREATE TABLE IF NOT EXISTS users (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -62,6 +64,7 @@ const schema = `
   CREATE INDEX IF NOT EXISTS wearable_syncs_synced_at_idx ON wearable_syncs(synced_at DESC);
 `;
 
+// Devuelvo solo datos públicos del perfil y nunca el hash de la contraseña.
 function safeUser(row) {
   return {
     id: row.id,
@@ -74,6 +77,7 @@ function safeUser(row) {
   };
 }
 
+// Creo una sesión firmada para que la app autentique sus siguientes llamadas.
 function issueToken(user) {
   const payload = Buffer.from(JSON.stringify({
     sub: user.id,
@@ -84,6 +88,7 @@ function issueToken(user) {
   return `${payload}.${signature}`;
 }
 
+// Compruebo firma y vencimiento antes de aceptar una sesión.
 function verifyToken(token) {
   const [payload, signature, extra] = token.split('.');
   if (!payload || !signature || extra) return null;
@@ -97,6 +102,7 @@ function verifyToken(token) {
   } catch { return null; }
 }
 
+// Protejo las rutas privadas leyendo la sesión del encabezado Authorization.
 function requireAuth(req, res, next) {
   const authorization = req.get('authorization') ?? '';
   const match = /^Bearer ([^ ]+)$/.exec(authorization);
@@ -107,6 +113,7 @@ function requireAuth(req, res, next) {
 }
 
 const attempts = new Map();
+// Limito intentos seguidos de registro y login desde una misma dirección.
 function limitAuthAttempts(req, res, next) {
   const now = Date.now();
   const key = req.ip;
@@ -121,6 +128,7 @@ function text(value, maxLength = 160) {
   return typeof value === 'string' ? value.trim().slice(0, maxLength) : '';
 }
 
+// Uso esta ruta para comprobar que la API también alcanza PostgreSQL.
 app.get('/health', async (_req, res) => {
   try {
     await pool.query('SELECT 1');
@@ -130,6 +138,7 @@ app.get('/health', async (_req, res) => {
   }
 });
 
+// Recibo el formulario, valido sus datos y guardo una cuenta nueva.
 app.post('/api/auth/register', limitAuthAttempts, async (req, res) => {
   const adultName = text(req.body?.adultName);
   const name = text(req.body?.name);
@@ -145,6 +154,7 @@ app.post('/api/auth/register', limitAuthAttempts, async (req, res) => {
   }
   const salt = crypto.randomBytes(16);
   try {
+    // Guardo la contraseña como hash con sal aleatoria; no conservo el texto original.
     const hash = await scrypt(password, salt, 64);
     const result = await pool.query(
       `INSERT INTO users(adult_name,user_name,age,phone,email,diagnosis,password_hash,password_salt)
@@ -160,6 +170,7 @@ app.post('/api/auth/register', limitAuthAttempts, async (req, res) => {
   }
 });
 
+// Busco la cuenta por correo y comparo su contraseña con el hash guardado.
 app.post('/api/auth/login', limitAuthAttempts, async (req, res) => {
   const email = text(req.body?.email, 254).toLowerCase();
   const password = req.body?.password;
@@ -183,6 +194,7 @@ app.post('/api/auth/login', limitAuthAttempts, async (req, res) => {
   }
 });
 
+// Devuelvo el perfil actual después de validar la sesión firmada.
 app.get('/api/auth/me', requireAuth, async (req, res) => {
   try {
     const result = await pool.query(
@@ -196,6 +208,7 @@ app.get('/api/auth/me', requireAuth, async (req, res) => {
   }
 });
 
+// Guardo datos BLE bajo el identificador de la cuenta autenticada.
 app.post('/api/sync', requireAuth, async (req, res) => {
   const { deviceId = null, payload } = req.body ?? {};
   if (!payload || typeof payload !== 'object' || Array.isArray(payload)) return res.status(400).json({ error: 'payload debe ser un objeto JSON' });
@@ -208,6 +221,7 @@ app.post('/api/sync', requireAuth, async (req, res) => {
   }
 });
 
+// Consulto las sincronizaciones de esta cuenta, sin mezclar otros usuarios.
 app.get('/api/sync', requireAuth, async (req, res) => {
   const limit = Math.min(Math.max(parseInt(req.query.limit ?? '50', 10) || 50, 1), 200);
   try {

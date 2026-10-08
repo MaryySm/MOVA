@@ -1,3 +1,6 @@
+// Aquí muestro la rutina diaria y dejo cambiar el estado de cada tarea.
+import { cssVar, cssVars } from "../styleVars";
+import "./RoutinesScreen.styles.css";
 import type { Screen } from "../../models/navigation"
 import { THEME, TEXT, TEXT_MED } from "../theme"
 import { useRoutineController } from "../../controllers/usePlanningControllers"
@@ -28,106 +31,51 @@ export function RoutinesScreen({ go }: { go: (s: Screen) => void }) {
 
   return (
     <div
-      style={{
-        position: "absolute",
-        inset: 0,
-        overflowY: "auto",
-        paddingBottom: 80,
-        background: t.bg,
-      }}
+      data-mova-style="routines-screen-s0" style={cssVars({ "--mova-routines-screen-s0-background": cssVar((t.bg), true) })}
     >
       {/* Toast */}
       {toast && (
         <div
-          style={{
-            position: "absolute",
-            top: 60,
-            left: 20,
-            right: 20,
-            zIndex: 200,
-            background: "#1A1A2E",
-            color: "#fff",
-            borderRadius: 14,
-            padding: "12px 16px",
-            fontSize: 13,
-            fontWeight: 600,
-            boxShadow: "0 8px 24px rgba(0,0,0,0.2)",
-            textAlign: "center",
-          }}
+          data-mova-style="routines-screen-s1"
         >
           {toast}
         </div>
       )}
 
-      <div style={{ padding: "52px 20px 16px" }}>
+      <div data-mova-style="routines-screen-s2">
         <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: 6,
-          }}
+          data-mova-style="routines-screen-s3"
         >
           <h2
-            style={{
-              fontFamily: "Outfit, sans-serif",
-              fontSize: 24,
-              fontWeight: 900,
-              margin: 0,
-              color: TEXT,
-            }}
+            data-mova-style="routines-screen-s4" style={cssVars({ "--mova-routines-screen-s4-color": cssVar((TEXT), true) })}
           >
             Mis Rutinas
           </h2>
           <button
             onClick={() => go("profile")}
-            style={{
-              background: `linear-gradient(135deg, ${t.accent}, #FFD09A)`,
-              border: "none",
-              borderRadius: 12,
-              padding: "8px 14px",
-              color: "#fff",
-              fontSize: 13,
-              fontWeight: 800,
-              cursor: "pointer",
-              boxShadow: `0 4px 14px ${t.accent}44`,
-            }}
+            data-mova-style="routines-screen-s5" style={cssVars({ "--mova-routines-screen-s5-background": cssVar((`linear-gradient(135deg, ${t.accent}, #FFD09A)`), true), "--mova-routines-screen-s5-box-shadow": cssVar((`0 4px 14px ${t.accent}44`), true) })}
           >
             + Planificar
           </button>
         </div>
 
         {/* Progress bar */}
-        <div style={{ marginBottom: 20 }}>
+        <div data-mova-style="routines-screen-s6">
           <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginBottom: 6,
-            }}
+            data-mova-style="routines-screen-s7"
           >
-            <span style={{ fontSize: 12, color: TEXT_MED }}>
+            <span data-mova-style="routines-screen-s8" style={cssVars({ "--mova-routines-screen-s8-color": cssVar((TEXT_MED), true) })}>
               Progreso de hoy
             </span>
-            <span style={{ fontSize: 12, fontWeight: 700, color: t.accent }}>
+            <span data-mova-style="routines-screen-s9" style={cssVars({ "--mova-routines-screen-s9-color": cssVar((t.accent), true) })}>
               {doneTasks}/{totalTasks} completadas
             </span>
           </div>
           <div
-            style={{
-              height: 8,
-              borderRadius: 4,
-              background: "rgba(0,0,0,0.08)",
-            }}
+            data-mova-style="routines-screen-s10"
           >
             <div
-              style={{
-                height: "100%",
-                borderRadius: 4,
-                background: `linear-gradient(90deg, ${t.accent}, #FFD09A)`,
-                width: `${totalTasks ? (doneTasks / totalTasks) * 100 : 0}%`,
-                transition: "width 0.3s",
-              }}
+              data-mova-style="routines-screen-s11" style={cssVars({ "--mova-routines-screen-s11-background": cssVar((`linear-gradient(90deg, ${t.accent}, #FFD09A)`), true), "--mova-routines-screen-s11-width": cssVar((`${totalTasks ? (doneTasks / totalTasks) * 100 : 0}%`), true) })}
             />
           </div>
         </div>
@@ -140,74 +88,41 @@ export function RoutinesScreen({ go }: { go: (s: Screen) => void }) {
           const slotDone = tasks.filter((t) => t.done).length
 
           return (
-            <div key={slot.key} style={{ marginBottom: 12 }}>
+            <div key={slot.key} data-mova-style="routines-screen-s12">
               {/* Slot header */}
               <button
                 onClick={() => {
                   setOpenSlot(isOpen ? null : slot.key)
                   setAddingTo(null)
                 }}
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 12,
-                  padding: "14px 16px",
-                  background: "#fff",
-                  borderRadius: isOpen ? "18px 18px 0 0" : 18,
-                  border: `1.5px solid ${
+                data-mova-style="routines-screen-s13" style={cssVars({ "--mova-routines-screen-s13-border-radius": cssVar((isOpen ? "18px 18px 0 0" : 18), true), "--mova-routines-screen-s13-border": cssVar((`1.5px solid ${
                     isOpen ? slot.color : "rgba(0,0,0,0.07)"
-                  }`,
-                  borderBottom: isOpen
+                  }`), true), "--mova-routines-screen-s13-border-bottom": cssVar((isOpen
                     ? `1.5px solid ${slot.color}30`
-                    : undefined,
-                  cursor: "pointer",
-                  textAlign: "left",
-                  boxShadow: isOpen
+                    : undefined), true), "--mova-routines-screen-s13-box-shadow": cssVar((isOpen
                     ? `0 4px 16px ${slot.color}22`
-                    : "0 2px 8px rgba(0,0,0,0.05)",
-                }}
+                    : "0 2px 8px rgba(0,0,0,0.05)"), true) })}
               >
                 <div
-                  style={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: 12,
-                    background: `${slot.color}20`,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: 20,
-                    flexShrink: 0,
-                  }}
+                  data-mova-style="routines-screen-s14" style={cssVars({ "--mova-routines-screen-s14-background": cssVar((`${slot.color}20`), true) })}
                 >
                   {slot.emoji}
                 </div>
-                <div style={{ flex: 1 }}>
+                <div data-mova-style="routines-screen-s15">
                   <div
-                    style={{
-                      fontFamily: "Outfit, sans-serif",
-                      fontSize: 15,
-                      fontWeight: 800,
-                      color: TEXT,
-                    }}
+                    data-mova-style="routines-screen-s16" style={cssVars({ "--mova-routines-screen-s16-color": cssVar((TEXT), true) })}
                   >
                     {slot.label}
                   </div>
-                  <div style={{ fontSize: 11, color: TEXT_MED }}>
+                  <div data-mova-style="routines-screen-s17" style={cssVars({ "--mova-routines-screen-s17-color": cssVar((TEXT_MED), true) })}>
                     {slot.from} – {slot.to} · {slotDone}/{tasks.length} hechas
                   </div>
                 </div>
-                <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+                <div data-mova-style="routines-screen-s18">
                   {tasks.slice(0, 3).map((task) => (
                     <div
                       key={task.id}
-                      style={{
-                        width: 8,
-                        height: 8,
-                        borderRadius: "50%",
-                        background: task.done ? task.color : `${task.color}50`,
-                      }}
+                      data-mova-style="routines-screen-s19" style={cssVars({ "--mova-routines-screen-s19-background": cssVar((task.done ? task.color : `${task.color}50`), true) })}
                     />
                   ))}
                   <svg
@@ -215,10 +130,7 @@ export function RoutinesScreen({ go }: { go: (s: Screen) => void }) {
                     height="16"
                     viewBox="0 0 24 24"
                     fill="none"
-                    style={{
-                      transform: isOpen ? "rotate(90deg)" : "none",
-                      transition: "transform 0.2s",
-                    }}
+                    data-mova-style="routines-screen-s20" style={cssVars({ "--mova-routines-screen-s20-transform": cssVar((isOpen ? "rotate(90deg)" : "none"), true) })}
                   >
                     <path
                       d="M9 18L15 12L9 6"
@@ -233,22 +145,11 @@ export function RoutinesScreen({ go }: { go: (s: Screen) => void }) {
               {/* Slot body */}
               {isOpen && (
                 <div
-                  style={{
-                    background: "#fff",
-                    borderRadius: "0 0 18px 18px",
-                    border: `1.5px solid ${slot.color}`,
-                    borderTop: "none",
-                    padding: "4px 0 14px",
-                  }}
+                  data-mova-style="routines-screen-s21" style={cssVars({ "--mova-routines-screen-s21-border": cssVar((`1.5px solid ${slot.color}`), true) })}
                 >
                   {tasks.length === 0 && (
                     <p
-                      style={{
-                        textAlign: "center",
-                        color: TEXT_MED,
-                        fontSize: 13,
-                        padding: "16px 0 8px",
-                      }}
+                      data-mova-style="routines-screen-s22" style={cssVars({ "--mova-routines-screen-s22-color": cssVar((TEXT_MED), true) })}
                     >
                       Sin tareas. Añade la primera ↓
                     </p>
@@ -256,34 +157,16 @@ export function RoutinesScreen({ go }: { go: (s: Screen) => void }) {
                   {tasks.map((task, idx) => (
                     <div
                       key={task.id}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 10,
-                        padding: "10px 16px",
-                        borderBottom:
-                          idx < tasks.length - 1
+                      data-mova-style="routines-screen-s23" style={cssVars({ "--mova-routines-screen-s23-border-bottom": cssVar((idx < tasks.length - 1
                             ? "1px solid rgba(0,0,0,0.05)"
-                            : "none",
-                      }}
+                            : "none"), true) })}
                     >
                       {/* Checkbox */}
                       <button
                         onClick={() => toggleDone(slot.key, task.id)}
-                        style={{
-                          width: 22,
-                          height: 22,
-                          borderRadius: 7,
-                          flexShrink: 0,
-                          background: task.done ? task.color : "transparent",
-                          border: `2px solid ${
+                        data-mova-style="routines-screen-s24" style={cssVars({ "--mova-routines-screen-s24-background": cssVar((task.done ? task.color : "transparent"), true), "--mova-routines-screen-s24-border": cssVar((`2px solid ${
                             task.done ? task.color : "rgba(0,0,0,0.18)"
-                          }`,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          cursor: "pointer",
-                        }}
+                          }`), true) })}
                       >
                         {task.done && (
                           <svg width="12" height="12" viewBox="0 0 12 12">
@@ -298,14 +181,9 @@ export function RoutinesScreen({ go }: { go: (s: Screen) => void }) {
                         )}
                       </button>
 
-                      <div style={{ flex: 1 }}>
+                      <div data-mova-style="routines-screen-s25">
                         <span
-                          style={{
-                            fontSize: 14,
-                            color: task.done ? TEXT_MED : TEXT,
-                            fontWeight: 600,
-                            textDecoration: task.done ? "line-through" : "none",
-                          }}
+                          data-mova-style="routines-screen-s26" style={cssVars({ "--mova-routines-screen-s26-color": cssVar((task.done ? TEXT_MED : TEXT), true), "--mova-routines-screen-s26-text-decoration": cssVar((task.done ? "line-through" : "none"), true) })}
                         >
                           {task.label}
                         </span>
@@ -315,17 +193,7 @@ export function RoutinesScreen({ go }: { go: (s: Screen) => void }) {
                       <button
                         onClick={() => addToWeekPlan(task)}
                         title="Añadir a planificación semanal"
-                        style={{
-                          background: `${slot.color}18`,
-                          border: `1px solid ${slot.color}40`,
-                          borderRadius: 8,
-                          padding: "4px 8px",
-                          cursor: "pointer",
-                          fontSize: 11,
-                          color: slot.color,
-                          fontWeight: 700,
-                          flexShrink: 0,
-                        }}
+                        data-mova-style="routines-screen-s27" style={cssVars({ "--mova-routines-screen-s27-background": cssVar((`${slot.color}18`), true), "--mova-routines-screen-s27-border": cssVar((`1px solid ${slot.color}40`), true), "--mova-routines-screen-s27-color": cssVar((slot.color), true) })}
                       >
                         📅
                       </button>
@@ -333,15 +201,7 @@ export function RoutinesScreen({ go }: { go: (s: Screen) => void }) {
                       {/* Remove */}
                       <button
                         onClick={() => removeTask(slot.key, task.id)}
-                        style={{
-                          background: "none",
-                          border: "none",
-                          color: "#F5795A",
-                          cursor: "pointer",
-                          fontSize: 16,
-                          padding: "0 2px",
-                          flexShrink: 0,
-                        }}
+                        data-mova-style="routines-screen-s28"
                       >
                         ×
                       </button>
@@ -349,11 +209,11 @@ export function RoutinesScreen({ go }: { go: (s: Screen) => void }) {
                   ))}
 
                   {/* Add task row */}
-                  <div style={{ padding: "10px 16px 0" }}>
+                  <div data-mova-style="routines-screen-s29">
                     {isAdding ? (
                       <div>
                         <div
-                          style={{ display: "flex", gap: 8, marginBottom: 10 }}
+                          data-mova-style="routines-screen-s30"
                         >
                           <input
                             value={customTask}
@@ -365,32 +225,14 @@ export function RoutinesScreen({ go }: { go: (s: Screen) => void }) {
                               customTask.trim() &&
                               addTask(slot.key, customTask.trim(), slot.color)
                             }
-                            style={{
-                              flex: 1,
-                              background: "#F5F5F8",
-                              border: `1.5px solid ${slot.color}50`,
-                              borderRadius: 10,
-                              padding: "9px 12px",
-                              fontSize: 13,
-                              color: TEXT,
-                              outline: "none",
-                            }}
+                            data-mova-style="routines-screen-s31" style={cssVars({ "--mova-routines-screen-s31-border": cssVar((`1.5px solid ${slot.color}50`), true), "--mova-routines-screen-s31-color": cssVar((TEXT), true) })}
                           />
                           <button
                             onClick={() =>
                               customTask.trim() &&
                               addTask(slot.key, customTask.trim(), slot.color)
                             }
-                            style={{
-                              background: slot.color,
-                              border: "none",
-                              borderRadius: 10,
-                              padding: "9px 14px",
-                              color: "#fff",
-                              fontSize: 13,
-                              fontWeight: 700,
-                              cursor: "pointer",
-                            }}
+                            data-mova-style="routines-screen-s32" style={cssVars({ "--mova-routines-screen-s32-background": cssVar((slot.color), true) })}
                           >
                             OK
                           </button>
@@ -399,31 +241,18 @@ export function RoutinesScreen({ go }: { go: (s: Screen) => void }) {
                               setAddingTo(null)
                               setCustomTask("")
                             }}
-                            style={{
-                              background: "rgba(0,0,0,0.06)",
-                              border: "none",
-                              borderRadius: 10,
-                              padding: "9px 12px",
-                              color: TEXT_MED,
-                              fontSize: 13,
-                              cursor: "pointer",
-                            }}
+                            data-mova-style="routines-screen-s33" style={cssVars({ "--mova-routines-screen-s33-color": cssVar((TEXT_MED), true) })}
                           >
                             ✕
                           </button>
                         </div>
                         <p
-                          style={{
-                            fontSize: 11,
-                            color: TEXT_MED,
-                            margin: "0 0 8px",
-                            fontWeight: 600,
-                          }}
+                          data-mova-style="routines-screen-s34" style={cssVars({ "--mova-routines-screen-s34-color": cssVar((TEXT_MED), true) })}
                         >
                           Sugerencias rápidas:
                         </p>
                         <div
-                          style={{ display: "flex", flexWrap: "wrap", gap: 6 }}
+                          data-mova-style="routines-screen-s35"
                         >
                           {GENERIC_TASKS.map((gt) => (
                             <button
@@ -431,16 +260,7 @@ export function RoutinesScreen({ go }: { go: (s: Screen) => void }) {
                               onClick={() =>
                                 addTask(slot.key, gt.label, gt.color)
                               }
-                              style={{
-                                padding: "5px 10px",
-                                borderRadius: 16,
-                                background: `${gt.color}18`,
-                                border: `1px solid ${gt.color}40`,
-                                color: TEXT,
-                                fontSize: 11,
-                                fontWeight: 600,
-                                cursor: "pointer",
-                              }}
+                              data-mova-style="routines-screen-s36" style={cssVars({ "--mova-routines-screen-s36-background": cssVar((`${gt.color}18`), true), "--mova-routines-screen-s36-border": cssVar((`1px solid ${gt.color}40`), true), "--mova-routines-screen-s36-color": cssVar((TEXT), true) })}
                             >
                               {gt.label}
                             </button>
@@ -450,17 +270,7 @@ export function RoutinesScreen({ go }: { go: (s: Screen) => void }) {
                     ) : (
                       <button
                         onClick={() => setAddingTo(slot.key)}
-                        style={{
-                          width: "100%",
-                          padding: "9px",
-                          borderRadius: 10,
-                          cursor: "pointer",
-                          background: `${slot.color}12`,
-                          border: `1.5px dashed ${slot.color}50`,
-                          color: slot.color,
-                          fontSize: 13,
-                          fontWeight: 700,
-                        }}
+                        data-mova-style="routines-screen-s37" style={cssVars({ "--mova-routines-screen-s37-background": cssVar((`${slot.color}12`), true), "--mova-routines-screen-s37-border": cssVar((`1.5px dashed ${slot.color}50`), true), "--mova-routines-screen-s37-color": cssVar((slot.color), true) })}
                       >
                         + Añadir tarea a {slot.label}
                       </button>

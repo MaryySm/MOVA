@@ -1,3 +1,6 @@
+// Aquí presento el calendario y enlazo sus acciones con la planificación.
+import { cssVar, cssVars } from "../styleVars";
+import "./CalendarScreen.styles.css";
 import type { Screen } from "../../models/navigation"
 import { THEME, TEXT, TEXT_MED } from "../theme"
 import { useCalendarController } from "../../controllers/usePlanningControllers"
@@ -10,49 +13,22 @@ export function CalendarScreen({ go }: { go: (s: Screen) => void }) {
 
   return (
     <div
-      style={{
-        position: "absolute",
-        inset: 0,
-        overflowY: "auto",
-        paddingBottom: 80,
-        background: t.bg,
-      }}
+      data-mova-style="calendar-screen-s0" style={cssVars({ "--mova-calendar-screen-s0-background": cssVar((t.bg), true) })}
     >
-      <div style={{ padding: "52px 20px 16px" }}>
+      <div data-mova-style="calendar-screen-s1">
         <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: 18,
-          }}
+          data-mova-style="calendar-screen-s2"
         >
           <h2
-            style={{
-              fontFamily: "Outfit, sans-serif",
-              fontSize: 22,
-              fontWeight: 900,
-              margin: 0,
-              color: TEXT,
-            }}
+            data-mova-style="calendar-screen-s3" style={cssVars({ "--mova-calendar-screen-s3-color": cssVar((TEXT), true) })}
           >
             Agosto 2026
           </h2>
-          <div style={{ display: "flex", gap: 8 }}>
+          <div data-mova-style="calendar-screen-s4">
             {["‹", "›"].map((a) => (
               <button
                 key={a}
-                style={{
-                  background: "#fff",
-                  border: "1px solid rgba(0,0,0,0.07)",
-                  borderRadius: 10,
-                  width: 34,
-                  height: 34,
-                  color: TEXT_MED,
-                  cursor: "pointer",
-                  fontSize: 16,
-                  boxShadow: "0 2px 6px rgba(0,0,0,0.06)",
-                }}
+                data-mova-style="calendar-screen-s5" style={cssVars({ "--mova-calendar-screen-s5-color": cssVar((TEXT_MED), true) })}
               >
                 {a}
               </button>
@@ -61,31 +37,15 @@ export function CalendarScreen({ go }: { go: (s: Screen) => void }) {
         </div>
 
         <div
-          style={{
-            background: "#fff",
-            borderRadius: 22,
-            padding: "16px",
-            boxShadow: "0 4px 20px rgba(0,0,0,0.07)",
-            marginBottom: 22,
-          }}
+          data-mova-style="calendar-screen-s6"
         >
           <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(7,1fr)",
-              marginBottom: 8,
-            }}
+            data-mova-style="calendar-screen-s7"
           >
             {DAYS.map((d) => (
               <div
                 key={d}
-                style={{
-                  textAlign: "center",
-                  fontSize: 11,
-                  color: TEXT_MED,
-                  fontWeight: 700,
-                  padding: "4px 0",
-                }}
+                data-mova-style="calendar-screen-s8" style={cssVars({ "--mova-calendar-screen-s8-color": cssVar((TEXT_MED), true) })}
               >
                 {d}
               </div>
@@ -94,7 +54,7 @@ export function CalendarScreen({ go }: { go: (s: Screen) => void }) {
           {weeks.map((week, wi) => (
             <div
               key={wi}
-              style={{ display: "grid", gridTemplateColumns: "repeat(7,1fr)" }}
+              data-mova-style="calendar-screen-s9"
             >
               {week.map((day, di) => {
                 if (!day) return <div key={di} />
@@ -105,37 +65,18 @@ export function CalendarScreen({ go }: { go: (s: Screen) => void }) {
                   <button
                     key={di}
                     onClick={() => setSelectedDay(day)}
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      padding: "6px 2px",
-                      background: isSel ? t.accent : "transparent",
-                      borderRadius: 10,
-                      border: "none",
-                      cursor: "pointer",
-                    }}
+                    data-mova-style="calendar-screen-s10" style={cssVars({ "--mova-calendar-screen-s10-background": cssVar((isSel ? t.accent : "transparent"), true) })}
                   >
                     <span
-                      style={{
-                        fontSize: 14,
-                        color: isSel ? "#fff" : isToday ? t.accent : TEXT,
-                        fontWeight: isSel || isToday ? 800 : 400,
-                      }}
+                      data-mova-style="calendar-screen-s11" style={cssVars({ "--mova-calendar-screen-s11-color": cssVar((isSel ? "#fff" : isToday ? t.accent : TEXT), true), "--mova-calendar-screen-s11-font-weight": cssVar(isSel || isToday ? 800 : 400, false) })}
                     >
                       {day}
                     </span>
                     {event && (
                       <div
-                        style={{
-                          width: 5,
-                          height: 5,
-                          borderRadius: "50%",
-                          background: isSel
+                        data-mova-style="calendar-screen-s12" style={cssVars({ "--mova-calendar-screen-s12-background": cssVar((isSel
                             ? "rgba(255,255,255,0.8)"
-                            : event.color,
-                          marginTop: 2,
-                        }}
+                            : event.color), true) })}
                       />
                     )}
                   </button>
@@ -146,13 +87,7 @@ export function CalendarScreen({ go }: { go: (s: Screen) => void }) {
         </div>
 
         <h3
-          style={{
-            fontFamily: "Outfit, sans-serif",
-            fontSize: 15,
-            fontWeight: 800,
-            margin: "0 0 14px",
-            color: TEXT,
-          }}
+          data-mova-style="calendar-screen-s13" style={cssVars({ "--mova-calendar-screen-s13-color": cssVar((TEXT), true) })}
         >
           Lunes {selectedDay} de agosto
         </h3>
@@ -160,45 +95,23 @@ export function CalendarScreen({ go }: { go: (s: Screen) => void }) {
         {scheduled.map((ev) => (
           <div
             key={ev.time}
-            style={{
-              display: "flex",
-              gap: 12,
-              alignItems: "flex-start",
-              marginBottom: 12,
-            }}
+            data-mova-style="calendar-screen-s14"
           >
-            <div style={{ width: 44, textAlign: "right", paddingTop: 4 }}>
-              <span style={{ fontSize: 11, color: TEXT_MED }}>{ev.time}</span>
+            <div data-mova-style="calendar-screen-s15">
+              <span data-mova-style="calendar-screen-s16" style={cssVars({ "--mova-calendar-screen-s16-color": cssVar((TEXT_MED), true) })}>{ev.time}</span>
             </div>
             <div
-              style={{
-                width: 3,
-                background: ev.color,
-                borderRadius: 2,
-                alignSelf: "stretch",
-                flexShrink: 0,
-              }}
+              data-mova-style="calendar-screen-s17" style={cssVars({ "--mova-calendar-screen-s17-background": cssVar((ev.color), true) })}
             />
             <div
-              style={{
-                flex: 1,
-                background: `${ev.color}18`,
-                borderRadius: 14,
-                padding: "12px 14px",
-                border: `1px solid ${ev.color}30`,
-              }}
+              data-mova-style="calendar-screen-s18" style={cssVars({ "--mova-calendar-screen-s18-background": cssVar((`${ev.color}18`), true), "--mova-calendar-screen-s18-border": cssVar((`1px solid ${ev.color}30`), true) })}
             >
               <div
-                style={{
-                  fontFamily: "Outfit, sans-serif",
-                  fontSize: 14,
-                  fontWeight: 700,
-                  color: TEXT,
-                }}
+                data-mova-style="calendar-screen-s19" style={cssVars({ "--mova-calendar-screen-s19-color": cssVar((TEXT), true) })}
               >
                 {ev.name}
               </div>
-              <div style={{ fontSize: 12, color: TEXT_MED, marginTop: 2 }}>
+              <div data-mova-style="calendar-screen-s20" style={cssVars({ "--mova-calendar-screen-s20-color": cssVar((TEXT_MED), true) })}>
                 {ev.duration}
               </div>
             </div>
@@ -207,18 +120,7 @@ export function CalendarScreen({ go }: { go: (s: Screen) => void }) {
 
         <button
           onClick={() => go("profile")}
-          style={{
-            width: "100%",
-            marginTop: 8,
-            padding: "13px",
-            borderRadius: 14,
-            background: "transparent",
-            border: `2px dashed ${t.accent}50`,
-            color: t.muted,
-            fontSize: 14,
-            fontWeight: 600,
-            cursor: "pointer",
-          }}
+          data-mova-style="calendar-screen-s21" style={cssVars({ "--mova-calendar-screen-s21-border": cssVar((`2px dashed ${t.accent}50`), true), "--mova-calendar-screen-s21-color": cssVar((t.muted), true) })}
         >
           + Agregar actividad en planificación →
         </button>

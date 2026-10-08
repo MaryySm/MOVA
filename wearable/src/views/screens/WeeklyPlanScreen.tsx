@@ -1,3 +1,6 @@
+// Aquí presento el plan semanal y las acciones para editar actividades.
+import { cssVar, cssVars } from "../styleVars";
+import "./WeeklyPlanScreen.styles.css";
 import type { Screen } from "../../models/navigation"
 import { THEME, TEXT, TEXT_MED } from "../theme"
 import { useWeeklyPlanController } from "../../controllers/usePlanningControllers"
@@ -24,41 +27,25 @@ export function WeeklyPlanScreen({ go }: { go: (s: Screen) => void }) {
 
   return (
     <div
-      style={{
-        position: "absolute",
-        inset: 0,
-        display: "flex",
-        flexDirection: "column",
-        background: t.bg,
-      }}
+      data-mova-style="weekly-plan-screen-s0" style={cssVars({ "--mova-weekly-plan-screen-s0-background": cssVar((t.bg), true) })}
     >
       {/* Header */}
       <div
-        style={{
-          padding: "52px 20px 16px",
-          background: `linear-gradient(180deg, #C8EEDD 0%, ${t.bg} 100%)`,
-          flexShrink: 0,
-        }}
+        data-mova-style="weekly-plan-screen-s1" style={cssVars({ "--mova-weekly-plan-screen-s1-background": cssVar((`linear-gradient(180deg, #C8EEDD 0%, ${t.bg} 100%)`), true) })}
       >
         <h2
-          style={{
-            fontFamily: "Outfit, sans-serif",
-            fontSize: 24,
-            fontWeight: 900,
-            margin: "0 0 2px",
-            color: TEXT,
-          }}
+          data-mova-style="weekly-plan-screen-s2" style={cssVars({ "--mova-weekly-plan-screen-s2-color": cssVar((TEXT), true) })}
         >
           Planificación Semanal
         </h2>
-        <p style={{ color: t.muted, fontSize: 13, margin: 0 }}>
+        <p data-mova-style="weekly-plan-screen-s3" style={cssVars({ "--mova-weekly-plan-screen-s3-color": cssVar((t.muted), true) })}>
           Organiza tus actividades de cada día
         </p>
       </div>
 
       {/* Day selector */}
-      <div style={{ padding: "12px 20px 0", flexShrink: 0 }}>
-        <div style={{ display: "flex", gap: 6 }}>
+      <div data-mova-style="weekly-plan-screen-s4">
+        <div data-mova-style="weekly-plan-screen-s5">
           {WEEK_DAYS.map((d) => {
             const isActive = d.key === activeDay
             const count = (plan[d.key] || []).length
@@ -69,64 +56,31 @@ export function WeeklyPlanScreen({ go }: { go: (s: Screen) => void }) {
                   setActiveDay(d.key)
                   setShowPicker(false)
                 }}
-                style={{
-                  flex: 1,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: 2,
-                  padding: "8px 2px",
-                  borderRadius: 14,
-                  background: isActive ? d.color : "#fff",
-                  border: `1.5px solid ${
+                data-mova-style="weekly-plan-screen-s6" style={cssVars({ "--mova-weekly-plan-screen-s6-background": cssVar((isActive ? d.color : "#fff"), true), "--mova-weekly-plan-screen-s6-border": cssVar((`1.5px solid ${
                     isActive ? d.color : "rgba(0,0,0,0.07)"
-                  }`,
-                  cursor: "pointer",
-                  transition: "all 0.18s",
-                  boxShadow: isActive
+                  }`), true), "--mova-weekly-plan-screen-s6-box-shadow": cssVar((isActive
                     ? `0 4px 14px ${d.color}44`
-                    : "0 2px 6px rgba(0,0,0,0.05)",
-                }}
+                    : "0 2px 6px rgba(0,0,0,0.05)"), true) })}
               >
                 <span
-                  style={{
-                    fontSize: 10,
-                    fontWeight: 700,
-                    color: isActive ? "#fff" : TEXT_MED,
-                  }}
+                  data-mova-style="weekly-plan-screen-s7" style={cssVars({ "--mova-weekly-plan-screen-s7-color": cssVar((isActive ? "#fff" : TEXT_MED), true) })}
                 >
                   {d.label}
                 </span>
                 {count > 0 && (
                   <div
-                    style={{
-                      width: 16,
-                      height: 16,
-                      borderRadius: "50%",
-                      background: isActive
+                    data-mova-style="weekly-plan-screen-s8" style={cssVars({ "--mova-weekly-plan-screen-s8-background": cssVar((isActive
                         ? "rgba(255,255,255,0.35)"
-                        : `${d.color}30`,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: 9,
-                      color: isActive ? "#fff" : d.color,
-                      fontWeight: 800,
-                    }}
+                        : `${d.color}30`), true), "--mova-weekly-plan-screen-s8-color": cssVar((isActive ? "#fff" : d.color), true) })}
                   >
                     {count}
                   </div>
                 )}
                 {count === 0 && (
                   <div
-                    style={{
-                      width: 4,
-                      height: 4,
-                      borderRadius: "50%",
-                      background: isActive
+                    data-mova-style="weekly-plan-screen-s9" style={cssVars({ "--mova-weekly-plan-screen-s9-background": cssVar((isActive
                         ? "rgba(255,255,255,0.5)"
-                        : "transparent",
-                    }}
+                        : "transparent"), true) })}
                   />
                 )}
               </button>
@@ -136,43 +90,24 @@ export function WeeklyPlanScreen({ go }: { go: (s: Screen) => void }) {
       </div>
 
       {/* Day content */}
-      <div style={{ flex: 1, overflowY: "auto", padding: "16px 20px 24px" }}>
+      <div data-mova-style="weekly-plan-screen-s10">
         <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: 14,
-          }}
+          data-mova-style="weekly-plan-screen-s11"
         >
           <div>
             <span
-              style={{
-                fontFamily: "Outfit, sans-serif",
-                fontSize: 18,
-                fontWeight: 800,
-                color: TEXT,
-              }}
+              data-mova-style="weekly-plan-screen-s12" style={cssVars({ "--mova-weekly-plan-screen-s12-color": cssVar((TEXT), true) })}
             >
               {dayInfo.full}
             </span>
-            <span style={{ fontSize: 13, color: TEXT_MED, marginLeft: 8 }}>
+            <span data-mova-style="weekly-plan-screen-s13" style={cssVars({ "--mova-weekly-plan-screen-s13-color": cssVar((TEXT_MED), true) })}>
               {dayActivities.length}{" "}
               {dayActivities.length === 1 ? "actividad" : "actividades"}
             </span>
           </div>
           <button
             onClick={() => setShowPicker((p) => !p)}
-            style={{
-              background: showPicker ? dayInfo.color : `${dayInfo.color}20`,
-              border: `1.5px solid ${dayInfo.color}`,
-              borderRadius: 12,
-              padding: "7px 14px",
-              cursor: "pointer",
-              color: showPicker ? "#fff" : dayInfo.color,
-              fontSize: 13,
-              fontWeight: 700,
-            }}
+            data-mova-style="weekly-plan-screen-s14" style={cssVars({ "--mova-weekly-plan-screen-s14-background": cssVar((showPicker ? dayInfo.color : `${dayInfo.color}20`), true), "--mova-weekly-plan-screen-s14-border": cssVar((`1.5px solid ${dayInfo.color}`), true), "--mova-weekly-plan-screen-s14-color": cssVar((showPicker ? "#fff" : dayInfo.color), true) })}
           >
             {showPicker ? "✕ Cerrar" : "+ Agregar"}
           </button>
@@ -181,19 +116,13 @@ export function WeeklyPlanScreen({ go }: { go: (s: Screen) => void }) {
         {/* Activity list */}
         {dayActivities.length === 0 && !showPicker && (
           <div
-            style={{
-              textAlign: "center",
-              padding: "40px 20px",
-              background: "rgba(255,255,255,0.6)",
-              borderRadius: 20,
-              border: `2px dashed ${dayInfo.color}40`,
-            }}
+            data-mova-style="weekly-plan-screen-s15" style={cssVars({ "--mova-weekly-plan-screen-s15-border": cssVar((`2px dashed ${dayInfo.color}40`), true) })}
           >
-            <div style={{ fontSize: 36, marginBottom: 10 }}>📅</div>
-            <p style={{ color: TEXT_MED, fontSize: 14, margin: 0 }}>
+            <div data-mova-style="weekly-plan-screen-s16">📅</div>
+            <p data-mova-style="weekly-plan-screen-s17" style={cssVars({ "--mova-weekly-plan-screen-s17-color": cssVar((TEXT_MED), true) })}>
               Sin actividades para este día.
               <br />
-              Toca <strong style={{ color: dayInfo.color }}>+ Agregar</strong>{" "}
+              Toca <strong data-mova-style="weekly-plan-screen-s18" style={cssVars({ "--mova-weekly-plan-screen-s18-color": cssVar((dayInfo.color), true) })}>+ Agregar</strong>{" "}
               para planificar.
             </p>
           </div>
@@ -202,45 +131,21 @@ export function WeeklyPlanScreen({ go }: { go: (s: Screen) => void }) {
         {dayActivities.map((act) => (
           <div
             key={act.id}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 12,
-              padding: "12px 14px",
-              background: "#fff",
-              borderRadius: 14,
-              marginBottom: 8,
-              boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
-              borderLeft: `4px solid ${act.color}`,
-            }}
+            data-mova-style="weekly-plan-screen-s19" style={cssVars({ "--mova-weekly-plan-screen-s19-border-left": cssVar((`4px solid ${act.color}`), true) })}
           >
-            <div style={{ flex: 1 }}>
+            <div data-mova-style="weekly-plan-screen-s20">
               <div
-                style={{
-                  fontFamily: "Outfit, sans-serif",
-                  fontSize: 14,
-                  fontWeight: 700,
-                  color: TEXT,
-                }}
+                data-mova-style="weekly-plan-screen-s21" style={cssVars({ "--mova-weekly-plan-screen-s21-color": cssVar((TEXT), true) })}
               >
                 {act.label}
               </div>
-              <div style={{ fontSize: 11, color: TEXT_MED, marginTop: 2 }}>
+              <div data-mova-style="weekly-plan-screen-s22" style={cssVars({ "--mova-weekly-plan-screen-s22-color": cssVar((TEXT_MED), true) })}>
                 🕐 {act.time}
               </div>
             </div>
             <button
               onClick={() => removeActivity(act.id)}
-              style={{
-                background: "rgba(245,121,90,0.12)",
-                border: "none",
-                borderRadius: 8,
-                width: 28,
-                height: 28,
-                cursor: "pointer",
-                color: "#F5795A",
-                fontSize: 14,
-              }}
+              data-mova-style="weekly-plan-screen-s23"
             >
               ×
             </button>
@@ -250,91 +155,42 @@ export function WeeklyPlanScreen({ go }: { go: (s: Screen) => void }) {
         {/* Picker panel */}
         {showPicker && (
           <div
-            style={{
-              background: "#fff",
-              borderRadius: 20,
-              padding: "16px",
-              boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-              marginTop: 8,
-            }}
+            data-mova-style="weekly-plan-screen-s24"
           >
             {/* Custom input */}
-            <div style={{ display: "flex", gap: 8, marginBottom: 14 }}>
+            <div data-mova-style="weekly-plan-screen-s25">
               <input
                 value={customText}
                 onChange={(e) => setCustomText(e.target.value)}
                 placeholder="Escribe una actividad…"
                 onKeyDown={(e) => e.key === "Enter" && addCustom()}
-                style={{
-                  flex: 1,
-                  background: "#F5F5F8",
-                  border: `1.5px solid ${dayInfo.color}40`,
-                  borderRadius: 12,
-                  padding: "10px 14px",
-                  fontSize: 14,
-                  color: TEXT,
-                  outline: "none",
-                }}
+                data-mova-style="weekly-plan-screen-s26" style={cssVars({ "--mova-weekly-plan-screen-s26-border": cssVar((`1.5px solid ${dayInfo.color}40`), true), "--mova-weekly-plan-screen-s26-color": cssVar((TEXT), true) })}
               />
               <input
                 value={customTime}
                 onChange={(e) => setCustomTime(e.target.value)}
                 type="time"
-                style={{
-                  background: "#F5F5F8",
-                  border: `1.5px solid ${dayInfo.color}40`,
-                  borderRadius: 12,
-                  padding: "10px 10px",
-                  fontSize: 13,
-                  color: TEXT,
-                  outline: "none",
-                  width: 90,
-                }}
+                data-mova-style="weekly-plan-screen-s27" style={cssVars({ "--mova-weekly-plan-screen-s27-border": cssVar((`1.5px solid ${dayInfo.color}40`), true), "--mova-weekly-plan-screen-s27-color": cssVar((TEXT), true) })}
               />
               <button
                 onClick={addCustom}
-                style={{
-                  background: dayInfo.color,
-                  border: "none",
-                  borderRadius: 12,
-                  padding: "10px 14px",
-                  color: "#fff",
-                  fontSize: 13,
-                  fontWeight: 700,
-                  cursor: "pointer",
-                }}
+                data-mova-style="weekly-plan-screen-s28" style={cssVars({ "--mova-weekly-plan-screen-s28-background": cssVar((dayInfo.color), true) })}
               >
                 OK
               </button>
             </div>
 
             <p
-              style={{
-                fontSize: 11,
-                color: TEXT_MED,
-                letterSpacing: 1,
-                textTransform: "uppercase",
-                fontWeight: 700,
-                margin: "0 0 10px",
-              }}
+              data-mova-style="weekly-plan-screen-s29" style={cssVars({ "--mova-weekly-plan-screen-s29-color": cssVar((TEXT_MED), true) })}
             >
               Actividades sugeridas
             </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+            <div data-mova-style="weekly-plan-screen-s30">
               {ACTIVITY_PRESETS.map((preset) => (
                 <button
                   key={preset.label}
                   onClick={() => addActivity(preset.label, preset.color)}
-                  style={{
-                    padding: "7px 12px",
-                    borderRadius: 20,
-                    background: `${preset.color}18`,
-                    border: `1.5px solid ${preset.color}40`,
-                    color: TEXT,
-                    fontSize: 12,
-                    fontWeight: 600,
-                    cursor: "pointer",
-                  }}
+                  data-mova-style="weekly-plan-screen-s31" style={cssVars({ "--mova-weekly-plan-screen-s31-background": cssVar((`${preset.color}18`), true), "--mova-weekly-plan-screen-s31-border": cssVar((`1.5px solid ${preset.color}40`), true), "--mova-weekly-plan-screen-s31-color": cssVar((TEXT), true) })}
                 >
                   {preset.label}
                 </button>
@@ -346,27 +202,11 @@ export function WeeklyPlanScreen({ go }: { go: (s: Screen) => void }) {
 
       {/* Footer CTA */}
       <div
-        style={{
-          padding: "12px 20px 24px",
-          flexShrink: 0,
-          borderTop: "1px solid rgba(0,0,0,0.06)",
-          background: t.bg,
-        }}
+        data-mova-style="weekly-plan-screen-s32" style={cssVars({ "--mova-weekly-plan-screen-s32-background": cssVar((t.bg), true) })}
       >
         <button
           onClick={() => go("home")}
-          style={{
-            width: "100%",
-            padding: "15px",
-            borderRadius: 16,
-            border: "none",
-            background: `linear-gradient(135deg, ${t.accent}, #A8E8D4)`,
-            color: "#fff",
-            fontSize: 16,
-            fontWeight: 800,
-            cursor: "pointer",
-            boxShadow: `0 8px 24px ${t.accent}44`,
-          }}
+          data-mova-style="weekly-plan-screen-s33" style={cssVars({ "--mova-weekly-plan-screen-s33-background": cssVar((`linear-gradient(135deg, ${t.accent}, #A8E8D4)`), true), "--mova-weekly-plan-screen-s33-box-shadow": cssVar((`0 8px 24px ${t.accent}44`), true) })}
         >
           Guardar y continuar →
         </button>

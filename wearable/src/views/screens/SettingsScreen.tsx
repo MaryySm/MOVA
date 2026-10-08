@@ -1,3 +1,6 @@
+// Aquí dibujo la configuración de perfil, dispositivo y notificaciones.
+import { cssVar, cssVars } from "../styleVars";
+import "./SettingsScreen.styles.css";
 import { useRef } from "react"
 import { THEME, TEXT, TEXT_MED } from "../theme"
 import { useSettingsController } from "../../controllers/useSettingsController"
@@ -63,79 +66,37 @@ export function SettingsScreen() {
 
   return (
     <div
-      style={{
-        position: "absolute",
-        inset: 0,
-        overflowY: "auto",
-        paddingBottom: 80,
-        background: t.bg,
-      }}
+      data-mova-style="settings-screen-s0" style={cssVars({ "--mova-settings-screen-s0-background": cssVar((t.bg), true) })}
     >
-      <div style={{ padding: "52px 20px 20px" }}>
+      <div data-mova-style="settings-screen-s1">
         <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: 12,
-          }}
+          data-mova-style="settings-screen-s2"
         >
           <h2
-            style={{
-              fontFamily: "Outfit, sans-serif",
-              fontSize: 24,
-              fontWeight: 900,
-              margin: 0,
-              color: TEXT,
-            }}
+            data-mova-style="settings-screen-s3" style={cssVars({ "--mova-settings-screen-s3-color": cssVar((TEXT), true) })}
           >
             Configuración
           </h2>
           <button
             type="button"
             onClick={addProfile}
-            style={{
-              border: "none",
-              borderRadius: 11,
-              padding: "8px 11px",
-              background: t.accent,
-              color: "#fff",
-              fontSize: 11,
-              fontWeight: 800,
-              cursor: "pointer",
-            }}
+            data-mova-style="settings-screen-s4" style={cssVars({ "--mova-settings-screen-s4-background": cssVar((t.accent), true) })}
           >
             + Perfil
           </button>
         </div>
 
         <div
-          style={{
-            display: "flex",
-            gap: 7,
-            overflowX: "auto",
-            paddingBottom: 10,
-            marginBottom: 8,
-          }}
+          data-mova-style="settings-screen-s5"
         >
           {profiles.map((item) => (
             <button
               key={item.id}
               type="button"
               onClick={() => chooseProfile(item.id)}
-              style={{
-                flexShrink: 0,
-                borderRadius: 20,
-                padding: "7px 11px",
-                cursor: "pointer",
-                border: `1.5px solid ${
+              data-mova-style="settings-screen-s6" style={cssVars({ "--mova-settings-screen-s6-border": cssVar((`1.5px solid ${
                   item.id === profile.id ? t.accent : t.border
-                }`,
-                background: item.id === profile.id ? t.soft : "#fff",
-                color: item.id === profile.id ? t.accent : TEXT_MED,
-                fontSize: 11,
-                fontWeight: 800,
-              }}
+                }`), true), "--mova-settings-screen-s6-background": cssVar((item.id === profile.id ? t.soft : "#fff"), true), "--mova-settings-screen-s6-color": cssVar((item.id === profile.id ? t.accent : TEXT_MED), true) })}
             >
               {item.name}
             </button>
@@ -146,69 +107,32 @@ export function SettingsScreen() {
         <button
           type="button"
           onClick={openEditor}
-          style={{
-            width: "100%",
-            background: "#fff",
-            borderRadius: 22,
-            padding: "18px",
-            marginBottom: editing ? 10 : 22,
-            boxShadow: "0 4px 20px rgba(0,0,0,0.07)",
-            display: "flex",
-            alignItems: "center",
-            gap: 14,
-            border: "none",
-            borderLeft: `4px solid ${t.accent}`,
-            cursor: "pointer",
-            textAlign: "left",
-          }}
+          data-mova-style="settings-screen-s7" style={cssVars({ "--mova-settings-screen-s7-margin-bottom": cssVar((editing ? 10 : 22), true), "--mova-settings-screen-s7-border-left": cssVar((`4px solid ${t.accent}`), true) })}
         >
           {profile.photo ? (
             <img
               src={profile.photo}
               alt={`Foto de ${profile.name}`}
-              style={{
-                width: 54,
-                height: 54,
-                borderRadius: "50%",
-                objectFit: "cover",
-                flexShrink: 0,
-              }}
+              data-mova-style="settings-screen-s8"
             />
           ) : (
             <div
-              style={{
-                width: 54,
-                height: 54,
-                borderRadius: "50%",
-                flexShrink: 0,
-                background: `linear-gradient(135deg, ${t.accent}, #F590B8)`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontWeight: 900,
-                color: "#fff",
-                fontSize: 20,
-              }}
+              data-mova-style="settings-screen-s9" style={cssVars({ "--mova-settings-screen-s9-background": cssVar((`linear-gradient(135deg, ${t.accent}, #F590B8)`), true) })}
             >
               {profile.name.charAt(0).toUpperCase()}
             </div>
           )}
-          <div style={{ flex: 1 }}>
+          <div data-mova-style="settings-screen-s10">
             <div
-              style={{
-                fontFamily: "Outfit, sans-serif",
-                fontSize: 16,
-                fontWeight: 800,
-                color: TEXT,
-              }}
+              data-mova-style="settings-screen-s11" style={cssVars({ "--mova-settings-screen-s11-color": cssVar((TEXT), true) })}
             >
               {profile.name}
             </div>
-            <div style={{ fontSize: 12, color: TEXT_MED, marginTop: 2 }}>
+            <div data-mova-style="settings-screen-s12" style={cssVars({ "--mova-settings-screen-s12-color": cssVar((TEXT_MED), true) })}>
               {profile.age} años · {profile.email}
             </div>
             {profile.adultName && (
-              <div style={{ fontSize: 11, color: t.muted, marginTop: 4 }}>
+              <div data-mova-style="settings-screen-s13" style={cssVars({ "--mova-settings-screen-s13-color": cssVar((t.muted), true) })}>
                 Adulto responsable: {profile.adultName}
               </div>
             )}
@@ -226,93 +150,42 @@ export function SettingsScreen() {
 
         {editing && (
           <div
-            style={{
-              background: "#fff",
-              borderRadius: 20,
-              padding: 16,
-              marginBottom: 22,
-              boxShadow: "0 4px 20px rgba(0,0,0,0.07)",
-              border: `1.5px solid ${t.border}`,
-            }}
+            data-mova-style="settings-screen-s14" style={cssVars({ "--mova-settings-screen-s14-border": cssVar((`1.5px solid ${t.border}`), true) })}
           >
             <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 12,
-                marginBottom: 14,
-              }}
+              data-mova-style="settings-screen-s15"
             >
               {draft.photo ? (
                 <img
                   src={draft.photo}
                   alt="Vista previa"
-                  style={{
-                    width: 62,
-                    height: 62,
-                    borderRadius: "50%",
-                    objectFit: "cover",
-                  }}
+                  data-mova-style="settings-screen-s16"
                 />
               ) : (
                 <div
-                  style={{
-                    width: 62,
-                    height: 62,
-                    borderRadius: "50%",
-                    background: t.soft,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: t.accent,
-                    fontSize: 24,
-                    fontWeight: 900,
-                  }}
+                  data-mova-style="settings-screen-s17" style={cssVars({ "--mova-settings-screen-s17-background": cssVar((t.soft), true), "--mova-settings-screen-s17-color": cssVar((t.accent), true) })}
                 >
                   {draft.name.charAt(0).toUpperCase() || "U"}
                 </div>
               )}
-              <div style={{ flex: 1 }}>
+              <div data-mova-style="settings-screen-s18">
                 <div
-                  style={{
-                    fontSize: 12,
-                    fontWeight: 800,
-                    color: TEXT,
-                    marginBottom: 7,
-                  }}
+                  data-mova-style="settings-screen-s19" style={cssVars({ "--mova-settings-screen-s19-color": cssVar((TEXT), true) })}
                 >
                   Fotografía de perfil
                 </div>
-                <div style={{ display: "flex", gap: 6 }}>
+                <div data-mova-style="settings-screen-s20">
                   <button
                     type="button"
                     onClick={() => galleryRef.current?.click()}
-                    style={{
-                      border: "none",
-                      borderRadius: 9,
-                      padding: "7px 9px",
-                      background: t.soft,
-                      color: t.accent,
-                      fontSize: 10,
-                      fontWeight: 800,
-                      cursor: "pointer",
-                    }}
+                    data-mova-style="settings-screen-s21" style={cssVars({ "--mova-settings-screen-s21-background": cssVar((t.soft), true), "--mova-settings-screen-s21-color": cssVar((t.accent), true) })}
                   >
                     Galería
                   </button>
                   <button
                     type="button"
                     onClick={() => cameraRef.current?.click()}
-                    style={{
-                      border: "none",
-                      borderRadius: 9,
-                      padding: "7px 9px",
-                      background: t.soft,
-                      color: t.accent,
-                      fontSize: 10,
-                      fontWeight: 800,
-                      cursor: "pointer",
-                    }}
+                    data-mova-style="settings-screen-s22" style={cssVars({ "--mova-settings-screen-s22-background": cssVar((t.soft), true), "--mova-settings-screen-s22-color": cssVar((t.accent), true) })}
                   >
                     Cámara
                   </button>
@@ -323,7 +196,7 @@ export function SettingsScreen() {
                 type="file"
                 accept="image/*"
                 onChange={selectPhoto}
-                style={{ display: "none" }}
+                data-mova-style="settings-screen-s23"
               />
               <input
                 ref={cameraRef}
@@ -331,7 +204,7 @@ export function SettingsScreen() {
                 accept="image/*"
                 capture="environment"
                 onChange={selectPhoto}
-                style={{ display: "none" }}
+                data-mova-style="settings-screen-s24"
               />
             </div>
 
@@ -363,15 +236,7 @@ export function SettingsScreen() {
             ].map((field) => (
               <label
                 key={field.key}
-                style={{
-                  display: "block",
-                  fontSize: 10,
-                  color: t.muted,
-                  textTransform: "uppercase",
-                  letterSpacing: 0.8,
-                  fontWeight: 800,
-                  marginBottom: 10,
-                }}
+                data-mova-style="settings-screen-s25" style={cssVars({ "--mova-settings-screen-s25-color": cssVar((t.muted), true) })}
               >
                 {field.label}
                 <input
@@ -386,52 +251,20 @@ export function SettingsScreen() {
                           : event.target.value,
                     }))
                   }
-                  style={{
-                    display: "block",
-                    width: "100%",
-                    marginTop: 5,
-                    border: `1.5px solid ${t.border}`,
-                    borderRadius: 11,
-                    padding: "10px 12px",
-                    fontSize: 13,
-                    color: TEXT,
-                    outline: "none",
-                    background: t.card,
-                  }}
+                  data-mova-style="settings-screen-s26" style={cssVars({ "--mova-settings-screen-s26-border": cssVar((`1.5px solid ${t.border}`), true), "--mova-settings-screen-s26-color": cssVar((TEXT), true), "--mova-settings-screen-s26-background": cssVar((t.card), true) })}
                 />
               </label>
             ))}
 
             <label
-              style={{
-                display: "block",
-                fontSize: 10,
-                color: t.muted,
-                textTransform: "uppercase",
-                letterSpacing: 0.8,
-                fontWeight: 800,
-                marginBottom: 10,
-              }}
+              data-mova-style="settings-screen-s27" style={cssVars({ "--mova-settings-screen-s27-color": cssVar((t.muted), true) })}
             >
               Número de teléfono
               <div
-                style={{
-                  display: "flex",
-                  marginTop: 5,
-                  border: `1.5px solid ${t.border}`,
-                  borderRadius: 11,
-                  overflow: "hidden",
-                  background: t.card,
-                }}
+                data-mova-style="settings-screen-s28" style={cssVars({ "--mova-settings-screen-s28-border": cssVar((`1.5px solid ${t.border}`), true), "--mova-settings-screen-s28-background": cssVar((t.card), true) })}
               >
                 <span
-                  style={{
-                    padding: "10px",
-                    background: t.soft,
-                    color: t.muted,
-                    fontSize: 12,
-                    fontWeight: 800,
-                  }}
+                  data-mova-style="settings-screen-s29" style={cssVars({ "--mova-settings-screen-s29-background": cssVar((t.soft), true), "--mova-settings-screen-s29-color": cssVar((t.muted), true) })}
                 >
                   +569
                 </span>
@@ -445,35 +278,16 @@ export function SettingsScreen() {
                     }))
                   }
                   placeholder="12345678"
-                  style={{
-                    flex: 1,
-                    minWidth: 0,
-                    border: "none",
-                    padding: "10px 12px",
-                    fontSize: 13,
-                    color: TEXT,
-                    outline: "none",
-                    background: "transparent",
-                  }}
+                  data-mova-style="settings-screen-s30" style={cssVars({ "--mova-settings-screen-s30-color": cssVar((TEXT), true) })}
                 />
               </div>
             </label>
 
-            <div style={{ display: "flex", gap: 8, marginTop: 14 }}>
+            <div data-mova-style="settings-screen-s31">
               <button
                 type="button"
                 onClick={() => setEditing(false)}
-                style={{
-                  flex: 1,
-                  border: `1.5px solid ${t.border}`,
-                  borderRadius: 11,
-                  padding: 10,
-                  background: "#fff",
-                  color: TEXT_MED,
-                  fontSize: 12,
-                  fontWeight: 700,
-                  cursor: "pointer",
-                }}
+                data-mova-style="settings-screen-s32" style={cssVars({ "--mova-settings-screen-s32-border": cssVar((`1.5px solid ${t.border}`), true), "--mova-settings-screen-s32-color": cssVar((TEXT_MED), true) })}
               >
                 Cancelar
               </button>
@@ -486,24 +300,12 @@ export function SettingsScreen() {
                   !draft.email.trim() ||
                   draft.phone.length !== 8
                 }
-                style={{
-                  flex: 1.4,
-                  border: "none",
-                  borderRadius: 11,
-                  padding: 10,
-                  background: t.accent,
-                  color: "#fff",
-                  fontSize: 12,
-                  fontWeight: 800,
-                  cursor: "pointer",
-                  opacity:
-                    !draft.name.trim() ||
+                data-mova-style="settings-screen-s33" style={cssVars({ "--mova-settings-screen-s33-background": cssVar((t.accent), true), "--mova-settings-screen-s33-opacity": cssVar(!draft.name.trim() ||
                     !draft.age.trim() ||
                     !draft.email.trim() ||
                     draft.phone.length !== 8
                       ? 0.5
-                      : 1,
-                }}
+                      : 1, false) })}
               >
                 Guardar cambios
               </button>
@@ -513,58 +315,28 @@ export function SettingsScreen() {
 
         {saved && (
           <div
-            style={{
-              margin: "-12px 0 18px",
-              padding: "9px 12px",
-              borderRadius: 11,
-              background: "#DDF8EC",
-              color: "#278264",
-              fontSize: 11,
-              fontWeight: 700,
-            }}
+            data-mova-style="settings-screen-s34"
           >
             Datos guardados correctamente.
           </div>
         )}
 
         {SETTINGS_GROUPS.map((group) => (
-          <div key={group.group} style={{ marginBottom: 20 }}>
+          <div key={group.group} data-mova-style="settings-screen-s35">
             <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-                marginBottom: 10,
-              }}
+              data-mova-style="settings-screen-s36"
             >
               <div
-                style={{
-                  width: 4,
-                  height: 16,
-                  borderRadius: 2,
-                  background: group.color,
-                }}
+                data-mova-style="settings-screen-s37" style={cssVars({ "--mova-settings-screen-s37-background": cssVar((group.color), true) })}
               />
               <p
-                style={{
-                  fontSize: 11,
-                  color: TEXT_MED,
-                  letterSpacing: 1.5,
-                  textTransform: "uppercase",
-                  fontWeight: 700,
-                  margin: 0,
-                }}
+                data-mova-style="settings-screen-s38" style={cssVars({ "--mova-settings-screen-s38-color": cssVar((TEXT_MED), true) })}
               >
                 {group.group}
               </p>
             </div>
             <div
-              style={{
-                background: "#fff",
-                borderRadius: 18,
-                boxShadow: "0 3px 14px rgba(0,0,0,0.06)",
-                overflow: "hidden",
-              }}
+              data-mova-style="settings-screen-s39"
             >
               {group.items.map((item, idx) => (
                 <button
@@ -576,43 +348,22 @@ export function SettingsScreen() {
                     if (item.label === "Dispositivo MOVA")
                       setDeviceOpen((current) => !current)
                   }}
-                  style={{
-                    width: "100%",
-                    border: "none",
-                    background: "transparent",
-                    textAlign: "left",
-                    display: "flex",
-                    alignItems: "center",
-                    padding: "14px 16px",
-                    gap: 14,
-                    cursor: "pointer",
-                    borderBottom:
-                      idx < group.items.length - 1
+                  data-mova-style="settings-screen-s40" style={cssVars({ "--mova-settings-screen-s40-border-bottom": cssVar((idx < group.items.length - 1
                         ? "1px solid rgba(0,0,0,0.05)"
-                        : "none",
-                  }}
+                        : "none"), true) })}
                 >
                   <div
-                    style={{
-                      width: 36,
-                      height: 36,
-                      borderRadius: 10,
-                      background: `${group.color}18`,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: 18,
-                    }}
+                    data-mova-style="settings-screen-s41" style={cssVars({ "--mova-settings-screen-s41-background": cssVar((`${group.color}18`), true) })}
                   >
                     {item.icon}
                   </div>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 14, color: TEXT, fontWeight: 600 }}>
+                  <div data-mova-style="settings-screen-s42">
+                    <div data-mova-style="settings-screen-s43" style={cssVars({ "--mova-settings-screen-s43-color": cssVar((TEXT), true) })}>
                       {item.label}
                     </div>
                     {item.sub && (
                       <div
-                        style={{ fontSize: 12, color: TEXT_MED, marginTop: 1 }}
+                        data-mova-style="settings-screen-s44" style={cssVars({ "--mova-settings-screen-s44-color": cssVar((TEXT_MED), true) })}
                       >
                         {item.label === "Perfil de usuario"
                           ? profile.name
@@ -638,27 +389,15 @@ export function SettingsScreen() {
 
             {group.group === "Cuenta" && notificationsOpen && (
               <div
-                style={{
-                  marginTop: 9,
-                  background: "#fff",
-                  borderRadius: 18,
-                  padding: 14,
-                  boxShadow: "0 3px 14px rgba(0,0,0,0.06)",
-                  border: `1.5px solid ${group.color}25`,
-                }}
+                data-mova-style="settings-screen-s45" style={cssVars({ "--mova-settings-screen-s45-border": cssVar((`1.5px solid ${group.color}25`), true) })}
               >
                 <div
-                  style={{
-                    fontSize: 12,
-                    fontWeight: 800,
-                    color: TEXT,
-                    marginBottom: 3,
-                  }}
+                  data-mova-style="settings-screen-s46" style={cssVars({ "--mova-settings-screen-s46-color": cssVar((TEXT), true) })}
                 >
                   Alertas en MOVA Kids
                 </div>
                 <div
-                  style={{ fontSize: 10, color: TEXT_MED, marginBottom: 12 }}
+                  data-mova-style="settings-screen-s47" style={cssVars({ "--mova-settings-screen-s47-color": cssVar((TEXT_MED), true) })}
                 >
                   Configuración para {profile.name}
                 </div>
@@ -674,45 +413,20 @@ export function SettingsScreen() {
                         key={key}
                         type="button"
                         onClick={() => updateNotifications({ [key]: !enabled })}
-                        style={{
-                          width: "100%",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                          border: "none",
-                          borderBottom: "1px solid rgba(0,0,0,0.05)",
-                          background: "transparent",
-                          padding: "9px 0",
-                          cursor: "pointer",
-                        }}
+                        data-mova-style="settings-screen-s48"
                       >
                         <span
-                          style={{ color: TEXT, fontSize: 13, fontWeight: 700 }}
+                          data-mova-style="settings-screen-s49" style={cssVars({ "--mova-settings-screen-s49-color": cssVar((TEXT), true) })}
                         >
                           {label}
                         </span>
                         <div
-                          style={{
-                            width: 40,
-                            height: 23,
-                            padding: 3,
-                            borderRadius: 12,
-                            background: enabled ? "#5ECFA8" : "#DAD7E2",
-                            transition: "background 0.2s",
-                          }}
+                          data-mova-style="settings-screen-s50" style={cssVars({ "--mova-settings-screen-s50-background": cssVar((enabled ? "#5ECFA8" : "#DAD7E2"), true) })}
                         >
                           <div
-                            style={{
-                              width: 17,
-                              height: 17,
-                              borderRadius: "50%",
-                              background: "#fff",
-                              transform: enabled
+                            data-mova-style="settings-screen-s51" style={cssVars({ "--mova-settings-screen-s51-transform": cssVar((enabled
                                 ? "translateX(17px)"
-                                : "translateX(0)",
-                              transition: "transform 0.2s",
-                              boxShadow: "0 1px 4px rgba(0,0,0,0.2)",
-                            }}
+                                : "translateX(0)"), true) })}
                           />
                         </div>
                       </button>
@@ -720,30 +434,19 @@ export function SettingsScreen() {
                   },
                 )}
                 <div
-                  style={{
-                    paddingTop: 12,
-                    opacity: profile.notifications.vibration ? 1 : 0.45,
-                  }}
+                  data-mova-style="settings-screen-s52" style={cssVars({ "--mova-settings-screen-s52-opacity": cssVar(profile.notifications.vibration ? 1 : 0.45, false) })}
                 >
                   <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: 7,
-                    }}
+                    data-mova-style="settings-screen-s53"
                   >
                     <label
                       htmlFor="vibration-intensity"
-                      style={{ fontSize: 12, color: TEXT, fontWeight: 700 }}
+                      data-mova-style="settings-screen-s54" style={cssVars({ "--mova-settings-screen-s54-color": cssVar((TEXT), true) })}
                     >
                       Intensidad de vibración
                     </label>
                     <span
-                      style={{
-                        fontSize: 12,
-                        color: group.color,
-                        fontWeight: 900,
-                      }}
+                      data-mova-style="settings-screen-s55" style={cssVars({ "--mova-settings-screen-s55-color": cssVar((group.color), true) })}
                     >
                       {profile.notifications.intensity}/10
                     </span>
@@ -761,21 +464,12 @@ export function SettingsScreen() {
                         intensity: Number(event.target.value),
                       })
                     }
-                    style={{
-                      width: "100%",
-                      accentColor: group.color,
-                      cursor: profile.notifications.vibration
+                    data-mova-style="settings-screen-s56" style={cssVars({ "--mova-settings-screen-s56-accent-color": cssVar((group.color), true), "--mova-settings-screen-s56-cursor": cssVar((profile.notifications.vibration
                         ? "pointer"
-                        : "not-allowed",
-                    }}
+                        : "not-allowed"), true) })}
                   />
                   <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      fontSize: 9,
-                      color: TEXT_MED,
-                    }}
+                    data-mova-style="settings-screen-s57" style={cssVars({ "--mova-settings-screen-s57-color": cssVar((TEXT_MED), true) })}
                   >
                     <span>Suave</span>
                     <span>Intensa</span>
@@ -786,47 +480,22 @@ export function SettingsScreen() {
 
             {group.group === "Conexiones" && deviceOpen && (
               <div
-                style={{
-                  marginTop: 9,
-                  background: "#fff",
-                  borderRadius: 18,
-                  padding: 14,
-                  boxShadow: "0 3px 14px rgba(0,0,0,0.06)",
-                  border: `1.5px solid ${group.color}25`,
-                }}
+                data-mova-style="settings-screen-s58" style={cssVars({ "--mova-settings-screen-s58-border": cssVar((`1.5px solid ${group.color}25`), true) })}
               >
                 <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 10,
-                    marginBottom: 12,
-                  }}
+                  data-mova-style="settings-screen-s59"
                 >
                   <div
-                    style={{
-                      width: 38,
-                      height: 38,
-                      borderRadius: 12,
-                      background: `${group.color}20`,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: 19,
-                    }}
+                    data-mova-style="settings-screen-s60" style={cssVars({ "--mova-settings-screen-s60-background": cssVar((`${group.color}20`), true) })}
                   >
                     ⌚
                   </div>
                   <div>
-                    <div style={{ fontSize: 13, color: TEXT, fontWeight: 800 }}>
+                    <div data-mova-style="settings-screen-s61" style={cssVars({ "--mova-settings-screen-s61-color": cssVar((TEXT), true) })}>
                       {profile.device.name}
                     </div>
                     <div
-                      style={{
-                        fontSize: 10,
-                        color: "#36A77F",
-                        fontWeight: 700,
-                      }}
+                      data-mova-style="settings-screen-s62"
                     >
                       Conectado · Batería {profile.device.battery}%
                     </div>
@@ -839,24 +508,13 @@ export function SettingsScreen() {
                 ].map(([label, value]) => (
                   <div
                     key={label}
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      gap: 12,
-                      padding: "7px 0",
-                      borderTop: "1px solid rgba(0,0,0,0.05)",
-                    }}
+                    data-mova-style="settings-screen-s63"
                   >
-                    <span style={{ fontSize: 10, color: TEXT_MED }}>
+                    <span data-mova-style="settings-screen-s64" style={cssVars({ "--mova-settings-screen-s64-color": cssVar((TEXT_MED), true) })}>
                       {label}
                     </span>
                     <span
-                      style={{
-                        fontSize: 11,
-                        color: TEXT,
-                        fontWeight: 700,
-                        textAlign: "right",
-                      }}
+                      data-mova-style="settings-screen-s65" style={cssVars({ "--mova-settings-screen-s65-color": cssVar((TEXT), true) })}
                     >
                       {value}
                     </span>
@@ -868,29 +526,13 @@ export function SettingsScreen() {
         ))}
 
         <button
-          style={{
-            width: "100%",
-            padding: "14px",
-            borderRadius: 14,
-            marginTop: 4,
-            background: "rgba(245,121,90,0.1)",
-            border: "1.5px solid rgba(245,121,90,0.3)",
-            color: "#F5795A",
-            fontSize: 14,
-            fontWeight: 700,
-            cursor: "pointer",
-          }}
+          data-mova-style="settings-screen-s66"
         >
           Cerrar sesión
         </button>
 
         <p
-          style={{
-            textAlign: "center",
-            fontSize: 11,
-            color: "#BDB8D4",
-            marginTop: 20,
-          }}
+          data-mova-style="settings-screen-s67"
         >
           MOVA v2.4.1 · Build 2026.08
         </p>

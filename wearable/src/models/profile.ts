@@ -1,3 +1,4 @@
+// Aquí defino la forma de los datos de registro, perfil y preferencias.
 export type SignupData = {
   adultName: string
   userName: string

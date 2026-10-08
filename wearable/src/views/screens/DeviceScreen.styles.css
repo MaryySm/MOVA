@@ -1,0 +1,223 @@
+[data-mova-style="device-screen-s0"] {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+[data-mova-style="device-screen-s1"] {
+  height: 102px;
+  flex-shrink: 0;
+}
+
+[data-mova-style="device-screen-s2"] {
+  padding: 0 16px 10px;
+  flex-shrink: 0;
+}
+
+[data-mova-style="device-screen-s3"] {
+  display: block;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+[data-mova-style="device-screen-s4"] {
+  width: 100%;
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  outline: none;
+}
+
+[data-mova-style="device-screen-s5"] {
+  flex: 1;
+  position: relative;
+  margin: 0 16px;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #EDF2FF;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  min-height: 0;
+}
+
+[data-mova-style="device-screen-s6"] {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+[data-mova-style="device-screen-s7"] {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  background: rgba(255,255,255,0.94);
+  border-radius: 14px;
+  padding: 9px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+[data-mova-style="device-screen-s8"] {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+[data-mova-style="device-screen-s9"] {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #5ECFA8;
+  animation: pulseDot 1.5s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+[data-mova-style="device-screen-s10"] {
+  min-width: 0;
+}
+
+[data-mova-style="device-screen-s11"] {
+  font-family: Outfit, sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+[data-mova-style="device-screen-s12"] {
+  font-size: 9px;
+}
+
+[data-mova-style="device-screen-s13"] {
+  font-size: 10px;
+  color: #5ECFA8;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+[data-mova-style="device-screen-s14"] {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  background: rgba(255,255,255,0.94);
+  border-radius: 12px;
+  padding: 8px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(8px);
+}
+
+[data-mova-style="device-screen-s15"] {
+  font-size: 10px;
+}
+
+[data-mova-style="device-screen-s16"] {
+  font-size: 10px;
+  font-weight: 800;
+}
+
+[data-mova-style="device-screen-s17"] {
+  flex-shrink: 0;
+  padding: 12px 16px 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+[data-mova-style="device-screen-s18"] {
+  background: #fff;
+  border-radius: 16px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  border-top: 3px solid #5ECFA8;
+}
+
+[data-mova-style="device-screen-s19"] {
+  font-family: Outfit, sans-serif;
+  font-size: 19px;
+  font-weight: 900;
+  color: #36A77F;
+}
+
+[data-mova-style="device-screen-s20"] {
+  font-size: 10px;
+  margin-top: 2px;
+}
+
+[data-mova-style="device-screen-s21"] {
+  background: #fff;
+  border-radius: 16px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  border-top: 3px solid #9B72F5;
+}
+
+[data-mova-style="device-screen-s22"] {
+  font-family: Outfit, sans-serif;
+  font-size: 19px;
+  font-weight: 900;
+  color: #9B72F5;
+}
+
+[data-mova-style="device-screen-s23"] {
+  font-size: 10px;
+  margin-top: 2px;
+}
+
+[data-mova-style="device-screen-s0"] {
+  background: var(--mova-device-screen-s0-background);
+}
+
+[data-mova-style="device-screen-s1"] {
+  background: var(--mova-device-screen-s1-background);
+}
+
+[data-mova-style="device-screen-s3"] {
+  color: var(--mova-device-screen-s3-color);
+}
+
+[data-mova-style="device-screen-s4"] {
+  border: var(--mova-device-screen-s4-border);
+  color: var(--mova-device-screen-s4-color);
+}
+
+[data-mova-style="device-screen-s5"] {
+  border: var(--mova-device-screen-s5-border);
+}
+
+[data-mova-style="device-screen-s11"] {
+  color: var(--mova-device-screen-s11-color);
+}
+
+[data-mova-style="device-screen-s12"] {
+  color: var(--mova-device-screen-s12-color);
+}
+
+[data-mova-style="device-screen-s15"] {
+  color: var(--mova-device-screen-s15-color);
+}
+
+[data-mova-style="device-screen-s16"] {
+  color: var(--mova-device-screen-s16-color);
+}
+
+[data-mova-style="device-screen-s20"] {
+  color: var(--mova-device-screen-s20-color);
+}
+
+[data-mova-style="device-screen-s23"] {
+  color: var(--mova-device-screen-s23-color);
+}

@@ -11,28 +11,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'controllers/auth_api.dart';
 import 'models/auth_session.dart';
+import 'views/app_theme.dart';
 
-const _ink = Color(0xff1a1a2e);
-const _muted = Color(0xff68677e);
+// Aquí reúno las pantallas y el estado principal de la app móvil Flutter.
 const _api = String.fromEnvironment('MOVA_API_URL',
     defaultValue: 'http://10.0.2.2:3000');
 const _serviceUuid = String.fromEnvironment('MOVA_BLE_SERVICE_UUID');
 const _dataUuid = String.fromEnvironment('MOVA_BLE_DATA_UUID');
-
-const _sectionColors = <Color>[
-  Color(0xfff590b8),
-  Color(0xfff5a84b),
-  Color(0xffa882f5),
-  Color(0xfff5795a),
-  Color(0xffc47df5),
-];
-const _sectionBackgrounds = <Color>[
-  Color(0xfffff0f5),
-  Color(0xfffff4e6),
-  Color(0xfff5f0ff),
-  Color(0xfffff5f0),
-  Color(0xfff8f0ff),
-];
 
 void main() => runApp(const MovaApp());
 
@@ -46,7 +31,7 @@ class MovaApp extends StatelessWidget {
         theme: ThemeData(
           useMaterial3: true,
           scaffoldBackgroundColor: const Color(0xfffff0f5),
-          colorScheme: ColorScheme.fromSeed(seedColor: _sectionColors[0]),
+          colorScheme: ColorScheme.fromSeed(seedColor: AppTheme.sectionColors[0]),
           fontFamily: 'Roboto',
         ),
         home: const AuthGate(),
@@ -61,15 +46,18 @@ class AuthGate extends StatefulWidget {
 }
 
 class _AuthGateState extends State<AuthGate> {
+  // Aquí decido si muestro el acceso o la app según la respuesta de la API.
   String _page = 'login';
   final _authApi = AuthApi();
   AuthSession? _session;
 
+  // Envío las credenciales al controlador y guardo la sesión recibida.
   Future<void> _login({required String email, required String password}) async {
     final session = await _authApi.login(email: email, password: password);
     if (mounted) setState(() => _session = session);
   }
 
+  // Registro los datos del adulto y del usuario antes de entrar a la app.
   Future<void> _register({
     required String adultName,
     required String name,
@@ -150,6 +138,7 @@ class _AuthGateState extends State<AuthGate> {
 }
 
 class LoginScreen extends StatefulWidget {
+  // Esta pantalla dibuja el formulario; su estado envía los datos al servidor.
   const LoginScreen({super.key, required this.onSignup, required this.onLogin});
   final VoidCallback onSignup;
   final Future<void> Function({required String email, required String password})
@@ -173,6 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
+  // Valido lo mínimo en pantalla y muestro los errores que devuelve la API.
   Future<void> _submit() async {
     final email = _email.text.trim();
     if (!email.contains('@') || _password.text.isEmpty) {
@@ -223,7 +213,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 8),
                 const Text('MOVA',
                     style: TextStyle(
-                        color: _ink,
+                        color: AppTheme.ink,
                         fontSize: 36,
                         fontWeight: FontWeight.w900,
                         letterSpacing: 1.4))
@@ -235,7 +225,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     const Text('Bienvenido',
                         style: TextStyle(
-                            color: _ink,
+                            color: AppTheme.ink,
                             fontSize: 26,
                             fontWeight: FontWeight.w900)),
                     const SizedBox(height: 4),
@@ -359,6 +349,7 @@ class _LoginScreenState extends State<LoginScreen> {
 }
 
 class SignupScreen extends StatefulWidget {
+  // Aquí defino el formulario de creación de cuenta y sus datos obligatorios.
   const SignupScreen({super.key, required this.onBack, required this.onCreate});
   final VoidCallback onBack;
   final Future<void> Function({
@@ -402,6 +393,7 @@ class _SignupScreenState extends State<SignupScreen> {
     super.dispose();
   }
 
+  // Reúno los campos del formulario y espero que el servidor cree la cuenta.
   Future<void> _submit() async {
     setState(() {
       _submitted = true;
@@ -473,7 +465,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             letterSpacing: 1)),
                     Text('Conozc\u00e1monos',
                         style: TextStyle(
-                            color: _ink,
+                            color: AppTheme.ink,
                             fontSize: 24,
                             fontWeight: FontWeight.w900))
                   ])
@@ -620,6 +612,7 @@ void _socialMessage(BuildContext context) =>
         content: Text(
             'El inicio con Google o Apple no está conectado en esta versión de demostración.')));
 
+// Mantengo esta tarea como modelo simple para mostrar y marcar rutinas.
 class _Task {
   _Task(this.title, this.time, this.color, {this.done = false});
   final String title;
@@ -628,6 +621,7 @@ class _Task {
   bool done;
 }
 
+// Este perfil guarda ajustes locales de la app asociados a la cuenta activa.
 class _Profile {
   _Profile(
       {required this.id,
@@ -732,6 +726,7 @@ class MovaShell extends StatefulWidget {
 }
 
 class _MovaShellState extends State<MovaShell> {
+  // Desde aquí controlo navegación, perfil local y conexión del wearable.
   int _tab = 0;
   bool _showDevice = false;
   bool _scanning = false;
@@ -784,6 +779,7 @@ class _MovaShellState extends State<MovaShell> {
   }
 
   Future<void> _loadPreferences() async {
+    // Recupero preferencias del dispositivo usando una clave por cuenta.
     final preferences = await SharedPreferences.getInstance();
     final rawProfiles = preferences.getString('mova_profiles_${widget.userId}');
     if (rawProfiles != null) {
@@ -810,6 +806,7 @@ class _MovaShellState extends State<MovaShell> {
   }
 
   Future<void> _savePreferences() async {
+    // Guardo los perfiles y la selección localmente; no los envío al servidor.
     final preferences = await SharedPreferences.getInstance();
     await preferences.setString('mova_profiles_${widget.userId}',
         jsonEncode(_profiles.map((profile) => profile.toJson()).toList()));
@@ -818,6 +815,7 @@ class _MovaShellState extends State<MovaShell> {
   }
 
   Future<void> _editProfile() async {
+    // Abro el editor del perfil que está seleccionado en la app.
     final profile = _profile;
     final name = TextEditingController(text: profile.name);
     final age = TextEditingController(text: profile.age);
@@ -939,6 +937,7 @@ class _MovaShellState extends State<MovaShell> {
   }
 
   Future<void> _addProfile() async {
+    // Permito agregar otro perfil local sin crear otra cuenta del servidor.
     final number = _profiles.length + 1;
     final profile = _Profile(
         id: 'profile-${DateTime.now().millisecondsSinceEpoch}',
@@ -1000,6 +999,7 @@ class _MovaShellState extends State<MovaShell> {
   }
 
   Future<void> _scan() async {
+    // Busco dispositivos Bluetooth cercanos para iniciar el vínculo.
     if (!kIsWeb) {
       await [
         Permission.bluetoothScan,
@@ -1039,6 +1039,7 @@ class _MovaShellState extends State<MovaShell> {
   }
 
   Future<void> _connect(BluetoothDevice device) async {
+    // Me conecto al dispositivo y busco el servicio y los datos BLE.
     try {
       await FlutterBluePlus.stopScan();
       await device.connect(timeout: const Duration(seconds: 15));
@@ -1081,6 +1082,7 @@ class _MovaShellState extends State<MovaShell> {
   }
 
   Future<void> _receive(List<int> bytes) async {
+    // Convierto los bytes del wearable a JSON antes de sincronizarlos.
     final raw = utf8.decode(bytes, allowMalformed: true);
     dynamic payload;
     try {
@@ -1095,6 +1097,7 @@ class _MovaShellState extends State<MovaShell> {
   }
 
   Future<void> _sync(Map<String, dynamic> payload) async {
+    // Envío los datos con la sesión para que la API los asocie a esta cuenta.
     if (mounted) setState(() => _syncLabel = 'Sincronizando…');
     try {
       final response = await http
@@ -1122,8 +1125,8 @@ class _MovaShellState extends State<MovaShell> {
 
   @override
   Widget build(BuildContext context) {
-    final accent = _sectionColors[_tab];
-    final background = _sectionBackgrounds[_tab];
+    final accent = AppTheme.sectionColors[_tab];
+    final background = AppTheme.sectionBackgrounds[_tab];
     final phone = Scaffold(
       backgroundColor: background,
       body: SafeArea(
@@ -1215,7 +1218,7 @@ class _MovaShellState extends State<MovaShell> {
 
   Widget _navItem(int index, IconData icon, String label) {
     final active = _tab == index;
-    final color = active ? _sectionColors[index] : const Color(0xffbdb8d4);
+    final color = active ? AppTheme.sectionColors[index] : const Color(0xffbdb8d4);
     return Expanded(
       child: InkWell(
         onTap: () => setState(() {
@@ -1245,6 +1248,7 @@ class _MovaShellState extends State<MovaShell> {
     );
   }
 
+  // Esta es la vista principal que se abre después de iniciar sesión.
   Widget _homePage() {
     final done = _tasks.where((task) => task.done).length;
     return ListView(
@@ -1270,7 +1274,7 @@ class _MovaShellState extends State<MovaShell> {
                     SizedBox(height: 3),
                     Text('¡Hola, ${_profile.name.split(' ').first}! 👋',
                         style: const TextStyle(
-                            color: _ink,
+                            color: AppTheme.ink,
                             fontSize: 22,
                             fontWeight: FontWeight.w900)),
                   ])),
@@ -1311,7 +1315,7 @@ class _MovaShellState extends State<MovaShell> {
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             const Text('Rutina del día',
                 style: TextStyle(
-                    fontSize: 16, fontWeight: FontWeight.w800, color: _ink)),
+                    fontSize: 16, fontWeight: FontWeight.w800, color: AppTheme.ink)),
             Text('${(done / _tasks.length * 100).round()}% completo',
                 style: const TextStyle(
                     fontSize: 12,
@@ -1343,7 +1347,7 @@ class _MovaShellState extends State<MovaShell> {
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             const Text('¿Cómo estás hoy?',
                 style: TextStyle(
-                    fontWeight: FontWeight.w800, fontSize: 14, color: _ink)),
+                    fontWeight: FontWeight.w800, fontSize: 14, color: AppTheme.ink)),
             TextButton(
                 onPressed: () => setState(() => _tab = 3),
                 style: TextButton.styleFrom(
@@ -1366,7 +1370,7 @@ class _MovaShellState extends State<MovaShell> {
                 child: Center(
                     child: Text(
                         'Estado guardado: $_mood · toca «Ver más» para añadir una nota',
-                        style: const TextStyle(fontSize: 11, color: _muted)))),
+                        style: const TextStyle(fontSize: 11, color: AppTheme.muted)))),
         ]),
       );
 
@@ -1391,7 +1395,7 @@ class _MovaShellState extends State<MovaShell> {
               maxLines: 1,
               style: TextStyle(
                   fontSize: 9,
-                  color: active ? mood.color : _muted,
+                  color: active ? mood.color : AppTheme.muted,
                   fontWeight: FontWeight.w700))
         ]),
       ),
@@ -1429,11 +1433,11 @@ class _MovaShellState extends State<MovaShell> {
                               style: const TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w800,
-                                  color: _ink)),
+                                  color: AppTheme.ink)),
                           Text(
                               '${_profile.deviceName} · actualizado hace 1 min',
                               style:
-                                  const TextStyle(fontSize: 10, color: _muted))
+                                  const TextStyle(fontSize: 10, color: AppTheme.muted))
                         ])),
                     const Text('Ver mapa →',
                         style: TextStyle(
@@ -1467,7 +1471,7 @@ class _MovaShellState extends State<MovaShell> {
             padding: const EdgeInsets.only(bottom: 7),
             child: Text('$emoji  $slot',
                 style: const TextStyle(
-                    color: _muted,
+                    color: AppTheme.muted,
                     fontWeight: FontWeight.w700,
                     fontSize: 11,
                     letterSpacing: .5))),
@@ -1507,12 +1511,12 @@ class _MovaShellState extends State<MovaShell> {
                         style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w600,
-                            color: _ink,
+                            color: AppTheme.ink,
                             decoration: task.done
                                 ? TextDecoration.lineThrough
                                 : null))),
                 Text(task.time,
-                    style: const TextStyle(fontSize: 11, color: _muted)),
+                    style: const TextStyle(fontSize: 11, color: AppTheme.muted)),
                 const SizedBox(width: 8),
                 if (!task.done)
                   Container(
@@ -1526,6 +1530,7 @@ class _MovaShellState extends State<MovaShell> {
         ),
       );
 
+  // Armo la vista de rutinas con el tema que corresponde a la pestaña activa.
   Widget _routinePage(Color accent, Color background) => _scrollPage(
         key: const ValueKey('routines'),
         accent: accent,
@@ -1538,7 +1543,7 @@ class _MovaShellState extends State<MovaShell> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                 const Text('Progreso de hoy',
-                    style: TextStyle(color: _muted, fontSize: 12)),
+                    style: TextStyle(color: AppTheme.muted, fontSize: 12)),
                 const SizedBox(height: 8),
                 LinearProgressIndicator(
                     value: _tasks.where((t) => t.done).length / _tasks.length,
@@ -1561,7 +1566,7 @@ class _MovaShellState extends State<MovaShell> {
                     style: const TextStyle(
                         fontWeight: FontWeight.w800,
                         fontSize: 16,
-                        color: _ink))),
+                        color: AppTheme.ink))),
             for (final task in (group == 'Mañana'
                 ? _tasks.take(5)
                 : group == 'Tarde'
@@ -1573,6 +1578,7 @@ class _MovaShellState extends State<MovaShell> {
         ],
       );
 
+  // Armo el calendario y su lista de eventos para el usuario.
   Widget _calendarPage(Color accent, Color background) => _scrollPage(
         key: const ValueKey('calendar'),
         accent: accent,
@@ -1590,7 +1596,7 @@ class _MovaShellState extends State<MovaShell> {
                         child: Center(
                             child: Text(day,
                                 style: const TextStyle(
-                                    color: _muted,
+                                    color: AppTheme.muted,
                                     fontWeight: FontWeight.w700,
                                     fontSize: 11)))))
                     .toList()),
@@ -1628,7 +1634,7 @@ class _MovaShellState extends State<MovaShell> {
                                             style: TextStyle(
                                                 color: selected
                                                     ? Colors.white
-                                                    : _ink,
+                                                    : AppTheme.ink,
                                                 fontWeight: selected
                                                     ? FontWeight.w800
                                                     : FontWeight.w500)))));
@@ -1638,7 +1644,7 @@ class _MovaShellState extends State<MovaShell> {
               padding: EdgeInsets.fromLTRB(2, 10, 2, 8),
               child: Text('Lunes, 10 de agosto',
                   style: TextStyle(
-                      fontWeight: FontWeight.w800, fontSize: 16, color: _ink))),
+                      fontWeight: FontWeight.w800, fontSize: 16, color: AppTheme.ink))),
           for (final event in const [
             ('06:30', 'Carrera HIIT', Color(0xfff590b8), '35 min'),
             (
@@ -1654,6 +1660,7 @@ class _MovaShellState extends State<MovaShell> {
         ],
       );
 
+  // Armo la vista para registrar y revisar emociones.
   Widget _emotionPage(Color accent, Color background) => _scrollPage(
         key: const ValueKey('emotions'),
         accent: accent,
@@ -1679,7 +1686,7 @@ class _MovaShellState extends State<MovaShell> {
               padding: EdgeInsets.fromLTRB(2, 18, 2, 9),
               child: Text('¿Qué más sientes?',
                   style: TextStyle(
-                      fontSize: 14, fontWeight: FontWeight.w800, color: _ink))),
+                      fontSize: 14, fontWeight: FontWeight.w800, color: AppTheme.ink))),
           Wrap(
               spacing: 7,
               runSpacing: 7,
@@ -1704,7 +1711,7 @@ class _MovaShellState extends State<MovaShell> {
               padding: EdgeInsets.fromLTRB(2, 18, 2, 8),
               child: Text('¿Quieres contarnos algo más?',
                   style: TextStyle(
-                      fontSize: 14, fontWeight: FontWeight.w800, color: _ink))),
+                      fontSize: 14, fontWeight: FontWeight.w800, color: AppTheme.ink))),
           TextField(
               minLines: 3,
               maxLines: 4,
@@ -1720,7 +1727,7 @@ class _MovaShellState extends State<MovaShell> {
               padding: EdgeInsets.fromLTRB(2, 18, 2, 9),
               child: Text('Esta semana',
                   style: TextStyle(
-                      fontSize: 14, fontWeight: FontWeight.w800, color: _ink))),
+                      fontSize: 14, fontWeight: FontWeight.w800, color: AppTheme.ink))),
           _whiteCard(
               child: SizedBox(
                   height: 100,
@@ -1753,7 +1760,7 @@ class _MovaShellState extends State<MovaShell> {
                                 const SizedBox(height: 5),
                                 Text(['L', 'M', 'X', 'J', 'V', 'S', 'D'][i],
                                     style: const TextStyle(
-                                        fontSize: 10, color: _muted))
+                                        fontSize: 10, color: AppTheme.muted))
                               ]))
                       ]))),
           const SizedBox(height: 12),
@@ -1774,7 +1781,7 @@ class _MovaShellState extends State<MovaShell> {
                 padding: const EdgeInsets.only(top: 8),
                 child: Text(
                     'Último registro: $_savedMood${_note.isEmpty ? '' : ' · $_note'}',
-                    style: const TextStyle(color: _muted, fontSize: 12))),
+                    style: const TextStyle(color: AppTheme.muted, fontSize: 12))),
           const SizedBox(height: 20),
         ],
       );
@@ -1799,11 +1806,12 @@ class _MovaShellState extends State<MovaShell> {
               Text(mood.name,
                   style: TextStyle(
                       fontSize: 11,
-                      color: active ? mood.color : _ink,
+                      color: active ? mood.color : AppTheme.ink,
                       fontWeight: FontWeight.w700))
             ])));
   }
 
+  // Compongo la configuración y las opciones del perfil activo.
   Widget _settingsPage(Color accent, Color background) =>
       this._enhancedSettingsPage(accent, background);
 
@@ -1837,11 +1845,11 @@ class _MovaShellState extends State<MovaShell> {
                   Text('Carlos Rodríguez',
                       style: TextStyle(
                           fontWeight: FontWeight.w800,
-                          color: _ink,
+                          color: AppTheme.ink,
                           fontSize: 16)),
                   SizedBox(height: 3),
                   Text('12 años · carlos@email.com',
-                      style: TextStyle(color: _muted, fontSize: 12))
+                      style: TextStyle(color: AppTheme.muted, fontSize: 12))
                 ])),
             Icon(Icons.chevron_right, color: accent)
           ])),
@@ -1849,7 +1857,7 @@ class _MovaShellState extends State<MovaShell> {
               padding: EdgeInsets.fromLTRB(2, 18, 2, 9),
               child: Text('CUENTA',
                   style: TextStyle(
-                      color: _muted,
+                      color: AppTheme.muted,
                       fontSize: 11,
                       letterSpacing: 1.2,
                       fontWeight: FontWeight.w800))),
@@ -1863,7 +1871,7 @@ class _MovaShellState extends State<MovaShell> {
               padding: EdgeInsets.fromLTRB(2, 18, 2, 9),
               child: Text('CONEXIONES',
                   style: TextStyle(
-                      color: _muted,
+                      color: AppTheme.muted,
                       fontSize: 11,
                       letterSpacing: 1.2,
                       fontWeight: FontWeight.w800))),
@@ -1874,7 +1882,7 @@ class _MovaShellState extends State<MovaShell> {
                     style:
                         TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
                 subtitle: Text(_deviceLabel,
-                    style: const TextStyle(fontSize: 11, color: _muted)),
+                    style: const TextStyle(fontSize: 11, color: AppTheme.muted)),
                 trailing:
                     const Icon(Icons.chevron_right, color: Color(0xffbdb8d4)),
                 onTap: _scan),
@@ -1906,7 +1914,7 @@ class _MovaShellState extends State<MovaShell> {
               style:
                   const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
           subtitle: Text(subtitle,
-              style: const TextStyle(fontSize: 11, color: _muted)),
+              style: const TextStyle(fontSize: 11, color: AppTheme.muted)),
           trailing: const Icon(Icons.chevron_right, color: Color(0xffbdb8d4)));
   Widget _settingIcon(IconData icon, Color color) => Container(
       width: 36,
@@ -1929,6 +1937,7 @@ class _MovaShellState extends State<MovaShell> {
           clipBehavior: Clip.antiAlias,
           child: Column(children: children)));
 
+  // Presento el estado del dispositivo y las acciones de conexión BLE.
   Widget _devicePage(Color accent, Color background) =>
       Column(key: const ValueKey('device'), children: [
         Padding(
@@ -1940,7 +1949,7 @@ class _MovaShellState extends State<MovaShell> {
               const SizedBox(width: 4),
               const Text('Dispositivo MOVA',
                   style: TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.w800, color: _ink))
+                      fontSize: 20, fontWeight: FontWeight.w800, color: AppTheme.ink))
             ])),
         Expanded(
             child: ListView(
@@ -1965,10 +1974,10 @@ class _MovaShellState extends State<MovaShell> {
                         style: const TextStyle(
                             fontWeight: FontWeight.w900,
                             fontSize: 18,
-                            color: _ink)),
+                            color: AppTheme.ink)),
                     const SizedBox(height: 4),
                     Text('${_profile.name} · Actualizado hace 1 min',
-                        style: const TextStyle(color: _muted, fontSize: 12)),
+                        style: const TextStyle(color: AppTheme.muted, fontSize: 12)),
                     const Divider(height: 24),
                     _dataRow('Batería', '${_profile.battery}%', accent),
                     _dataRow('Conexión', _deviceLabel, accent),
@@ -2002,7 +2011,7 @@ class _MovaShellState extends State<MovaShell> {
   Widget _dataRow(String label, String value, Color accent) => Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Text(label, style: const TextStyle(fontSize: 12, color: _muted)),
+        Text(label, style: const TextStyle(fontSize: 12, color: AppTheme.muted)),
         Flexible(
             child: Text(value,
                 textAlign: TextAlign.right,
@@ -2029,7 +2038,7 @@ class _MovaShellState extends State<MovaShell> {
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(title,
                   style: const TextStyle(
-                      fontSize: 24, fontWeight: FontWeight.w900, color: _ink)),
+                      fontSize: 24, fontWeight: FontWeight.w900, color: AppTheme.ink)),
               const SizedBox(height: 3),
               Text(subtitle,
                   style: TextStyle(
@@ -2070,9 +2079,9 @@ class _MovaShellState extends State<MovaShell> {
               dense: true,
               title: Text(title,
                   style: const TextStyle(
-                      fontSize: 13, fontWeight: FontWeight.w700, color: _ink)),
+                      fontSize: 13, fontWeight: FontWeight.w700, color: AppTheme.ink)),
               subtitle: Text('$time · $duration',
-                  style: const TextStyle(fontSize: 11, color: _muted)),
+                  style: const TextStyle(fontSize: 11, color: AppTheme.muted)),
               trailing: Icon(Icons.chevron_right, color: color)));
 
   Future<void> _notifications() async {
@@ -2092,7 +2101,7 @@ class _MovaShellState extends State<MovaShell> {
                           style: TextStyle(
                               fontWeight: FontWeight.w900,
                               fontSize: 18,
-                              color: _ink)),
+                              color: AppTheme.ink)),
                       const SizedBox(height: 12),
                       for (final item in const [
                         (
@@ -2120,10 +2129,10 @@ class _MovaShellState extends State<MovaShell> {
                                 style: const TextStyle(fontSize: 22)),
                             title: Text(item.$2,
                                 style:
-                                    const TextStyle(fontSize: 13, color: _ink)),
+                                    const TextStyle(fontSize: 13, color: AppTheme.ink)),
                             trailing: Text(item.$3,
                                 style: const TextStyle(
-                                    fontSize: 11, color: _muted)))
+                                    fontSize: 11, color: AppTheme.muted)))
                     ]))));
   }
 }
@@ -2178,7 +2187,7 @@ extension _SettingsUi on _MovaShellState {
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             const Text('Perfiles',
                 style: TextStyle(
-                    color: _ink, fontSize: 14, fontWeight: FontWeight.w800)),
+                    color: AppTheme.ink, fontSize: 14, fontWeight: FontWeight.w800)),
             TextButton.icon(
                 onPressed: _addProfile,
                 icon: const Icon(Icons.add, size: 17),
@@ -2235,12 +2244,12 @@ extension _SettingsUi on _MovaShellState {
                       Text(_profile.name,
                           style: const TextStyle(
                               fontWeight: FontWeight.w800,
-                              color: _ink,
+                              color: AppTheme.ink,
                               fontSize: 16)),
                       const SizedBox(height: 3),
                       Text(
                           '${widget.adultName} | ${_profile.name} (${_profile.age}) | ${_profile.email}',
-                          style: const TextStyle(color: _muted, fontSize: 12))
+                          style: const TextStyle(color: AppTheme.muted, fontSize: 12))
                     ])),
                 Icon(Icons.edit_outlined, color: accent),
               ]))),
@@ -2283,7 +2292,7 @@ extension _SettingsUi on _MovaShellState {
                                     style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w700,
-                                        color: _ink)),
+                                        color: AppTheme.ink)),
                                 Text('${_profile.intensity}/10',
                                     style: TextStyle(
                                         color: accent,
@@ -2305,10 +2314,10 @@ extension _SettingsUi on _MovaShellState {
                               children: [
                                 Text('Suave',
                                     style:
-                                        TextStyle(fontSize: 9, color: _muted)),
+                                        TextStyle(fontSize: 9, color: AppTheme.muted)),
                                 Text('Intensa',
                                     style:
-                                        TextStyle(fontSize: 9, color: _muted))
+                                        TextStyle(fontSize: 9, color: AppTheme.muted))
                               ]),
                         ])),
                   ])),
@@ -2324,7 +2333,7 @@ extension _SettingsUi on _MovaShellState {
                   child: Text(
                       'El perfil y las preferencias se guardan localmente en este dispositivo. Los datos del wearable se envían a la API cuando sincronizas.',
                       style: TextStyle(
-                          fontSize: 11, height: 1.45, color: _muted))),
+                          fontSize: 11, height: 1.45, color: AppTheme.muted))),
           ]),
           _settingsSection('APLICACIÓN'),
           _settingsGroup([
@@ -2357,7 +2366,7 @@ extension _SettingsUi on _MovaShellState {
                                 Text(_profile.deviceName,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.w800,
-                                        color: _ink,
+                                        color: AppTheme.ink,
                                         fontSize: 13)),
                                 Text(
                                     _deviceLabel == 'Sin dispositivo conectado'
@@ -2451,7 +2460,7 @@ extension _SettingsUi on _MovaShellState {
       padding: const EdgeInsets.fromLTRB(2, 19, 2, 9),
       child: Text(title,
           style: const TextStyle(
-              color: _muted,
+              color: AppTheme.muted,
               fontSize: 11,
               letterSpacing: 1.3,
               fontWeight: FontWeight.w800)));
@@ -2466,7 +2475,7 @@ extension _SettingsUi on _MovaShellState {
           subtitle: subtitle.isEmpty
               ? null
               : Text(subtitle,
-                  style: const TextStyle(fontSize: 10, color: _muted)),
+                  style: const TextStyle(fontSize: 10, color: AppTheme.muted)),
           trailing: const Icon(Icons.chevron_right, color: Color(0xffbdb8d4)),
           onTap: onTap,
           dense: true,
@@ -2479,7 +2488,7 @@ extension _SettingsUi on _MovaShellState {
           dense: true,
           title: Text(label,
               style: const TextStyle(
-                  color: _ink, fontSize: 12, fontWeight: FontWeight.w700)),
+                  color: AppTheme.ink, fontSize: 12, fontWeight: FontWeight.w700)),
           value: value,
           activeColor: const Color(0xff5ecfa8),
           onChanged: onChanged);

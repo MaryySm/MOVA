@@ -1,3 +1,4 @@
+// Aquí centralizo los colores y estilos que comparten las pantallas móviles.
 import type { Screen } from "../models/navigation"
 export const THEME: Record<Screen, {
   bg: string

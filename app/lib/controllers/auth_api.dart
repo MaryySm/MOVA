@@ -4,12 +4,14 @@ import 'package:http/http.dart' as http;
 
 import '../models/auth_session.dart';
 
+// Aquí centralizo las llamadas de registro e inicio de sesión al backend.
 const _apiBaseUrl = String.fromEnvironment(
   'MOVA_API_URL',
   defaultValue: 'http://10.0.2.2:3000',
 );
 
 class AuthApiException implements Exception {
+  // Uso este error para mostrar al usuario una respuesta legible del servidor.
   const AuthApiException(this.message);
   final String message;
 
@@ -22,10 +24,12 @@ class AuthApi {
   final http.Client _client;
   Uri get _baseUri => Uri.parse(_apiBaseUrl);
 
+  // Envío correo y contraseña a la ruta de inicio de sesión.
   Future<AuthSession> login(
           {required String email, required String password}) =>
       _request('/api/auth/login', {'email': email, 'password': password});
 
+  // Transformo el teléfono y envío los datos completos del nuevo usuario.
   Future<AuthSession> register({
     required String adultName,
     required String name,
@@ -45,6 +49,7 @@ class AuthApi {
         'password': password,
       });
 
+  // Centralizo JSON, errores de red y conversión de la respuesta a sesión.
   Future<AuthSession> _request(String path, Map<String, dynamic> body) async {
     try {
       final response = await _client

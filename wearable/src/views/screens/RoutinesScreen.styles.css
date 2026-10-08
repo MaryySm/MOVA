@@ -1,0 +1,373 @@
+[data-mova-style="routines-screen-s0"] {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  padding-bottom: 80px;
+}
+
+[data-mova-style="routines-screen-s1"] {
+  position: absolute;
+  top: 60px;
+  left: 20px;
+  right: 20px;
+  z-index: 200;
+  background: #1A1A2E;
+  color: #fff;
+  border-radius: 14px;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+[data-mova-style="routines-screen-s2"] {
+  padding: 52px 20px 16px;
+}
+
+[data-mova-style="routines-screen-s3"] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+[data-mova-style="routines-screen-s4"] {
+  font-family: Outfit, sans-serif;
+  font-size: 24px;
+  font-weight: 900;
+  margin: 0;
+}
+
+[data-mova-style="routines-screen-s5"] {
+  border: none;
+  border-radius: 12px;
+  padding: 8px 14px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+[data-mova-style="routines-screen-s6"] {
+  margin-bottom: 20px;
+}
+
+[data-mova-style="routines-screen-s7"] {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+[data-mova-style="routines-screen-s8"] {
+  font-size: 12px;
+}
+
+[data-mova-style="routines-screen-s9"] {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+[data-mova-style="routines-screen-s10"] {
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(0,0,0,0.08);
+}
+
+[data-mova-style="routines-screen-s11"] {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s;
+}
+
+[data-mova-style="routines-screen-s12"] {
+  margin-bottom: 12px;
+}
+
+[data-mova-style="routines-screen-s13"] {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #fff;
+  cursor: pointer;
+  text-align: left;
+}
+
+[data-mova-style="routines-screen-s14"] {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+[data-mova-style="routines-screen-s15"] {
+  flex: 1;
+}
+
+[data-mova-style="routines-screen-s16"] {
+  font-family: Outfit, sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+[data-mova-style="routines-screen-s17"] {
+  font-size: 11px;
+}
+
+[data-mova-style="routines-screen-s18"] {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+[data-mova-style="routines-screen-s19"] {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+[data-mova-style="routines-screen-s20"] {
+  transition: transform 0.2s;
+}
+
+[data-mova-style="routines-screen-s21"] {
+  background: #fff;
+  border-radius: 0 0 18px 18px;
+  border-top: none;
+  padding: 4px 0 14px;
+}
+
+[data-mova-style="routines-screen-s22"] {
+  text-align: center;
+  font-size: 13px;
+  padding: 16px 0 8px;
+}
+
+[data-mova-style="routines-screen-s23"] {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+}
+
+[data-mova-style="routines-screen-s24"] {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+[data-mova-style="routines-screen-s25"] {
+  flex: 1;
+}
+
+[data-mova-style="routines-screen-s26"] {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+[data-mova-style="routines-screen-s27"] {
+  border-radius: 8px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+[data-mova-style="routines-screen-s28"] {
+  background: none;
+  border: none;
+  color: #F5795A;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0 2px;
+  flex-shrink: 0;
+}
+
+[data-mova-style="routines-screen-s29"] {
+  padding: 10px 16px 0;
+}
+
+[data-mova-style="routines-screen-s30"] {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+[data-mova-style="routines-screen-s31"] {
+  flex: 1;
+  background: #F5F5F8;
+  border-radius: 10px;
+  padding: 9px 12px;
+  font-size: 13px;
+  outline: none;
+}
+
+[data-mova-style="routines-screen-s32"] {
+  border: none;
+  border-radius: 10px;
+  padding: 9px 14px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+[data-mova-style="routines-screen-s33"] {
+  background: rgba(0,0,0,0.06);
+  border: none;
+  border-radius: 10px;
+  padding: 9px 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+[data-mova-style="routines-screen-s34"] {
+  font-size: 11px;
+  margin: 0 0 8px;
+  font-weight: 600;
+}
+
+[data-mova-style="routines-screen-s35"] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+[data-mova-style="routines-screen-s36"] {
+  padding: 5px 10px;
+  border-radius: 16px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+[data-mova-style="routines-screen-s37"] {
+  width: 100%;
+  padding: 9px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+[data-mova-style="routines-screen-s0"] {
+  background: var(--mova-routines-screen-s0-background);
+}
+
+[data-mova-style="routines-screen-s4"] {
+  color: var(--mova-routines-screen-s4-color);
+}
+
+[data-mova-style="routines-screen-s5"] {
+  background: var(--mova-routines-screen-s5-background);
+  box-shadow: var(--mova-routines-screen-s5-box-shadow);
+}
+
+[data-mova-style="routines-screen-s8"] {
+  color: var(--mova-routines-screen-s8-color);
+}
+
+[data-mova-style="routines-screen-s9"] {
+  color: var(--mova-routines-screen-s9-color);
+}
+
+[data-mova-style="routines-screen-s11"] {
+  background: var(--mova-routines-screen-s11-background);
+  width: var(--mova-routines-screen-s11-width);
+}
+
+[data-mova-style="routines-screen-s13"] {
+  border-radius: var(--mova-routines-screen-s13-border-radius);
+  border: var(--mova-routines-screen-s13-border);
+  border-bottom: var(--mova-routines-screen-s13-border-bottom);
+  box-shadow: var(--mova-routines-screen-s13-box-shadow);
+}
+
+[data-mova-style="routines-screen-s14"] {
+  background: var(--mova-routines-screen-s14-background);
+}
+
+[data-mova-style="routines-screen-s16"] {
+  color: var(--mova-routines-screen-s16-color);
+}
+
+[data-mova-style="routines-screen-s17"] {
+  color: var(--mova-routines-screen-s17-color);
+}
+
+[data-mova-style="routines-screen-s19"] {
+  background: var(--mova-routines-screen-s19-background);
+}
+
+[data-mova-style="routines-screen-s20"] {
+  transform: var(--mova-routines-screen-s20-transform);
+}
+
+[data-mova-style="routines-screen-s21"] {
+  border: var(--mova-routines-screen-s21-border);
+}
+
+[data-mova-style="routines-screen-s22"] {
+  color: var(--mova-routines-screen-s22-color);
+}
+
+[data-mova-style="routines-screen-s23"] {
+  border-bottom: var(--mova-routines-screen-s23-border-bottom);
+}
+
+[data-mova-style="routines-screen-s24"] {
+  background: var(--mova-routines-screen-s24-background);
+  border: var(--mova-routines-screen-s24-border);
+}
+
+[data-mova-style="routines-screen-s26"] {
+  color: var(--mova-routines-screen-s26-color);
+  text-decoration: var(--mova-routines-screen-s26-text-decoration);
+}
+
+[data-mova-style="routines-screen-s27"] {
+  background: var(--mova-routines-screen-s27-background);
+  border: var(--mova-routines-screen-s27-border);
+  color: var(--mova-routines-screen-s27-color);
+}
+
+[data-mova-style="routines-screen-s31"] {
+  border: var(--mova-routines-screen-s31-border);
+  color: var(--mova-routines-screen-s31-color);
+}
+
+[data-mova-style="routines-screen-s32"] {
+  background: var(--mova-routines-screen-s32-background);
+}
+
+[data-mova-style="routines-screen-s33"] {
+  color: var(--mova-routines-screen-s33-color);
+}
+
+[data-mova-style="routines-screen-s34"] {
+  color: var(--mova-routines-screen-s34-color);
+}
+
+[data-mova-style="routines-screen-s36"] {
+  background: var(--mova-routines-screen-s36-background);
+  border: var(--mova-routines-screen-s36-border);
+  color: var(--mova-routines-screen-s36-color);
+}
+
+[data-mova-style="routines-screen-s37"] {
+  background: var(--mova-routines-screen-s37-background);
+  border: var(--mova-routines-screen-s37-border);
+  color: var(--mova-routines-screen-s37-color);
+}

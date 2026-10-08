@@ -1,3 +1,4 @@
+// Aquí guardo los tipos y datos de ejemplo que utilizan rutinas y calendario.
 export const WEEK_DAYS = [
   { key: "lun", label: "Lun", full: "Lunes", color: "#9B72F5" },
   { key: "mar", label: "Mar", full: "Martes", color: "#6B9FFF" },

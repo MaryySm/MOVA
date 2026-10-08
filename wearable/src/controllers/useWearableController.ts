@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import type { KAct, WPage } from "../models/wearable"
 import { KIDS_ACTIVITIES } from "../models/wearable"
+// Aquí manejo el estado y las interacciones del simulador de reloj independiente.
 export function useWearableController(onSOS: () => void, sosAck: boolean) {
   const [page, setPage] = useState<WPage>("home")
 

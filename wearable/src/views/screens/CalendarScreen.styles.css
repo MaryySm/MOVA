@@ -1,0 +1,205 @@
+[data-mova-style="calendar-screen-s0"] {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  padding-bottom: 80px;
+}
+
+[data-mova-style="calendar-screen-s1"] {
+  padding: 52px 20px 16px;
+}
+
+[data-mova-style="calendar-screen-s2"] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+[data-mova-style="calendar-screen-s3"] {
+  font-family: Outfit, sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  margin: 0;
+}
+
+[data-mova-style="calendar-screen-s4"] {
+  display: flex;
+  gap: 8px;
+}
+
+[data-mova-style="calendar-screen-s5"] {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 10px;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+[data-mova-style="calendar-screen-s6"] {
+  background: #fff;
+  border-radius: 22px;
+  padding: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  margin-bottom: 22px;
+}
+
+[data-mova-style="calendar-screen-s7"] {
+  display: grid;
+  grid-template-columns: repeat(7,1fr);
+  margin-bottom: 8px;
+}
+
+[data-mova-style="calendar-screen-s8"] {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 0;
+}
+
+[data-mova-style="calendar-screen-s9"] {
+  display: grid;
+  grid-template-columns: repeat(7,1fr);
+}
+
+[data-mova-style="calendar-screen-s10"] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 2px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+[data-mova-style="calendar-screen-s11"] {
+  font-size: 14px;
+}
+
+[data-mova-style="calendar-screen-s12"] {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  margin-top: 2px;
+}
+
+[data-mova-style="calendar-screen-s13"] {
+  font-family: Outfit, sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  margin: 0 0 14px;
+}
+
+[data-mova-style="calendar-screen-s14"] {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+[data-mova-style="calendar-screen-s15"] {
+  width: 44px;
+  text-align: right;
+  padding-top: 4px;
+}
+
+[data-mova-style="calendar-screen-s16"] {
+  font-size: 11px;
+}
+
+[data-mova-style="calendar-screen-s17"] {
+  width: 3px;
+  border-radius: 2px;
+  align-self: stretch;
+  flex-shrink: 0;
+}
+
+[data-mova-style="calendar-screen-s18"] {
+  flex: 1;
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+
+[data-mova-style="calendar-screen-s19"] {
+  font-family: Outfit, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+[data-mova-style="calendar-screen-s20"] {
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+[data-mova-style="calendar-screen-s21"] {
+  width: 100%;
+  margin-top: 8px;
+  padding: 13px;
+  border-radius: 14px;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+[data-mova-style="calendar-screen-s0"] {
+  background: var(--mova-calendar-screen-s0-background);
+}
+
+[data-mova-style="calendar-screen-s3"] {
+  color: var(--mova-calendar-screen-s3-color);
+}
+
+[data-mova-style="calendar-screen-s5"] {
+  color: var(--mova-calendar-screen-s5-color);
+}
+
+[data-mova-style="calendar-screen-s8"] {
+  color: var(--mova-calendar-screen-s8-color);
+}
+
+[data-mova-style="calendar-screen-s10"] {
+  background: var(--mova-calendar-screen-s10-background);
+}
+
+[data-mova-style="calendar-screen-s11"] {
+  color: var(--mova-calendar-screen-s11-color);
+  font-weight: var(--mova-calendar-screen-s11-font-weight);
+}
+
+[data-mova-style="calendar-screen-s12"] {
+  background: var(--mova-calendar-screen-s12-background);
+}
+
+[data-mova-style="calendar-screen-s13"] {
+  color: var(--mova-calendar-screen-s13-color);
+}
+
+[data-mova-style="calendar-screen-s16"] {
+  color: var(--mova-calendar-screen-s16-color);
+}
+
+[data-mova-style="calendar-screen-s17"] {
+  background: var(--mova-calendar-screen-s17-background);
+}
+
+[data-mova-style="calendar-screen-s18"] {
+  background: var(--mova-calendar-screen-s18-background);
+  border: var(--mova-calendar-screen-s18-border);
+}
+
+[data-mova-style="calendar-screen-s19"] {
+  color: var(--mova-calendar-screen-s19-color);
+}
+
+[data-mova-style="calendar-screen-s20"] {
+  color: var(--mova-calendar-screen-s20-color);
+}
+
+[data-mova-style="calendar-screen-s21"] {
+  border: var(--mova-calendar-screen-s21-border);
+  color: var(--mova-calendar-screen-s21-color);
+}

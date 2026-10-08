@@ -1,3 +1,4 @@
+-- Aquí defino la cuenta del adulto y el perfil del usuario que recibe MOVA.
 CREATE TABLE IF NOT EXISTS users (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   adult_name TEXT NOT NULL,
@@ -11,6 +12,7 @@ CREATE TABLE IF NOT EXISTS users (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+-- Relaciono cada envío del wearable con la cuenta que inició sesión.
 CREATE TABLE IF NOT EXISTS wearable_syncs (
   id BIGSERIAL PRIMARY KEY,
   user_id UUID REFERENCES users(id) ON DELETE CASCADE,
@@ -19,5 +21,7 @@ CREATE TABLE IF NOT EXISTS wearable_syncs (
   synced_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+-- Agrego la relación si la tabla venía de una versión anterior del esquema.
 ALTER TABLE wearable_syncs ADD COLUMN IF NOT EXISTS user_id UUID REFERENCES users(id) ON DELETE CASCADE;
+-- Acelero la consulta de sincronizaciones ordenadas por fecha.
 CREATE INDEX IF NOT EXISTS wearable_syncs_synced_at_idx ON wearable_syncs(synced_at DESC);

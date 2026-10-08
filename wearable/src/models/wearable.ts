@@ -1,3 +1,4 @@
+// Aquí reúno medidas, colores y datos de ejemplo del simulador MOVA Kids.
 export const W = 210
 
 export const H = 250
