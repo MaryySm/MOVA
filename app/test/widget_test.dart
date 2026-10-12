@@ -1,8 +1,10 @@
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mova/main.dart';
 
 void main() {
   testWidgets('MOVA muestra la pantalla de inicio de sesión', (tester) async {
+    SharedPreferences.setMockInitialValues({});
     await tester.pumpWidget(const MovaApp());
     await tester.pumpAndSettle();
 

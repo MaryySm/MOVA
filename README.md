@@ -1,131 +1,110 @@
 # MOVA
 
-El proyecto incluye tres componentes:
+Teléfono Flutter (`app/`), reloj web React (`wearable/`) y API Express/PostgreSQL (`backend/`). Ambos clientes usan cuentas, perfiles y dispositivos persistidos en una misma base de datos.
 
-- `wearable/`: prototipos React + Vite del teléfono y del reloj MOVA Kids. Comparten emociones, actividades y SOS mediante la API. Los perfiles siguen guardándose en cada navegador.
-- `app/`: aplicación Flutter con pantallas de acceso, perfiles, rutinas y conexión BLE.
-- `backend/`: API Express que guarda sincronizaciones JSON en PostgreSQL.
+## Ejecutar desde Visual Studio Code
 
-## Ejecutar los prototipos web
-
-Con Node.js 22.12 o superior (Node 24 también funciona), desde la raíz:
-
-```sh
-cd wearable
-npm install
-npm run dev:app
-```
-
-Abre http://localhost:8443. En otra terminal, desde `wearable/`:
-
-```sh
-npm run dev:wearable
-```
-
-Abre http://localhost:8444. Para comprobar la compilación: `npm run build`.
-En Windows se puede usar `npm.cmd` en lugar de `npm`. Detén cada servidor con Ctrl+C.
-
-## Ejecutar API y base de datos
-
-Abre Docker Desktop y, desde la raíz:
+1. Abre Docker Desktop. Instala Flutter y Node.js 22.12 o superior.
+2. En Visual Studio Code abre esta carpeta mediante **Archivo → Abrir carpeta**.
+3. Abre **Terminal → Nueva terminal** y ejecuta:
 
 ```sh
 cd backend
 docker compose up -d --build
 ```
 
-Docker Compose ya define las variables de conexión; no requiere crear `.env`.
-Comprueba http://localhost:3000/health: debe devolver `status: ok` y `database: connected`.
-
-- `POST /api/sync`: recibe `{"deviceId":"mova","payload":{"heartRate":80}}`.
-- `GET /api/sync?limit=50`: devuelve las sincronizaciones más recientes.
-
-Para detener los contenedores conservando los datos: `docker compose down`.
-Los datos se almacenan en el volumen `mova_pgdata`.
-
-## Ejecutar Flutter
-
-Las plataformas Android, iOS y web ya están creadas. Desde la raíz:
+4. Abre otra terminal desde la raíz del proyecto:
 
 ```sh
 cd app
 flutter pub get
-flutter devices
-flutter test
-```
-
-Para ver la interfaz en el navegador:
-
-```sh
 flutter run -d web-server --web-hostname 127.0.0.1 --web-port 8445 --dart-define=MOVA_API_URL=http://localhost:3000
 ```
 
-Abre http://localhost:8445. La versión web comparte datos con el simulador; CORS está habilitado para los puertos locales 8443, 8444 y 8445. El acceso actual valida los campos localmente y no implementa autenticación de servidor.
-
-Para Android, conecta un teléfono con depuración USB o inicia un emulador y ejecuta:
-
-```sh
-flutter run -d ID_DEL_DISPOSITIVO --dart-define=MOVA_API_URL=http://10.0.2.2:3000
-```
-
-`10.0.2.2` corresponde al host desde Android Emulator. En un teléfono físico o iOS, reemplázalo por la IP local de tu computador y usa la misma red Wi-Fi.
-
-Para recibir datos del wearable real, define también `--dart-define=MOVA_BLE_SERVICE_UUID=UUID_DEL_SERVICIO` y `--dart-define=MOVA_BLE_DATA_UUID=UUID_DE_DATOS` con los valores del fabricante. La app espera datos JSON; la conexión a un wearable real todavía necesita validación con el dispositivo.
-
-## Datos compartidos entre teléfono y reloj
-
-Inicia primero Docker Compose y luego las vistas web/Flutter. Las tres usan el dispositivo de demostración `MOVA-2841` y consultan su estado cada dos segundos:
-
-- En el reloj (`8444`), elige una emoción o marca una actividad. El teléfono Flutter (`8445`) la muestra en Inicio y actualiza sus rutinas y emociones.
-- En Flutter, marca una rutina o selecciona una emoción desde Inicio: el cambio también llega al reloj. En Emociones, usa «Guardar registro» para enviar la emoción seleccionada; las notas todavía son locales.
-- Mantén pulsado SOS en el reloj. En Inicio del teléfono aparece la solicitud y el botón «Confirmar recepción». Al confirmar, el reloj vuelve a Inicio y muestra la confirmación. Esto registra un aviso en la demo; no contacta servicios de emergencia ni envía notificaciones fuera de estas vistas.
-- El teléfono React (`8443`) incluye en Inicio el panel «Reloj enlazado» para ver y editar los mismos datos. Los demás paneles originales de ese prototipo conservan sus datos locales de demostración.
-- Si la API falla, aparece el estado de conexión y los cambios no se anuncian como guardados. Las lecturas se reintentan; repite una edición fallida cuando vuelva la conexión.
-
-La tabla `wearable_states` contiene el estado actual por dispositivo y `wearable_syncs` conserva el historial de cambios. La migración se aplica automáticamente al iniciar la API, incluso si el volumen ya existía.
-
-API del estado compartido:
-
-```text
-GET   /api/devices/MOVA-2841/state
-PATCH /api/devices/MOVA-2841/state
-```
-
-PATCH acepta campos parciales, por ejemplo `{"mood":"Bien"}`, `{"activities":{"a1":true}}` o `{"sos":false}`. Las actividades se identifican de `a1` a `a7`, en el mismo orden que el reloj. `POST /api/sync` también actualiza el estado si recibe esos campos o `heartRate`, con un `deviceId` válido.
-
-Para otro dispositivo, configura el mismo identificador en ambos clientes: `VITE_MOVA_DEVICE_ID` en React y `--dart-define=MOVA_DEVICE_ID=ID` en Flutter. React acepta `VITE_MOVA_API_URL`; por defecto usa el nombre del host actual con el puerto 3000. Para acceder desde otra IP, configura `CORS_ORIGINS` en `backend/.env` con los orígenes exactos separados por comas, y reinicia Compose. Configura además `MOVA_API_URL` en Flutter.
-
-La integración es una demo local de un dispositivo compartido. Todavía no incluye cuentas de servidor, permisos por usuario, asignación remota de perfiles ni sincronización de calendarios, fotos o notas.
-
-Verificación:
+5. Abre [el teléfono](http://localhost:8445). Selecciona **Regístrate** y usa tu propio correo y una contraseña de 10 a 128 caracteres. Ya no se aceptan credenciales arbitrarias. Las cuentas de la antigua demo no eran cuentas de usuario y deben registrarse.
+6. Abre otra terminal desde la raíz:
 
 ```sh
-# Con la API encendida, desde backend (genera un dispositivo test-... aislado):
+cd wearable
+npm install
+npm run dev:wearable
+```
+
+7. En el teléfono entra en **Ajustes**, registra un reloj con identificador único y genera un código. Abre [el reloj](http://localhost:8444) e introduce ese código. Vence en 10 minutos y se puede usar una sola vez. Regenerarlo y canjearlo reemplaza la credencial del reloj.
+8. Crea tareas, registra emociones o modifica preferencias. El otro cliente recibe los cambios mediante consultas periódicas a la API.
+
+Mantén las terminales abiertas. `r` recarga Flutter, `R` lo reinicia y `q` lo detiene. En Windows puedes usar `npm.cmd`. El puerto 8443 es una vista opcional que muestra el teléfono Flutter mediante un iframe y requiere que 8445 esté ejecutándose.
+
+## Ver la base de datos
+
+Abre [Adminer](http://localhost:8080), selecciona PostgreSQL y usa:
+
+- Servidor: `db`
+- Usuario: `mova`
+- Contraseña local: `mova_dev_password`
+- Base de datos: `mova`
+
+Hay **23 tablas**, incluida la tabla técnica de migraciones. Las tablas y rutas se describen en [backend/API.md](backend/API.md). Las migraciones se aplican automáticamente al iniciar la API, conservando los registros anteriores. El primer propietario que registre un identificador antiguo sin dueño incorpora sus registros emocionales históricos a su perfil.
+
+## Conectar desde pgAdmin o PostgreSQL
+
+La base de datos está en el contenedor PostgreSQL del proyecto. Para verla con pgAdmin instalado en tu computador:
+
+1. Abre Docker Desktop y asegúrate de que los contenedores de `backend/` estén ejecutándose (`docker compose up -d`).
+2. Abre pgAdmin 4. Haz clic derecho en **Servers → Register → Server**.
+3. En **General**, escribe `MOVA local` en Name.
+4. En **Connection** completa Host name/address `127.0.0.1`, Port `5432`, Maintenance database `mova`, Username `mova` y Password `mova_dev_password`.
+5. Guarda y abre **Servers → MOVA local → Databases → mova → Schemas → public → Tables**.
+6. Para ver los registros, haz clic derecho en una tabla y selecciona **View/Edit Data → All Rows**.
+
+En pgAdmin instalado en el computador usa `127.0.0.1`; en Adminer, que está dentro de Docker, usa `db`.
+
+Si ya tienes el cliente `psql` instalado:
+
+```sh
+psql -h 127.0.0.1 -p 5432 -U mova -d mova
+```
+
+Ingresa la contraseña cuando la solicite. `\dt public.*` lista las tablas; `\q` cierra la conexión. También puedes acceder sin instalar psql, desde la carpeta backend:
+
+```sh
+docker compose exec db psql -U mova -d mova
+```
+
+El backend es la API que conecta las aplicaciones con PostgreSQL. Su comprobación está en [localhost:3000/health](http://localhost:3000/health); las tablas se consultan con pgAdmin o Adminer.
+
+## Operaciones disponibles
+
+Registro e inicio de sesión real, cierre de sesión y cambio de contraseña; múltiples perfiles y cuidadores con permisos; registro y vinculación de dispositivos; tareas recurrentes y cumplimiento por fecha; agenda; emociones con notas, etiquetas, historial y porcentajes diarios, semanales y mensuales; seguimiento único en el reloj; SOS con confirmación del cuidador; avisos con lectura por usuario; preferencias compartidas; recepción de telemetría y auditoría básica.
+
+El seguimiento usa 30 segundos durante las pruebas. Para 5 minutos:
+
+```sh
+cd backend
+MOVA_EMOTION_FOLLOWUP_SECONDS=300 docker compose up -d api
+```
+
+La telemetría procede de datos enviados por el cliente: tener tablas no implica disponer de sensores o firmware. El reloj web es un simulador. La entrega de avisos es dentro de la aplicación; no hay envío externo por correo ni notificaciones push. La recuperación por correo y el firmware BLE del reloj quedan pendientes. Esta configuración es de desarrollo local; las credenciales de PostgreSQL y el transporte HTTP deben configurarse al preparar un despliegue real.
+
+## Verificar
+
+```sh
+cd backend
 docker compose exec -T api npm test
-# Desde wearable:
-npm run build
-npx tsc --noEmit
-# Desde app:
+```
+
+```sh
+cd app
 flutter test
+flutter analyze
 ```
 
-## Historial emocional y seguimiento
-
-En la sección Emociones de Flutter, cada registro confirmado desde el teléfono o el reloj aparece con fecha y hora de Chile. Se conservan también los registros anteriores de la demo, identificados como «sin seguimiento». El historial se ordena por fecha descendente y permite cargar registros anteriores.
-
-Los filtros Hoy, Semana y Mes muestran la distribución de los registros del día actual, la semana actual (desde el lunes) y el mes actual, en `America/Santiago`. Cada porcentaje es el número de registros de esa emoción dividido por el total del periodo. No mide duración, y las respuestas al seguimiento no se cuentan como nuevos registros.
-
-Cada nueva emoción programa una única pregunta en el reloj: «¿Aún te sientes …?». En pruebas, aparece después de 30 segundos mientras el simulador está abierto. «Sí, sigo igual» o «No, cambió» guarda la respuesta y su hora en el registro original. No se programa una segunda pregunta a partir de esa respuesta. Si se registra otra emoción, el seguimiento pendiente anterior se reemplaza. Si el reloj está cerrado, la pregunta pendiente aparece al abrirlo; los datos y el plazo sobreviven al reinicio de la API.
-
-Para cambiar a cinco minutos, configura `MOVA_EMOTION_FOLLOWUP_SECONDS=300` en `backend/.env` y ejecuta `docker compose up -d --build`. El nuevo plazo se aplica a los registros creados desde ese momento.
-
-Rutas adicionales:
-
-```text
-GET  /api/devices/MOVA-2841/emotions
-GET  /api/devices/MOVA-2841/emotions?before=ID_DEL_ULTIMO_REGISTRO
-POST /api/devices/MOVA-2841/emotions/ID/prompt
-POST /api/devices/MOVA-2841/emotions/ID/answer
+```sh
+cd wearable
+npm run build -- --mode wearable
+npx tsc --noEmit
 ```
 
-La respuesta a `answer` usa `{"stillFeeling":true}` o `{"stillFeeling":false}`. La API controla el plazo y admite reintentos de la misma respuesta sin duplicar el seguimiento. El historial devuelve páginas de 50 registros y los resúmenes de los tres periodos completos.
+Las pruebas de integración crean cuentas y dispositivos propios y eliminan únicamente esos datos al terminar. Para detener los contenedores y conservar los datos: `docker compose down`. No uses `down -v` si deseas conservar la base de datos.
+
+En un emulador Android usa `--dart-define=MOVA_API_URL=http://10.0.2.2:3000`. En un dispositivo físico usa la dirección de red del computador y configura el acceso correspondiente.

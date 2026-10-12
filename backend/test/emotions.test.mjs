@@ -3,17 +3,16 @@ import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import pg from 'pg';
 
-const base = process.env.MOVA_TEST_API_URL || 'http://localhost:3000';
-const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL || process.env.MOVA_TEST_DATABASE_URL || 'postgres://mova:mova_dev_password@localhost:5432/mova' });
-const device = `emotion-test-${randomUUID()}`;
-const url = `${base}/api/devices/${device}`;
-const post = (path, body = {}) => fetch(`${url}${path}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-const register = async mood => {
-  const response = await fetch(`${url}/state`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mood }) });
-  assert.equal(response.status, 200);
-  return response.json();
-};
-const report = async (cursor = '') => fetch(`${url}/emotions${cursor ? `?before=${cursor}` : ''}`).then(r => r.json());
+import { fixture, base } from './fixture.mjs';
+const f=await fixture();
+const account=await f.account();
+const device=await f.device(account);
+const pool=f.pool;
+const url=`${base}/api/devices/${device}`;
+const headers={'Content-Type':'application/json',Authorization:`Bearer ${account.token}`};
+const post=(path,body={})=>fetch(`${url}${path}`,{method:'POST',headers,body:JSON.stringify(body)});
+const register=async mood=>{const response=await fetch(`${url}/state`,{method:'PATCH',headers,body:JSON.stringify({mood})});assert.equal(response.status,200);return response.json();};
+const report=async(cursor='')=>fetch(`${url}/emotions${cursor?`?before=${cursor}`:''}`,{headers}).then(r=>r.json());
 
 test('historial, seguimiento único y porcentajes por calendario chileno', async () => {
   try {
@@ -82,14 +81,11 @@ test('historial, seguimiento único y porcentajes por calendario chileno', async
     assert.equal(page2.entries.length, 10);
     assert.equal(page2.nextCursor, null);
     assert.ok(!page2.entries.some(entry => history.entries.some(firstPage => firstPage.id === entry.id)));
-    const empty = await fetch(`${base}/api/devices/empty-${randomUUID()}/emotions`).then(r=>r.json());
+    const emptyDevice = await f.device(account);
+    const empty = await fetch(`${base}/api/devices/${emptyDevice}/emotions`,{headers}).then(r=>r.json());
     assert.equal(empty.summary.month.total, 0);
     assert.deepEqual(empty.summary.month.emotions, []);
   } finally {
-    // Only this test's generated device is removed; all real/demo devices are preserved.
-    await pool.query('DELETE FROM emotion_entries WHERE device_id=$1', [device]);
-    await pool.query('DELETE FROM wearable_syncs WHERE device_id=$1', [device]);
-    await pool.query('DELETE FROM wearable_states WHERE device_id=$1', [device]);
-    await pool.end();
+    await f.cleanup();
   }
 });

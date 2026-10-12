@@ -3,6 +3,8 @@ export type DevicePayload = {
   activities: Record<string, boolean>
   sos: boolean
   heartRate?: number
+  battery?: number
+  steps?: number
 }
 export type EmotionEntry = {
   id: string
@@ -26,5 +28,6 @@ export type DeviceState = {
   updatedAt: string | null
   followUp: EmotionEntry | null
   serverNow: string
+  tasks?: { id: string; title: string; icon: string; scheduled_time: string; done: boolean }[]
 }
-export const SHARED_DEVICE_ID = import.meta.env.VITE_MOVA_DEVICE_ID || "MOVA-2841"
+export const SHARED_DEVICE_ID = localStorage.getItem("mova_device_id") || import.meta.env.VITE_MOVA_DEVICE_ID || "MOVA-2841"

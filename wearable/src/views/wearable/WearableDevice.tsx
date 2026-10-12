@@ -1,5 +1,6 @@
 import { useWearableController } from "../../controllers/useWearableController"
-import { W, H, WR, WA, KIDS_MOODS, type WPage } from "../../models/wearable"
+import { WA, KIDS_MOODS, type WPage } from "../../models/wearable"
+import WearableCase from "./WearableCase"
 export function WearableDevice({
   onSOS,
   sosAck,
@@ -8,6 +9,7 @@ export function WearableDevice({
   sosAck: boolean
 }) {
   const {
+    battery,
     followUp,
     confirmEmotion,
     status,
@@ -61,29 +63,11 @@ export function WearableDevice({
   )
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: 0,
-      }}
-    >
-      {/* ── Watch body ── */}
-      <div
-        style={{
-          width: W,
-          height: H,
-          borderRadius: WR,
-          background: sosActive ? "#FF3B30" : "#FAF5FF",
-          position: "relative",
-          overflow: "hidden",
-          flexShrink: 0,
-          boxShadow:
-            "0 0 0 8px rgba(255,255,255,0.65), 0 0 0 9.5px rgba(0,0,0,0.07), 0 24px 56px rgba(0,0,0,0.2)",
-          transition: "background 0.35s",
-        }}
-      >
+    <WearableCase background={sosActive ? "#FF3B30" : "#FAF5FF"} footer={
+      <p role="status" style={{ maxWidth: 240, textAlign: "center", fontSize: 12, color: "#4A4A6A", margin: "18px 0 0" }}>
+        {status}{acknowledged ? " · SOS confirmado por el teléfono" : ""}
+      </p>
+    }>
         {followUp && !sosActive && <div role="dialog" aria-label="Seguimiento de emoción" style={{
           position: "absolute", inset: 0, zIndex: 40, background: "#FAF5FF", padding: "30px 18px 14px",
           display: "flex", flexDirection: "column", justifyContent: "center", gap: 10, textAlign: "center",
@@ -94,20 +78,6 @@ export function WearableDevice({
           <button disabled={busy} onClick={() => void confirmEmotion(true)} style={{padding: 9, borderRadius: 12, border: 0, background: "#BBFBD0", fontWeight: 800}}>Sí, sigo igual</button>
           <button disabled={busy} onClick={() => void confirmEmotion(false)} style={{padding: 9, borderRadius: 12, border: 0, background: "#BFDBFE", fontWeight: 800}}>No, cambió</button>
         </div>}
-        {/* Side crown */}
-        <div
-          style={{
-            position: "absolute",
-            right: -5,
-            top: "45%",
-            width: 7,
-            height: 36,
-            borderRadius: 4,
-            background: "#DDD6FE",
-            boxShadow: "2px 0 6px rgba(0,0,0,0.1)",
-          }}
-        />
-
         {/* Battery status */}
         {!sosActive && (
           <div
@@ -132,7 +102,7 @@ export function WearableDevice({
             >
               <div
                 style={{
-                  width: "84%",
+                  width: `${battery ?? 0}%`,
                   height: "100%",
                   borderRadius: 1,
                   background: "#34D399",
@@ -148,7 +118,7 @@ export function WearableDevice({
               }}
             />
             <span style={{ fontSize: 7.5, fontWeight: 800, color: "#716987" }}>
-              84%
+              {battery === null ? "—" : `${battery}%`}
             </span>
           </div>
         )}
@@ -700,21 +670,6 @@ export function WearableDevice({
             )}
           </div>
         )}
-      </div>
-
-      <p role="status" style={{ maxWidth: 240, textAlign: "center", fontSize: 12, color: "#4A4A6A", marginTop: 16 }}>
-        {status}{acknowledged ? " · SOS confirmado por el teléfono" : ""}
-      </p>
-      {/* Bottom strap */}
-      <div
-        style={{
-          width: 38,
-          height: 30,
-          background: "linear-gradient(180deg, #C4B5FD, #A78BFA)",
-          borderRadius: "0 0 14px 14px",
-          boxShadow: "0 5px 10px rgba(167,139,250,0.3)",
-        }}
-      />
-    </div>
+    </WearableCase>
   )
 }

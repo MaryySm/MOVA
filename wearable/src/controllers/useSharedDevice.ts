@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { SHARED_DEVICE_ID, type DevicePayload, type DeviceState } from "../models/sharedDevice"
 
 export const api = (import.meta.env.VITE_MOVA_API_URL || `http://${window.location.hostname}:3000`).replace(/\/$/, "")
+const authorization = { Authorization: `Bearer ${localStorage.getItem("mova_device_token") || ""}` }
 const endpoint = `${api}/api/devices/${encodeURIComponent(SHARED_DEVICE_ID)}/state`
 export function useSharedDevice() {
   const [state, setState] = useState<DeviceState | null>(null)
@@ -20,7 +21,7 @@ export function useSharedDevice() {
       reading = true
       const requestVersion = version.current
       try {
-        const response = await fetch(endpoint, { signal: AbortSignal.any([abort.signal, AbortSignal.timeout(8000)]), cache: "no-store" })
+        const response = await fetch(endpoint, { headers: authorization, signal: AbortSignal.any([abort.signal, AbortSignal.timeout(8000)]), cache: "no-store" })
         if (!response.ok) throw new Error("API no disponible")
         const next: DeviceState = await response.json()
         if (alive.current && requestVersion === version.current) {
@@ -44,7 +45,7 @@ export function useSharedDevice() {
     setStatus("Guardando…")
     try {
       const response = await fetch(url, {
-        method, headers: { "Content-Type": "application/json" },
+        method, headers: { "Content-Type": "application/json", ...authorization },
         body: JSON.stringify(body), signal: AbortSignal.timeout(8000),
       })
       if (!response.ok) throw new Error("No se pudo guardar")

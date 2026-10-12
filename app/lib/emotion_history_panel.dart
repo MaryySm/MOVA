@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class EmotionHistoryPanel extends StatefulWidget {
-  const EmotionHistoryPanel({super.key, required this.apiUrl, required this.deviceId});
+  const EmotionHistoryPanel({super.key, required this.apiUrl, required this.deviceId, this.profileId, this.token = ''});
   final String apiUrl;
   final String deviceId;
+  final String? profileId;
+  final String token;
   @override
   State<EmotionHistoryPanel> createState() => _EmotionHistoryPanelState();
 }
@@ -39,9 +41,9 @@ class _EmotionHistoryPanelState extends State<EmotionHistoryPanel> {
     setState(() => _loading = true);
     try {
       final base = widget.apiUrl.replaceFirst(RegExp(r'/$'), '');
-      var url = Uri.parse('$base/api/devices/${Uri.encodeComponent(widget.deviceId)}/emotions');
+      var url = Uri.parse(widget.profileId==null?'$base/api/devices/${Uri.encodeComponent(widget.deviceId)}/emotions':'$base/api/profiles/${widget.profileId}/emotions');
       if (older) url = url.replace(queryParameters: {'before': _nextCursor!});
-      final response = await _client.get(url).timeout(const Duration(seconds: 8));
+      final response = await _client.get(url, headers: {if(widget.token.isNotEmpty)'Authorization':'Bearer ${widget.token}'}).timeout(const Duration(seconds: 8));
       if (response.statusCode != 200) throw Exception('API ${response.statusCode}');
       final report = jsonDecode(response.body) as Map<String, dynamic>;
       final entries = (report['entries'] as List).cast<Map<String, dynamic>>();
@@ -112,6 +114,8 @@ class _EmotionHistoryPanelState extends State<EmotionHistoryPanel> {
         Text(entry['mood'], style: const TextStyle(fontWeight: FontWeight.w800)),
         Text(entry['recordedAtLocal'] ?? _date(entry['recordedAt']), style: const TextStyle(fontSize: 12)),
         const SizedBox(height: 4),
+        if ((entry['note'] as String? ?? '').isNotEmpty) Text(entry['note']),
+        if ((entry['tags'] as List? ?? []).isNotEmpty) Text((entry['tags'] as List).join(' · ')),
         Text(_followup(entry), style: const TextStyle(fontSize: 11, color: Color(0xff68677e))),
       ]))),
       if (_nextCursor != null) TextButton(onPressed: _loading ? null : () => _refresh(older: true), child: const Text('Cargar registros anteriores')),

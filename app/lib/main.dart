@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'shared_device_controller.dart';
 import 'emotion_history_panel.dart';
+import 'mova_api.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,11 +12,15 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+part 'connected_app.dart';
+part 'connected_design.dart';
+
 const _ink = Color(0xff1a1a2e);
 const _muted = Color(0xff68677e);
 const _api = String.fromEnvironment('MOVA_API_URL',
     defaultValue: kIsWeb ? 'http://localhost:3000' : 'http://10.0.2.2:3000');
-const _sharedDeviceId = String.fromEnvironment('MOVA_DEVICE_ID', defaultValue: 'MOVA-2841');
+const _sharedDeviceId =
+    String.fromEnvironment('MOVA_DEVICE_ID', defaultValue: 'MOVA-2841');
 const _serviceUuid = String.fromEnvironment('MOVA_BLE_SERVICE_UUID');
 const _dataUuid = String.fromEnvironment('MOVA_BLE_DATA_UUID');
 
@@ -49,7 +54,7 @@ class MovaApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: _sectionColors[0]),
           fontFamily: 'Roboto',
         ),
-        home: const AuthGate(),
+        home: const ConnectedAuthGate(),
       );
 }
 
@@ -138,8 +143,13 @@ class _AuthGateState extends State<AuthGate> {
 }
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key, required this.onSignup, required this.onLogin});
+  const LoginScreen(
+      {super.key,
+      required this.onSignup,
+      required this.onLogin,
+      this.authenticate});
   final VoidCallback onSignup;
+  final Future<void> Function(String email, String password)? authenticate;
   final void Function(
       {String? name,
       required String email,
@@ -154,6 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _email = TextEditingController();
   final _password = TextEditingController();
   bool _showPassword = false;
+  bool _busy = false;
   String? _error;
 
   @override
@@ -163,14 +174,30 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void _submit() {
+  Future<void> _submit() async {
+    if (_busy) return;
     final email = _email.text.trim();
-    if (!email.contains('@') || _password.text.trim().isEmpty) {
-      setState(() =>
-          _error = 'Ingresa un correo válido y una contraseña para continuar.');
+    if (!email.contains('@') || _password.text.isEmpty) {
+      setState(() => _error = 'Ingresa tu correo y contraseña para continuar.');
       return;
     }
-    widget.onLogin(email: email);
+    setState(() {
+      _busy = true;
+      _error = null;
+    });
+    try {
+      if (widget.authenticate != null) {
+        await widget.authenticate!(email, _password.text);
+      } else {
+        widget.onLogin(email: email);
+      }
+    } catch (error) {
+      if (mounted)
+        setState(
+            () => _error = error.toString().replaceFirst('Exception: ', ''));
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
   }
 
   @override
@@ -255,7 +282,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         title:
                                             const Text('Recuperar contraseña'),
                                         content: const Text(
-                                            'El prototipo no está conectado a un servicio de correo. Puedes continuar con una nueva sesión de demostración.'),
+                                            'La recuperación por correo aún no está disponible. Si tienes acceso a tu cuenta, puedes cambiar la contraseña en Ajustes.'),
                                         actions: [
                                           TextButton(
                                               onPressed: () =>
@@ -272,14 +299,14 @@ class _LoginScreenState extends State<LoginScreen> {
                               style: const TextStyle(
                                   color: Color(0xffd95648), fontSize: 12))),
                     FilledButton(
-                        onPressed: _submit,
+                        onPressed: _busy ? null : _submit,
                         style: FilledButton.styleFrom(
                             backgroundColor: const Color(0xff6b9fff),
                             minimumSize: const Size.fromHeight(50),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15))),
-                        child: const Text('Iniciar sesión',
-                            style: TextStyle(
+                        child: Text(_busy ? 'Ingresando…' : 'Iniciar sesión',
+                            style: const TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.w800))),
                     const SizedBox(height: 18),
                     Row(children: [
@@ -323,7 +350,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ])),
                     const SizedBox(height: 6),
                     const Text(
-                        'Modo de demostración: escribe un correo válido y cualquier contraseña.',
+                        'Ingresa con el correo y la contraseña de tu cuenta MOVA.',
                         textAlign: TextAlign.center,
                         style:
                             TextStyle(color: Color(0xff8798b5), fontSize: 10)),
@@ -333,8 +360,10 @@ class _LoginScreenState extends State<LoginScreen> {
 }
 
 class SignupScreen extends StatefulWidget {
-  const SignupScreen({super.key, required this.onBack, required this.onCreate});
+  const SignupScreen(
+      {super.key, required this.onBack, required this.onCreate, this.register});
   final VoidCallback onBack;
+  final Future<void> Function(Map<String, dynamic> data)? register;
   final void Function(
       {String? name,
       required String email,
@@ -353,8 +382,12 @@ class _SignupScreenState extends State<SignupScreen> {
   final _email = TextEditingController();
   final _diagnosis = TextEditingController();
   bool _submitted = false;
+  bool _busy = false;
+  String? _error;
+  final _password = TextEditingController();
   @override
   void dispose() {
+    _password.dispose();
     _adult.dispose();
     _name.dispose();
     _age.dispose();
@@ -364,18 +397,47 @@ class _SignupScreenState extends State<SignupScreen> {
     super.dispose();
   }
 
-  void _submit() {
-    setState(() => _submitted = true);
-    if (_adult.text.trim().isEmpty ||
-        _name.text.trim().isEmpty ||
-        _age.text.trim().isEmpty ||
-        _phone.text.length != 8 ||
-        !_email.text.contains('@')) return;
-    widget.onCreate(
-        name: _name.text,
-        email: _email.text.trim(),
-        age: _age.text,
-        phone: _phone.text);
+  Future<void> _submit() async {
+    if (_busy) return;
+    final age = int.tryParse(_age.text);
+    final valid = _adult.text.trim().isNotEmpty &&
+        _name.text.trim().isNotEmpty &&
+        (_age.text.isEmpty || (age != null && age >= 0 && age <= 120)) &&
+        (_phone.text.isEmpty || RegExp(r'^\d{8}$').hasMatch(_phone.text)) &&
+        _email.text.contains('@') &&
+        _password.text.length >= 10 &&
+        _password.text.length <= 128;
+    setState(() {
+      _submitted = !valid;
+      _error = null;
+    });
+    if (!valid) return;
+    setState(() => _busy = true);
+    try {
+      if (widget.register != null) {
+        await widget.register!({
+          'name': _adult.text.trim(),
+          'profileName': _name.text.trim(),
+          'age': age,
+          'phone': _phone.text.isEmpty ? '' : '+569${_phone.text}',
+          'email': _email.text.trim(),
+          'diagnosis': _diagnosis.text.trim(),
+          'password': _password.text
+        });
+      } else {
+        widget.onCreate(
+            name: _name.text,
+            email: _email.text.trim(),
+            age: _age.text,
+            phone: _phone.text);
+      }
+    } catch (error) {
+      if (mounted)
+        setState(
+            () => _error = error.toString().replaceFirst('Exception: ', ''));
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
   }
 
   @override
@@ -430,8 +492,9 @@ class _SignupScreenState extends State<SignupScreen> {
             _signupField(
                 'Nombre y apellido del adulto *', _adult, 'Ej. María González'),
             _signupField('Nombre del usuario *', _name, 'Ej. Carlos'),
-            _signupField('Edad del usuario *', _age, 'Ej. 10', numeric: true),
-            const Text('NÚMERO DE TELÉFONO A SINCRONIZAR *',
+            _signupField('Edad del usuario · Opcional', _age, 'Ej. 10',
+                numeric: true),
+            const Text('NÚMERO DE TELÉFONO · OPCIONAL',
                 style: TextStyle(
                     color: Color(0xffa86b48),
                     fontSize: 10,
@@ -458,24 +521,42 @@ class _SignupScreenState extends State<SignupScreen> {
             ]),
             const SizedBox(height: 12),
             _signupField('Correo *', _email, 'tu@correo.com', email: true),
+            const Text('CONTRASEÑA *',
+                style: TextStyle(
+                    color: Color(0xffa86b48),
+                    fontSize: 10,
+                    fontWeight: FontWeight.w800)),
+            const SizedBox(height: 7),
+            TextField(
+                controller: _password,
+                obscureText: true,
+                decoration: _authDecoration('Entre 10 y 128 caracteres')),
+            const SizedBox(height: 12),
             _signupField('Diagnóstico o condición · Opcional', _diagnosis,
                 'Puedes agregarlo después'),
             if (_submitted)
               const Padding(
                   padding: EdgeInsets.only(bottom: 10),
                   child: Text(
-                      'Revisa los campos obligatorios; el teléfono debe tener 8 dígitos.',
+                      'Revisa los datos, la edad y el teléfono de 8 dígitos. La contraseña debe tener entre 10 y 128 caracteres.',
                       style:
                           TextStyle(color: Color(0xffd95648), fontSize: 11))),
+            if (_error != null)
+              Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Text(_error!,
+                      style: const TextStyle(
+                          color: Color(0xffd95648), fontSize: 12))),
             FilledButton(
-                onPressed: _submit,
+                onPressed: _busy ? null : _submit,
                 style: FilledButton.styleFrom(
                     backgroundColor: const Color(0xfff29b64),
                     minimumSize: const Size.fromHeight(49),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15))),
-                child: const Text('Crear cuenta y continuar',
-                    style: TextStyle(fontWeight: FontWeight.w800))),
+                child: Text(
+                    _busy ? 'Creando cuenta…' : 'Crear cuenta y continuar',
+                    style: const TextStyle(fontWeight: FontWeight.w800))),
           ])));
 }
 
@@ -519,7 +600,7 @@ Widget _signupField(String label, TextEditingController controller, String hint,
 void _socialMessage(BuildContext context) =>
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text(
-            'El inicio con Google o Apple no está conectado en esta versión de demostración.')));
+            'El inicio con Google o Apple aún no está disponible. Usa el correo y la contraseña de tu cuenta MOVA.')));
 
 class _Task {
   _Task(this.title, this.time, this.color, {required this.id});
@@ -654,11 +735,13 @@ class _MovaShellState extends State<MovaShell> {
   final List<_Task> _tasks = [
     _Task('⏰  Levantarme', '06:30', const Color(0xfff5a84b), id: 'a1'),
     _Task('🛁  Bañarme', '06:45', const Color(0xff5bb8f5), id: 'a2'),
-    _Task('🪥  Lavarme los dientes', '07:00', const Color(0xff5ecfa8), id: 'a3'),
+    _Task('🪥  Lavarme los dientes', '07:00', const Color(0xff5ecfa8),
+        id: 'a3'),
     _Task('🥣  Tomar desayuno', '07:15', const Color(0xfff5a84b), id: 'a4'),
     _Task('🏫  Ir al colegio', '08:00', const Color(0xff6b9fff), id: 'a5'),
     _Task('⚽  Taller de fútbol', '16:00', const Color(0xff5ecfa8), id: 'a6'),
-    _Task('🌙  Preparar para dormir', '21:00', const Color(0xff9b72f5), id: 'a7'),
+    _Task('🌙  Preparar para dormir', '21:00', const Color(0xff9b72f5),
+        id: 'a7'),
   ];
 
   void _applySharedDevice() {
@@ -666,14 +749,17 @@ class _MovaShellState extends State<MovaShell> {
     setState(() {
       _syncLabel = _sharedDevice.status;
       final data = _sharedDevice.payload;
-      if (data != null && (!_sharedLoaded || _lastSharedUpdate != _sharedDevice.updatedAt)) {
+      if (data != null &&
+          (!_sharedLoaded || _lastSharedUpdate != _sharedDevice.updatedAt)) {
         _sharedLoaded = true;
         _lastSharedUpdate = _sharedDevice.updatedAt;
         _mood = data['mood'] as String?;
         _savedMood = _mood;
         _bpm = data['heartRate']?.toString();
         final activities = data['activities'] as Map<String, dynamic>? ?? {};
-        for (final task in _tasks) { task.done = activities[task.id] == true; }
+        for (final task in _tasks) {
+          task.done = activities[task.id] == true;
+        }
       }
     });
   }
@@ -681,26 +767,41 @@ class _MovaShellState extends State<MovaShell> {
   Future<void> _shareMood(String? mood) async {
     if (_sharedDevice.payload == null || mood == null) return;
     final saved = await _sharedDevice.update({'mood': mood});
-    if (mounted && !saved) _message('No se guardó la emoción. Vuelve a intentarlo.');
+    if (mounted && !saved)
+      _message('No se guardó la emoción. Vuelve a intentarlo.');
   }
 
-  Widget _sharedDeviceCard() => _whiteCard(child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      const Text('Reloj enlazado · $_sharedDeviceId', style: TextStyle(fontWeight: FontWeight.w800)),
-      const SizedBox(height: 6),
-      Text(_sharedDevice.status, style: const TextStyle(fontSize: 12, color: _muted)),
-      Text('Emoción del reloj: ${_sharedDevice.payload?['mood'] ?? 'Sin registro'}'),
-      if (_sharedDevice.payload?['sos'] == true) ...[
-        const SizedBox(height: 8),
-        const Text('🆘 El reloj solicita ayuda', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
-        FilledButton(onPressed: _sharedDevice.busy ? null : () async {
-          final saved = await _sharedDevice.update({'sos': false});
-          if (mounted) _message(saved ? 'SOS confirmado' : 'No se pudo confirmar el SOS');
-        }, child: const Text('Confirmar recepción')),
-      ],
-    ],
-  ));
+  Widget _sharedDeviceCard() => _whiteCard(
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Reloj enlazado · $_sharedDeviceId',
+              style: TextStyle(fontWeight: FontWeight.w800)),
+          const SizedBox(height: 6),
+          Text(_sharedDevice.status,
+              style: const TextStyle(fontSize: 12, color: _muted)),
+          Text(
+              'Emoción del reloj: ${_sharedDevice.payload?['mood'] ?? 'Sin registro'}'),
+          if (_sharedDevice.payload?['sos'] == true) ...[
+            const SizedBox(height: 8),
+            const Text('🆘 El reloj solicita ayuda',
+                style:
+                    TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+            FilledButton(
+                onPressed: _sharedDevice.busy
+                    ? null
+                    : () async {
+                        final saved =
+                            await _sharedDevice.update({'sos': false});
+                        if (mounted)
+                          _message(saved
+                              ? 'SOS confirmado'
+                              : 'No se pudo confirmar el SOS');
+                      },
+                child: const Text('Confirmar recepción')),
+          ],
+        ],
+      ));
 
   _Profile get _profile =>
       _profiles.firstWhere((profile) => profile.id == _activeProfileId,
@@ -718,7 +819,8 @@ class _MovaShellState extends State<MovaShell> {
           phone: widget.phone)
     ];
     _activeProfileId = 'main';
-    _sharedDevice = SharedDeviceController(apiUrl: _api, deviceId: _sharedDeviceId);
+    _sharedDevice =
+        SharedDeviceController(apiUrl: _api, deviceId: _sharedDeviceId);
     _sharedDevice.addListener(_applySharedDevice);
     _sharedDevice.start();
     _loadPreferences();
@@ -1041,8 +1143,10 @@ class _MovaShellState extends State<MovaShell> {
       final response = await http.post(
         Uri.parse('$_api/api/sync'),
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode(
-            {'deviceId': _sharedDeviceId, 'payload': {...payload, 'sourceDeviceId': _connected?.remoteId.str}}),
+        body: jsonEncode({
+          'deviceId': _sharedDeviceId,
+          'payload': {...payload, 'sourceDeviceId': _connected?.remoteId.str}
+        }),
       );
       if (mounted)
         setState(() => _syncLabel = response.statusCode < 300
@@ -1420,10 +1524,16 @@ class _MovaShellState extends State<MovaShell> {
           borderRadius: BorderRadius.circular(14),
           child: InkWell(
             borderRadius: BorderRadius.circular(14),
-            onTap: _sharedDevice.busy || _sharedDevice.payload == null ? null : () async {
-              final saved = await _sharedDevice.update({'activities': {task.id: !task.done}});
-              if (mounted && !saved) _message('No se guardó la actividad. Vuelve a intentarlo.');
-            },
+            onTap: _sharedDevice.busy || _sharedDevice.payload == null
+                ? null
+                : () async {
+                    final saved = await _sharedDevice.update({
+                      'activities': {task.id: !task.done}
+                    });
+                    if (mounted && !saved)
+                      _message(
+                          'No se guardó la actividad. Vuelve a intentarlo.');
+                  },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
               child: Row(children: [
@@ -1658,9 +1768,11 @@ class _MovaShellState extends State<MovaShell> {
                       borderSide: BorderSide.none))),
           const SizedBox(height: 12),
           FilledButton(
-              onPressed: _sharedDevice.busy || _mood == null ? null : () async {
-                await _shareMood(_mood);
-              },
+              onPressed: _sharedDevice.busy || _mood == null
+                  ? null
+                  : () async {
+                      await _shareMood(_mood);
+                    },
               style: FilledButton.styleFrom(
                   backgroundColor: accent,
                   minimumSize: const Size.fromHeight(48),

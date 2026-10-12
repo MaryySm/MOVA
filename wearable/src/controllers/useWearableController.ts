@@ -6,7 +6,7 @@ export function useWearableController(onSOS: () => void, sosAck: boolean) {
   const [page, setPage] = useState<WPage>("home")
 
   const { state, status, busy, update, promptFollowUp, answerFollowUp } = useSharedDevice()
-  const acts = KIDS_ACTIVITIES.map(a => ({ ...a, done: state?.payload.activities[a.id] ?? false }))
+  const acts = state?.tasks?.map(a => ({ id:a.id, label:a.title, icon:a.icon, time:a.scheduled_time.slice(0,5), color:"#34D399", done:a.done })) ?? KIDS_ACTIVITIES.map(a => ({ ...a, done: false }))
   const mood = state?.payload.mood ?? null
   const sosActive = state?.payload.sos ?? false
   const previousSOS = useRef(false)
@@ -72,7 +72,7 @@ export function useWearableController(onSOS: () => void, sosAck: boolean) {
 
   const completedCount = acts.length - pendingCount
 
-  const activityPct = Math.round((completedCount / acts.length) * 100)
+  const activityPct = acts.length ? Math.round((completedCount / acts.length) * 100) : 0
 
   const progressGreen = `hsl(${105 + activityPct * 0.35} 58% ${
     activityPct < 45 ? 48 : 40
@@ -119,6 +119,7 @@ export function useWearableController(onSOS: () => void, sosAck: boolean) {
   )
 
   return {
+    battery: state?.payload.battery ?? null,
     followUp: followUp?.askedAt ? followUp : null,
     confirmEmotion,
     status,
