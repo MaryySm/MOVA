@@ -24,10 +24,21 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
-	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>MOVA usa Bluetooth para conectarse a tu wearable y sincronizar tus datos.</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>MOVA necesita conectarse al servidor de tu computador para compartir tareas, emociones y avisos con el reloj.</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>MOVA usa la ubicación de este teléfono para probar la ubicación simulada del reloj al pulsar Ubicar.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>MOVA usa la cámara para escanear el QR del reloj y vincularlo a tu perfil.</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>MOVA usa Bluetooth para conectarse a tu wearable y sincronizar tus datos.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

@@ -1,8 +1,9 @@
+import { procedure } from './procedures.mjs';
 import express from 'express';
 import pg from 'pg';
 import { readFile } from 'node:fs/promises';
-import { recordEmotion, enrichState, installEmotionRoutes } from './emotions.mjs';
-import { installAuth, installPlatform, deviceAccess, requireUser, tasksFor, today, completeTask, audit, fail, transaction, wrap } from './platform.mjs';
+import { followupSeconds, enrichState, installEmotionRoutes } from './emotions.mjs';
+import { installAuth, installPlatform, deviceAccess, requireUser, tasksFor, today, completeTask, fail, transaction, wrap } from './platform.mjs';
 import { randomUUID } from 'node:crypto';
 
 const { Pool } = pg;
@@ -52,48 +53,11 @@ function validPatch(patch) {
   return true;
 }
 
-// The database merges each activity independently so concurrent edits do not replace other activities.
-async function writeState(client, deviceId, patch) {
-  const result = await client.query(`
-    INSERT INTO wearable_states(device_id, payload) VALUES ($1, $2::jsonb || $3::jsonb)
-    ON CONFLICT (device_id) DO UPDATE SET
-      payload = wearable_states.payload || $3::jsonb || jsonb_build_object('activities',
-        COALESCE(wearable_states.payload->'activities', '{}'::jsonb) || COALESCE($3::jsonb->'activities', '{}'::jsonb)),
-      updated_at = clock_timestamp()
-    RETURNING device_id AS "deviceId", payload, updated_at AS "updatedAt"`,
-    [deviceId, JSON.stringify(defaultState), JSON.stringify(patch)]);
-  return result.rows[0];
-}
 async function saveSync(req,deviceId,payload,patch) {
-  const device=await deviceAccess(pool,req,deviceId,true);
-  if(patch?.sos===false) requireUser(req);
-  return transaction(pool,async db=>{
-    const result=await db.query('INSERT INTO wearable_syncs(device_id,payload) VALUES($1,$2) RETURNING id,synced_at AS "syncedAt"',[deviceId,JSON.stringify(payload)]);
-    if(patch) {
-      // Lock device state before task/emotion/SOS writes to serialize changes from the two clients.
-      await writeState(db,deviceId,patch);
-      if(patch.activities) {
-        const date=await today(db,device.profile_id);
-        for(const [key,done] of Object.entries(patch.activities)) {
-          const task=(await db.query('SELECT id FROM tasks WHERE profile_id=$1 AND (id::text=$2 OR legacy_key=$2) AND archived_at IS NULL',[device.profile_id,key])).rows[0];
-          if(!task) fail(400,'La actividad no pertenece al perfil');
-          await completeTask(db,req,task.id,date,done,device.profile_id);
-        }
-      }
-      if(patch.mood) await recordEmotion(db,deviceId,patch.mood,result.rows[0].id,{...patch,profileId:device.profile_id,userId:req.principal.userId});
-      if(patch.heartRate!==undefined||patch.steps!==undefined||patch.battery!==undefined)
-        await db.query('INSERT INTO telemetry_samples(device_id,heart_rate,steps,battery) VALUES($1,$2,$3,$4)',[deviceId,patch.heartRate??null,patch.steps??null,patch.battery??null]);
-      if(patch.sos===true) {
-        const sos=await db.query(`INSERT INTO sos_events(id,device_id,profile_id) VALUES($1,$2,$3)
-          ON CONFLICT(device_id) WHERE acknowledged_at IS NULL DO NOTHING RETURNING id`,[randomUUID(),deviceId,device.profile_id]);
-        if(sos.rows.length) await db.query("INSERT INTO notifications(id,profile_id,kind,title,body) VALUES($1,$2,'sos','Solicitud de ayuda',$3)",[randomUUID(),device.profile_id,`${device.name} solicita ayuda`]);
-      }
-      if(patch.sos===false) await db.query('UPDATE sos_events SET acknowledged_at=now(),acknowledged_by=$2 WHERE device_id=$1 AND acknowledged_at IS NULL',[deviceId,req.principal.userId]);
-    }
-    await db.query('UPDATE devices SET last_seen_at=now() WHERE id=$1',[deviceId]);
-    await audit(db,req.principal,'device.sync',deviceId);
-    return {...result.rows[0],state:await readState(db,deviceId)};
-  });
+ return transaction(pool,async db=>{
+  const result=await procedure(db,'sp_procesar_sincronizacion',[req.principal.userId||null,req.principal.deviceId||null,deviceId,JSON.stringify(payload),patch?JSON.stringify(patch):null,followupSeconds],true);
+  return {...result,state:await readState(db,deviceId)};
+ });
 }
 async function readState(client, deviceId) {
   const result = await client.query('SELECT device_id AS "deviceId", payload, updated_at AS "updatedAt" FROM wearable_states WHERE device_id=$1', [deviceId]);
@@ -162,10 +126,13 @@ await pool.query(await readFile(new URL('../db/init.sql', import.meta.url), 'utf
 await pool.query('CREATE TABLE IF NOT EXISTS schema_migrations(version TEXT PRIMARY KEY, applied_at TIMESTAMPTZ NOT NULL DEFAULT now())');
 await transaction(pool,async db=>{
  await db.query('SELECT pg_advisory_xact_lock(2841)');
- const applied=await db.query("SELECT version FROM schema_migrations WHERE version='002-platform'");
- if(!applied.rows.length) {
-  await db.query(await readFile(new URL('../db/migrations/002-platform.sql',import.meta.url),'utf8'));
-  await db.query("INSERT INTO schema_migrations(version) VALUES('002-platform')");
+ for(const version of ['002-platform','003-procedures','004-lock-order','005-location']) {
+  const applied=await db.query('SELECT version FROM schema_migrations WHERE version=$1',[version]);
+  if(!applied.rows.length) {
+   await db.query(await readFile(new URL(`../db/migrations/${version}.sql`,import.meta.url),'utf8'));
+   await db.query('INSERT INTO schema_migrations(version) VALUES($1)',[version]);
+  }
  }
+
 });
 app.listen(Number(process.env.PORT ?? 3000), () => console.log('MOVA API listening'));

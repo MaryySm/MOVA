@@ -482,7 +482,7 @@ extension _ConnectedOriginalDesign on _ConnectedDashboardState {
           child: SizedBox(
               height: 112,
               child: Stack(fit: StackFit.expand, children: [
-                CustomPaint(painter: _MapPainter()),
+                DeviceLocationMap(key: ValueKey('$_deviceId:$movaApiUrl'), token: widget.token, deviceId: _deviceId, canWrite: _canWrite),
                 Positioned(
                     top: 8,
                     left: 12,
@@ -518,6 +518,8 @@ extension _ConnectedOriginalDesign on _ConnectedDashboardState {
                                     _deviceId == null
                                         ? 'Sin reloj vinculado'
                                         : '$_deviceId · ${_state?['payload']?['battery'] == null ? 'Sin dato de batería' : '${_state!['payload']['battery']}%'}',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
                                         fontSize: 10, color: _muted))
                               ])),
@@ -1057,6 +1059,7 @@ extension _ConnectedOriginalDesign on _ConnectedDashboardState {
       ]),
       _label('CONEXIONES'),
       _settingsGroup([
+        _settingsItem(Icons.wifi_outlined, 'Conexión con MOVA', Uri.parse(movaApiUrl).host, widget.onConnection),
         _settingsItem(
             Icons.watch_outlined,
             'Dispositivo MOVA',
@@ -1097,10 +1100,6 @@ extension _ConnectedOriginalDesign on _ConnectedDashboardState {
                           'Pasos: ${_state?['payload']?['steps'] ?? 'Sin datos'} · Pulso: ${_state?['payload']?['heartRate'] ?? 'Sin datos'}',
                           style: const TextStyle(color: _muted, fontSize: 11)),
                       TextButton(
-                          onPressed:
-                              _profile?['role'] != 'owner' ? null : _pair,
-                          child: const Text('Generar código de vinculación')),
-                      TextButton(
                           onPressed: _profile?['role'] != 'owner'
                               ? null
                               : () => _mutate('DELETE',
@@ -1108,8 +1107,8 @@ extension _ConnectedOriginalDesign on _ConnectedDashboardState {
                           child: const Text('Desvincular reloj'))
                     ],
                     if (_profile?['role'] == 'owner')
-                      _primary('Registrar reloj', _registerDevice,
-                          icon: Icons.add)
+                      _primary('Vincular reloj', _pair,
+                          icon: Icons.qr_code_scanner)
                   ]))
       ]),
       const SizedBox(height: 18),

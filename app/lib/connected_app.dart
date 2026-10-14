@@ -18,6 +18,7 @@ class _ConnectedAuthGateState extends State<ConnectedAuthGate> {
 
   Future<void> _restore() async {
     try {
+      await ApiConnection.restore();
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('mova_session');
       if (token != null) {
@@ -44,12 +45,22 @@ class _ConnectedAuthGateState extends State<ConnectedAuthGate> {
       });
   }
 
+  Future<void> _connection() async {
+    final previous = ApiConnection.url;
+    final saved = await showDialog<bool>(context: context, builder: (_) => const ConnectionDialog());
+    if (saved != true || !mounted) return;
+    if (previous != ApiConnection.url) setState(() { _token = null; _signup = false; });
+    // A retry also restores a saved session after temporary Wi-Fi loss.
+    await _restore();
+    if (mounted) setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_restoring)
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     final page = _token != null
-        ? ConnectedDashboard(token: _token!, onLogout: () => _session(null))
+        ? ConnectedDashboard(key: ValueKey(ApiConnection.url), token: _token!, onLogout: () => _session(null), onConnection: _connection)
         : _signup
             ? SignupScreen(
                 onBack: () => setState(() => _signup = false),
@@ -79,15 +90,21 @@ class _ConnectedAuthGateState extends State<ConnectedAuthGate> {
         background: _token == null
             ? (_signup ? const Color(0xfffff3e8) : const Color(0xffe7f0ff))
             : _sectionBackgrounds[0],
-        child: page);
+        child: _token != null ? page : Stack(children: [
+          Positioned.fill(child: page),
+          Positioned(top: 8, right: 8, child: IconButton(
+            tooltip: 'Conexión con MOVA', onPressed: _connection,
+            icon: const Icon(Icons.wifi_outlined, size: 20), color: _muted)),
+        ]));
   }
 }
 
 class ConnectedDashboard extends StatefulWidget {
   const ConnectedDashboard(
-      {super.key, required this.token, required this.onLogout});
+      {super.key, required this.token, required this.onLogout, required this.onConnection});
   final String token;
   final Future<void> Function() onLogout;
+  final Future<void> Function() onConnection;
   @override
   State<ConnectedDashboard> createState() => _ConnectedDashboardState();
 }
@@ -390,42 +407,16 @@ class _ConnectedDashboardState extends State<ConnectedDashboard> {
     });
   }
 
-  Future<void> _registerDevice() async {
-    final fields = await _form('Registrar reloj',
-        {'Identificador': 'MOVA-2841', 'Nombre': 'MOVA Kids'});
-    if (fields == null) return;
-    await _mutate('POST', '/api/devices', {
-      'id': fields['Identificador'],
-      'name': fields['Nombre'],
-      'profileId': _profileId
-    });
-  }
-
   Future<void> _pair() async {
+    final code = await showDialog<String>(context: context, builder: (_) => const PairingCodeDialog());
+    if (code == null || !mounted) return;
     try {
-      final result = await _api
-          .post('/api/devices/${Uri.encodeComponent(_deviceId!)}/pairing', {});
+      final result = await _api.post('/api/pairings/claim', {'code': code, 'profileId': _profileId, 'name': 'MOVA Kids'});
       if (!mounted) return;
-      await showDialog<void>(
-          context: context,
-          builder: (ctx) => AlertDialog(
-                  title: const Text('Vincular simulador'),
-                  content: Column(mainAxisSize: MainAxisSize.min, children: [
-                    const Text(
-                        'Abre el reloj en localhost:8444 e ingresa este código. Vence en 10 minutos.'),
-                    const SizedBox(height: 16),
-                    SelectableText(result['code'],
-                        style: const TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold))
-                  ]),
-                  actions: [
-                    TextButton(
-                        onPressed: () => Navigator.pop(ctx),
-                        child: const Text('Cerrar'))
-                  ]));
-    } catch (error) {
-      _message(error);
-    }
+      _updateUi(() { _deviceId = result['device']['id']; });
+      await _reload();
+      if (mounted) _message('Reloj vinculado correctamente');
+    } catch (error) { _message(error); }
   }
 
   Future<void> _taskForm([Map<String, dynamic>? old]) async {

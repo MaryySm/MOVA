@@ -1,8 +1,8 @@
 import 'dart:convert';
+import 'api_connection.dart';
 import 'package:http/http.dart' as http;
 
-const movaApiUrl = String.fromEnvironment('MOVA_API_URL',
-    defaultValue: 'http://localhost:3000');
+String get movaApiUrl => ApiConnection.url;
 
 class MovaApi {
   MovaApi(this.token);

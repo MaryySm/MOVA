@@ -1,22 +1,24 @@
 # API MOVA y modelo de datos
 
-Base local: `http://localhost:3000`. JSON. El encabezado `Authorization: Bearer <token>` es obligatorio salvo para salud, registro, acceso y canje de vinculación. Las respuestas no incluyen hashes de contraseña ni credenciales de otros dispositivos.
+Base local: `http://localhost:3000`. JSON. El encabezado `Authorization: Bearer <token>` es obligatorio salvo para salud, registro, acceso, inicio/consulta de vinculación y canje legacy. Las respuestas no incluyen hashes de contraseña ni credenciales de otros dispositivos.
 
-## Tablas (23)
+## Tablas (25)
 
 | Área | Tablas | Relación |
 |---|---|---|
 | Cuentas | users, auth_sessions, user_settings | Sesiones con vencimiento y revocación; preferencias por usuario |
 | Perfiles | profiles, profile_members, profile_settings | Propietario y miembros con rol owner/caregiver/viewer |
-| Dispositivos | devices, device_pairings | Reloj asociado a propietario y perfil; código temporal de un uso |
+| Dispositivos | devices, device_pairings, pairing_requests | Reloj asociado a propietario y perfil; código temporal de un uso |
 | Rutinas | tasks, task_completions | Horario y días de semana; cumplimiento independiente por fecha |
 | Agenda | calendar_events | Eventos del perfil con inicio, fin y notas |
 | Emociones | emotion_types, emotion_tags, emotion_entries, emotion_entry_tags | Catálogos, observaciones fechadas, notas, etiquetas y seguimiento |
 | Avisos | sos_events, notifications, notification_reads | SOS abierto/confirmado y lectura independiente por usuario |
-| Sincronización | wearable_states, wearable_syncs, telemetry_samples | Estado actual, recepción histórica y muestras de sensores |
+| Sincronización | wearable_states, wearable_syncs, telemetry_samples, device_locations | Estado actual, recepción histórica y muestras de sensores |
 | Operación | audit_logs, schema_migrations | Auditoría básica de acciones y migraciones aplicadas |
 
 Las relaciones usan claves foráneas e índices. Los registros emocionales anteriores permanecen. Tareas, eventos, perfiles y dispositivos se archivan para conservar historial. Las contraseñas usan scrypt con sal aleatoria; sesiones y credenciales de dispositivos se almacenan mediante hash SHA-256, nunca como el token original.
+
+Los procesos de escritura se coordinan mediante procedimientos almacenados PL/pgSQL, documentados en [PROCEDURES.md](PROCEDURES.md).
 
 ## Acceso
 
@@ -28,6 +30,9 @@ Las relaciones usan claves foráneas e índices. Los registros emocionales anter
 | GET | /api/auth/me | Usuario de la sesión |
 | POST | /api/auth/logout | Revoca sesión actual; 204 |
 | POST | /api/auth/password | currentPassword, newPassword; revoca otras sesiones |
+| POST | /api/pairings/start | Público; genera code de seis dígitos, qr, secret y expiresAt para el reloj |
+| POST | /api/pairings/status | Público; secret; devuelve estado y credencial del reloj cuando está vinculado |
+| POST | /api/pairings/claim | Usuario propietario; code, profileId, name opcional; vincula el reloj |
 | POST | /api/pairings/redeem | code; devuelve token limitado al dispositivo y device |
 
 Una sesión dura siete días. Los códigos de vinculación duran diez minutos, se canjean una vez y sustituyen la credencial previa del reloj. Registro, acceso y canje limitan los intentos por IP.
@@ -81,3 +86,10 @@ Un nuevo registro en el mismo reloj reemplaza un seguimiento pendiente anterior.
 Errores JSON `{error}`: 400 entrada inválida, 401 sesión ausente/vencida, 403 permiso insuficiente, 404 recurso no disponible, 409 conflicto, 429 límite de intentos. Las actualizaciones compuestas de sincronización son transaccionales. Los ensayos prueban permisos, vinculación, tareas por fecha, agenda, emociones, seguimiento idempotente, límites de calendario chileno, paginación, SOS, preferencias, telemetría, lectura de avisos y revocación.
 
 Los puertos, secretos y conexiones de Compose son de desarrollo. No se incluye envío SMTP, recuperación por correo, entrega push ni firmware del reloj físico. Los avisos SOS requieren que el cliente cuidador esté abierto y conectado para verlos. La auditoría implementada cubre registros, vinculación y sincronización; no es un registro completo de todas las lecturas y cambios administrativos.
+
+## Ubicación simulada para pruebas
+
+- GET `/api/devices/:id/location`: última captura o null; acceso limitado al dispositivo/perfil autorizado.
+- POST `/api/devices/:id/location`: usuario con permiso de escritura; latitude [-90,90], longitude [-180,180], accuracy [0,99999], observedAt ISO reciente y source exactamente `phone_simulated`. Guarda mediante procedimientos y evita reemplazar una captura por otra más antigua. El reloj no puede enviar datos haciéndose pasar por un teléfono.
+
+La migración 005 agrega `device_locations`: una fila por dispositivo, sin historial de recorridos. No representa GPS del reloj físico.
